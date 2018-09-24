@@ -105,8 +105,8 @@ InputManager:
     m_Name: Mouse X
     descriptiveName: 
     descriptiveNegativeName: 
-    negativeButton: 
-    positiveButton: 
+    negativeButton: 4
+    positiveButton: 6
     altNegativeButton: 
     altPositiveButton: 
     gravity: 0
@@ -121,8 +121,8 @@ InputManager:
     m_Name: Mouse Y
     descriptiveName: 
     descriptiveNegativeName: 
-    negativeButton: 
-    positiveButton: 
+    negativeButton: 2
+    positiveButton: 8
     altNegativeButton: 
     altPositiveButton: 
     gravity: 0
