@@ -15,8 +15,9 @@ public class PlayerMovement : MonoBehaviour {
     public float moveHorizontal;
     public float moveVertical;
     public Vector3 movementRotation;
-    public Vector3 movespeed = new Vector3(5f, 0f, 5f);
-    public Vector3 midairModifier = new Vector3(50f, 0f, 50f);
+    public Vector3 movespeed = new Vector3(100f, 0f, 100f);
+    public Vector3 midairModifier = new Vector3(0.25f, 0f, 0.25f);
+    public Vector3 groundedModifier = new Vector3(1f, 0f, 1f);
     public float jetpackPower = 250f;
     public bool isGrounded;
     public GameObject player;
@@ -71,7 +72,7 @@ public class PlayerMovement : MonoBehaviour {
         {
             // Current movement
             // rb.AddForce(MultiplyVector3(Camera.main.transform.TransformDirection(new Vector3(moveHorizontal, 0f, moveVertical).normalized).normalized, movespeed));
-            rb.AddRelativeForce(MultiplyVector3(new Vector3(moveHorizontal, 0f, moveVertical).normalized, movespeed));
+            rb.AddRelativeForce(MultiplyVector3(MultiplyVector3(new Vector3(moveHorizontal, 0f, moveVertical).normalized, movespeed), groundedModifier));
         }
         else
         {
@@ -98,3 +99,4 @@ public class PlayerMovement : MonoBehaviour {
         }
     }
 }
+

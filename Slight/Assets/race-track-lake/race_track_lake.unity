@@ -1877,7 +1877,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 07aad5ca6ea45ff4cbc840e13dfbe84e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  camRotation: {x: 0, y: 0, z: 0}
+  sensitivity: 5
+  smoothing: 1
 --- !u!1001 &326504343
 Prefab:
   m_ObjectHideFlags: 0
@@ -3214,10 +3215,12 @@ MonoBehaviour:
   moveHorizontal: 0
   moveVertical: 0
   movementRotation: {x: 0, y: 0, z: 0}
-  movespeed: {x: 200, y: 0, z: 200}
+  movespeed: {x: 100, y: 0, z: 100}
   midairModifier: {x: 0.25, y: 0, z: 0.25}
+  groundedModifier: {x: 1, y: 0, z: 1}
   jetpackPower: 5
   isGrounded: 1
+  player: {fileID: 0}
 --- !u!1001 &512251063
 Prefab:
   m_ObjectHideFlags: 0
