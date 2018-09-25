@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerMovement : MonoBehaviour {
 
@@ -18,9 +19,14 @@ public class PlayerMovement : MonoBehaviour {
     public Vector3 movespeed = new Vector3(100f, 0f, 100f);
     public Vector3 midairModifier = new Vector3(0.25f, 0f, 0.25f);
     public Vector3 groundedModifier = new Vector3(1f, 0f, 1f);
-    public float jetpackPower = 250f;
+    public float jetpackPower = 25f;
+    public float jetpackMeterLimit = 50f;
+    public float jetpackMeter;
+    public float jetpackRecoveryRate = 0.15f;
     public bool isGrounded;
+    public bool isSkiing;
     public GameObject player;
+    public Slider healthSlider;
 
     // CharacterController controller;
 
@@ -29,20 +35,12 @@ public class PlayerMovement : MonoBehaviour {
     void Start () {
         Debug.Log("Game started.");
         isGrounded = false;
-        // controller = GetComponent<CharacterController>();
+        isSkiing = false;
+        jetpackMeter = jetpackMeterLimit;
     }
 	
 	// Update is called once per frame
 	void Update () {
-        /*
-        if (controller.isGrounded)
-        {
-            isGrounded = true;
-        } else
-        {
-            isGrounded = false;
-        }
-        */
         transform.eulerAngles = new Vector3(transform.eulerAngles.x, Camera.main.transform.rotation.eulerAngles.y, transform.eulerAngles.z);
     }
 
@@ -68,9 +66,8 @@ public class PlayerMovement : MonoBehaviour {
         moveHorizontal = Input.GetAxis("Horizontal");
         moveVertical = Input.GetAxis("Vertical");
 
-        if (isGrounded)
+        if (isGrounded && !isSkiing)
         {
-            // Current movement
             // rb.AddForce(MultiplyVector3(Camera.main.transform.TransformDirection(new Vector3(moveHorizontal, 0f, moveVertical).normalized).normalized, movespeed));
             rb.AddRelativeForce(MultiplyVector3(MultiplyVector3(new Vector3(moveHorizontal, 0f, moveVertical).normalized, movespeed), groundedModifier));
         }
@@ -80,16 +77,26 @@ public class PlayerMovement : MonoBehaviour {
             rb.AddRelativeForce(MultiplyVector3(MultiplyVector3(new Vector3(moveHorizontal, 0f, moveVertical).normalized, movespeed), midairModifier));
         }
 
-        if (Input.GetKey(KeyCode.Space) /* || Input.GetKey(KeyCode.Joystick1Button1) */)
+        if (Input.GetKey(KeyCode.Space) || Input.GetKey(KeyCode.Joystick1Button1))
         {
             if (isGrounded)
             {
                 rb.velocity = new Vector3(rb.velocity.x, 12.0f, rb.velocity.z);
             }
-            else
+            else if (jetpackMeter > 0)
             {
                 rb.AddForce(new Vector3(0f, jetpackPower, 0f));
+                jetpackMeter -= 1f;
+                healthSlider.value = 100f * (jetpackMeter / jetpackMeterLimit);
+                if (jetpackMeter < 0)
+                {
+                    jetpackMeter = 0;
+                }
             }
+        } else if (jetpackMeter < jetpackMeterLimit)
+        {
+            jetpackMeter += jetpackRecoveryRate;
+            healthSlider.value = 100f * (jetpackMeter / jetpackMeterLimit);
         }
 
 
