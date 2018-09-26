@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
+using System;
 
 public class PlayerMovement : MonoBehaviour {
 
@@ -26,7 +27,12 @@ public class PlayerMovement : MonoBehaviour {
     public bool isGrounded;
     public bool isSkiing;
     public GameObject player;
-    public Slider healthSlider;
+    public PhysicMaterial playerMat;
+    public Slider powerSlider;
+    public GameObject powerSliderObject;
+    public GameObject HUDCanvas;
+    public GameObject debugTextBox;
+    public Text debugText;
 
     // CharacterController controller;
 
@@ -37,11 +43,25 @@ public class PlayerMovement : MonoBehaviour {
         isGrounded = false;
         isSkiing = false;
         jetpackMeter = jetpackMeterLimit;
+        player = GameObject.Find("Player");
+        playerMat = player.GetComponent<Collider>().material;
+        rb = GetComponent("Rigidbody") as Rigidbody;
+        HUDCanvas = GameObject.Find("HUDCanvas");
+        powerSliderObject = GameObject.Find("PowerSlider");
+        powerSlider = powerSliderObject.GetComponent("Slider") as Slider;
+        debugTextBox = GameObject.Find("DebugTextBox");
+        debugText = debugTextBox.GetComponent("Text") as Text;
     }
 	
 	// Update is called once per frame
 	void Update () {
         transform.eulerAngles = new Vector3(transform.eulerAngles.x, Camera.main.transform.rotation.eulerAngles.y, transform.eulerAngles.z);
+
+        if (Input.GetKeyDown("shift"))
+        {
+            playerMat = 
+            isSkiing = true;
+        }
     }
 
     void OnCollisionEnter(Collision collision)
@@ -66,16 +86,20 @@ public class PlayerMovement : MonoBehaviour {
         moveHorizontal = Input.GetAxis("Horizontal");
         moveVertical = Input.GetAxis("Vertical");
 
-        if (isGrounded && !isSkiing)
+        if (Math.Abs((transform.rotation * rb.velocity).z) < 25)
         {
-            // rb.AddForce(MultiplyVector3(Camera.main.transform.TransformDirection(new Vector3(moveHorizontal, 0f, moveVertical).normalized).normalized, movespeed));
-            rb.AddRelativeForce(MultiplyVector3(MultiplyVector3(new Vector3(moveHorizontal, 0f, moveVertical).normalized, movespeed), groundedModifier));
+            if (isGrounded && !isSkiing)
+            {
+                // rb.AddForce(MultiplyVector3(Camera.main.transform.TransformDirection(new Vector3(moveHorizontal, 0f, moveVertical).normalized).normalized, movespeed));
+                rb.AddRelativeForce(MultiplyVector3(MultiplyVector3(new Vector3(moveHorizontal, 0f, moveVertical).normalized, movespeed), groundedModifier));
+            }
+            else
+            {
+                // rb.AddForce(MultiplyVector3(MultiplyVector3(Camera.main.transform.TransformDirection(new Vector3(moveHorizontal, 0f, moveVertical).normalized).normalized, movespeed), midairModifier));
+                rb.AddRelativeForce(MultiplyVector3(MultiplyVector3(new Vector3(moveHorizontal, 0f, moveVertical).normalized, movespeed), midairModifier));
+            }
         }
-        else
-        {
-            // rb.AddForce(MultiplyVector3(MultiplyVector3(Camera.main.transform.TransformDirection(new Vector3(moveHorizontal, 0f, moveVertical).normalized).normalized, movespeed), midairModifier));
-            rb.AddRelativeForce(MultiplyVector3(MultiplyVector3(new Vector3(moveHorizontal, 0f, moveVertical).normalized, movespeed), midairModifier));
-        }
+        debugText.text = (transform.rotation * rb.velocity).z.ToString();
 
         if (Input.GetKey(KeyCode.Space) || Input.GetKey(KeyCode.Joystick1Button1))
         {
@@ -87,7 +111,7 @@ public class PlayerMovement : MonoBehaviour {
             {
                 rb.AddForce(new Vector3(0f, jetpackPower, 0f));
                 jetpackMeter -= 1f;
-                healthSlider.value = 100f * (jetpackMeter / jetpackMeterLimit);
+                powerSlider.value = 100f * (jetpackMeter / jetpackMeterLimit);
                 if (jetpackMeter < 0)
                 {
                     jetpackMeter = 0;
@@ -95,8 +119,14 @@ public class PlayerMovement : MonoBehaviour {
             }
         } else if (jetpackMeter < jetpackMeterLimit)
         {
-            jetpackMeter += jetpackRecoveryRate;
-            healthSlider.value = 100f * (jetpackMeter / jetpackMeterLimit);
+            if (isGrounded)
+            {
+                jetpackMeter += jetpackRecoveryRate * 3f;
+            } else
+            {
+                jetpackMeter += jetpackRecoveryRate;
+            }
+            powerSlider.value = 100f * (jetpackMeter / jetpackMeterLimit);
         }
 
 
