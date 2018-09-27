@@ -10,16 +10,18 @@ public class PlayerMovement : MonoBehaviour {
         return new Vector3(firstVector.x * secondVector.x, firstVector.y * secondVector.y, firstVector.z * secondVector.z);
     }
 
-    // !!!!!!!!!!!!!!!! MOVE THESE VARIABLES ELSEWHERE - CLASSES (LEARN W/ JASON) !!!!!!!!!!!!!!!!
+    // Variables
     public float xForce = 0f;
     public float yForce = 0f;
     public float zForce = 0f;
     public float moveHorizontal;
     public float moveVertical;
     public Vector3 movementRotation;
-    public Vector3 movespeed = new Vector3(100f, 0f, 100f);
+    public Vector3 movespeed = new Vector3(50f, 0f, 50f);
     public Vector3 midairModifier = new Vector3(0.25f, 0f, 0.25f);
     public Vector3 groundedModifier = new Vector3(1f, 0f, 1f);
+    public float playerDynamicFriction = 10f;
+    public float playerStaticFriction = 0.2f;
     public float jetpackPower = 25f;
     public float jetpackMeterLimit = 50f;
     public float jetpackMeter;
@@ -45,6 +47,8 @@ public class PlayerMovement : MonoBehaviour {
         jetpackMeter = jetpackMeterLimit;
         player = GameObject.Find("Player");
         playerMat = player.GetComponent<Collider>().material;
+        player.GetComponent<Collider>().material.dynamicFriction = playerDynamicFriction;
+        player.GetComponent<Collider>().material.staticFriction = playerStaticFriction;
         rb = GetComponent("Rigidbody") as Rigidbody;
         HUDCanvas = GameObject.Find("HUDCanvas");
         powerSliderObject = GameObject.Find("PowerSlider");
@@ -57,11 +61,21 @@ public class PlayerMovement : MonoBehaviour {
 	void Update () {
         transform.eulerAngles = new Vector3(transform.eulerAngles.x, Camera.main.transform.rotation.eulerAngles.y, transform.eulerAngles.z);
 
-        if (Input.GetKeyDown("shift"))
+        if (Input.GetButtonDown("Modifier"))
         {
-            playerMat = 
-            isSkiing = true;
+            if (isSkiing)
+            {
+                player.GetComponent<Collider>().material.dynamicFriction = playerDynamicFriction;
+                player.GetComponent<Collider>().material.staticFriction = playerStaticFriction;
+                isSkiing = false;
+            } else
+            {
+                player.GetComponent<Collider>().material.dynamicFriction = 0f;
+                player.GetComponent<Collider>().material.staticFriction = 0f;
+                isSkiing = true;
+            }
         }
+        debugText.text = player.GetComponent<Collider>().material.dynamicFriction.ToString();
     }
 
     void OnCollisionEnter(Collision collision)
@@ -86,7 +100,7 @@ public class PlayerMovement : MonoBehaviour {
         moveHorizontal = Input.GetAxis("Horizontal");
         moveVertical = Input.GetAxis("Vertical");
 
-        if (Math.Abs((transform.rotation * rb.velocity).z) < 25)
+        if (Math.Abs((transform.rotation * rb.velocity).z) < 15)
         {
             if (isGrounded && !isSkiing)
             {
@@ -99,7 +113,7 @@ public class PlayerMovement : MonoBehaviour {
                 rb.AddRelativeForce(MultiplyVector3(MultiplyVector3(new Vector3(moveHorizontal, 0f, moveVertical).normalized, movespeed), midairModifier));
             }
         }
-        debugText.text = (transform.rotation * rb.velocity).z.ToString();
+        
 
         if (Input.GetKey(KeyCode.Space) || Input.GetKey(KeyCode.Joystick1Button1))
         {
@@ -129,10 +143,10 @@ public class PlayerMovement : MonoBehaviour {
             powerSlider.value = 100f * (jetpackMeter / jetpackMeterLimit);
         }
 
-
-        if (movementRotation.sqrMagnitude > 0.1f && isGrounded)
+        // 
+        if (movementRotation.sqrMagnitude > 0.1f)
         {
-            transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(movementRotation), 1F);
+            transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(movementRotation), 1f);
         }
     }
 }
