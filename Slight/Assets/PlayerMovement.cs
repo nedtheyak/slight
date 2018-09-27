@@ -2,6 +2,13 @@
 using UnityEngine.UI;
 using System;
 
+/*
+----------------- NOTES -----------------
+Semi-sphere collider for the bottom of the capsule player for checking if it's grounded.
+*/
+
+
+
 public class PlayerMovement : MonoBehaviour {
 
     public Rigidbody rb;
