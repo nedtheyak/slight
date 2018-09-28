@@ -2,11 +2,6 @@
 using UnityEngine.UI;
 using System;
 
-/*
------------------ NOTES -----------------
-Semi-sphere collider for the bottom of the capsule player for checking if it's grounded.
-*/
-
 
 
 public class PlayerMovement : MonoBehaviour {
@@ -27,7 +22,7 @@ public class PlayerMovement : MonoBehaviour {
     public Vector3 movespeed = new Vector3(50f, 0f, 50f);
     public Vector3 midairModifier = new Vector3(0.25f, 0f, 0.25f);
     public Vector3 groundedModifier = new Vector3(1f, 0f, 1f);
-    public float playerDynamicFriction = 10f;
+    public float playerDynamicFriction = 0.6f;
     public float playerStaticFriction = 0.2f;
     public float jetpackPower = 25f;
     public float jetpackMeterLimit = 50f;
@@ -42,6 +37,7 @@ public class PlayerMovement : MonoBehaviour {
     public GameObject HUDCanvas;
     public GameObject debugTextBox;
     public Text debugText;
+    public Collider groundTrigger;
 
     // CharacterController controller;
 
@@ -56,6 +52,7 @@ public class PlayerMovement : MonoBehaviour {
         playerMat = player.GetComponent<Collider>().material;
         player.GetComponent<Collider>().material.dynamicFriction = playerDynamicFriction;
         player.GetComponent<Collider>().material.staticFriction = playerStaticFriction;
+        groundTrigger = player.GetComponents<Collider>()[1];
         rb = GetComponent("Rigidbody") as Rigidbody;
         HUDCanvas = GameObject.Find("HUDCanvas");
         powerSliderObject = GameObject.Find("PowerSlider");
@@ -82,8 +79,21 @@ public class PlayerMovement : MonoBehaviour {
                 isSkiing = true;
             }
         }
-        debugText.text = player.GetComponent<Collider>().material.dynamicFriction.ToString();
     }
+
+    void OnTriggerEnter(Collider other)
+    {
+        isGrounded = true;
+    }
+
+    void OnTriggerExit(Collider other)
+    {
+        isGrounded = false;
+    }
+
+    /*
+    
+    ----------- OLD GROUNDED CODE -----------
 
     void OnCollisionEnter(Collision collision)
     {
@@ -101,24 +111,25 @@ public class PlayerMovement : MonoBehaviour {
         }
     }
 
+    */
+
     // FixedUpdate is updated based on time, in sync with the physics engine
     void FixedUpdate() {
         // MOVING THE PLAYER
         moveHorizontal = Input.GetAxis("Horizontal");
         moveVertical = Input.GetAxis("Vertical");
 
-        if (Math.Abs((transform.rotation * rb.velocity).z) < 15)
+        if (isGrounded && !isSkiing)
         {
-            if (isGrounded && !isSkiing)
-            {
-                // rb.AddForce(MultiplyVector3(Camera.main.transform.TransformDirection(new Vector3(moveHorizontal, 0f, moveVertical).normalized).normalized, movespeed));
-                rb.AddRelativeForce(MultiplyVector3(MultiplyVector3(new Vector3(moveHorizontal, 0f, moveVertical).normalized, movespeed), groundedModifier));
-            }
-            else
-            {
-                // rb.AddForce(MultiplyVector3(MultiplyVector3(Camera.main.transform.TransformDirection(new Vector3(moveHorizontal, 0f, moveVertical).normalized).normalized, movespeed), midairModifier));
-                rb.AddRelativeForce(MultiplyVector3(MultiplyVector3(new Vector3(moveHorizontal, 0f, moveVertical).normalized, movespeed), midairModifier));
-            }
+            // rb.AddForce(MultiplyVector3(Camera.main.transform.TransformDirection(new Vector3(moveHorizontal, 0f, moveVertical).normalized).normalized, movespeed));
+            // rb.AddRelativeForce(MultiplyVector3(MultiplyVector3(new Vector3(moveHorizontal, 0f, moveVertical).normalized, movespeed), groundedModifier));
+            rb.velocity = MultiplyVector3(MultiplyVector3(MultiplyVector3(new Vector3(moveHorizontal, 0f, moveVertical).normalized, movespeed), groundedModifier), player.transform.rotation.eulerAngles);
+            debugText.text = MultiplyVector3(MultiplyVector3(MultiplyVector3(new Vector3(moveHorizontal, 0f, moveVertical).normalized, movespeed), groundedModifier), player.transform.rotation.eulerAngles).ToString();
+        }
+        else
+        {
+            // rb.AddForce(MultiplyVector3(MultiplyVector3(Camera.main.transform.TransformDirection(new Vector3(moveHorizontal, 0f, moveVertical).normalized).normalized, movespeed), midairModifier));
+            rb.AddRelativeForce(MultiplyVector3(MultiplyVector3(new Vector3(moveHorizontal, 0f, moveVertical).normalized, movespeed), midairModifier));
         }
         
 
@@ -148,12 +159,6 @@ public class PlayerMovement : MonoBehaviour {
                 jetpackMeter += jetpackRecoveryRate;
             }
             powerSlider.value = 100f * (jetpackMeter / jetpackMeterLimit);
-        }
-
-        // 
-        if (movementRotation.sqrMagnitude > 0.1f)
-        {
-            transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(movementRotation), 1f);
         }
     }
 }
