@@ -13,13 +13,12 @@ public class PlayerMovement : MonoBehaviour {
     }
 
     // Variables
-    public float xForce = 0f;
-    public float yForce = 0f;
-    public float zForce = 0f;
+    public Vector3 velMoveHorizontal;
+    public Vector3 velMoveVertical;
     public float moveHorizontal;
     public float moveVertical;
     public Vector3 movementRotation;
-    public Vector3 movespeed = new Vector3(50f, 0f, 50f);
+    public Vector3 movespeed = new Vector3(5f, 0f, 5f);
     public Vector3 midairModifier = new Vector3(0.25f, 0f, 0.25f);
     public Vector3 groundedModifier = new Vector3(1f, 0f, 1f);
     public float playerDynamicFriction = 0.6f;
@@ -52,7 +51,7 @@ public class PlayerMovement : MonoBehaviour {
         playerMat = player.GetComponent<Collider>().material;
         player.GetComponent<Collider>().material.dynamicFriction = playerDynamicFriction;
         player.GetComponent<Collider>().material.staticFriction = playerStaticFriction;
-        groundTrigger = player.GetComponents<Collider>()[1];
+        groundTrigger = player.GetComponents<Collider>()[0];
         rb = GetComponent("Rigidbody") as Rigidbody;
         HUDCanvas = GameObject.Find("HUDCanvas");
         powerSliderObject = GameObject.Find("PowerSlider");
@@ -81,12 +80,12 @@ public class PlayerMovement : MonoBehaviour {
         }
     }
 
-    void OnTriggerEnter(Collider other)
+    private void OnTriggerEnter(Collider other)
     {
         isGrounded = true;
     }
 
-    void OnTriggerExit(Collider other)
+    private void OnTriggerExit(Collider other)
     {
         isGrounded = false;
     }
@@ -123,8 +122,14 @@ public class PlayerMovement : MonoBehaviour {
         {
             // rb.AddForce(MultiplyVector3(Camera.main.transform.TransformDirection(new Vector3(moveHorizontal, 0f, moveVertical).normalized).normalized, movespeed));
             // rb.AddRelativeForce(MultiplyVector3(MultiplyVector3(new Vector3(moveHorizontal, 0f, moveVertical).normalized, movespeed), groundedModifier));
-            rb.velocity = MultiplyVector3(MultiplyVector3(MultiplyVector3(new Vector3(moveHorizontal, 0f, moveVertical).normalized, movespeed), groundedModifier), player.transform.rotation.eulerAngles);
-            debugText.text = MultiplyVector3(MultiplyVector3(MultiplyVector3(new Vector3(moveHorizontal, 0f, moveVertical).normalized, movespeed), groundedModifier), player.transform.rotation.eulerAngles).ToString();
+
+            // Take both movement axes and multiply them by trig functioned rotation of the player
+            // NOTE: We are doing the same thing for each axis, this SHOULD NOT BE THE CASE
+            // Sin(90) == 1 and Sin(0) == 0 BUT Sin(45) != 0.5 <=============================================
+            velMoveHorizontal = MultiplyVector3(MultiplyVector3(MultiplyVector3(new Vector3(moveHorizontal, 0f, moveHorizontal), movespeed), groundedModifier), new Vector3((float)Math.Cos(player.transform.rotation.eulerAngles.y), 0f, (float)Math.Sin(player.transform.rotation.eulerAngles.y)));
+            velMoveVertical = MultiplyVector3(MultiplyVector3(MultiplyVector3(new Vector3(moveVertical, 0f, moveVertical), movespeed), groundedModifier), new Vector3((float)Math.Cos(player.transform.rotation.eulerAngles.y), 0f, (float)Math.Sin(player.transform.rotation.eulerAngles.y)));
+            rb.velocity = velMoveHorizontal + velMoveVertical;
+            debugText.text = (velMoveVertical).ToString();
         }
         else
         {
