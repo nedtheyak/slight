@@ -3421,10 +3421,10 @@ MonoBehaviour:
   moveHorizontal: 0
   moveVertical: 0
   movementRotation: {x: 0, y: 0, z: 0}
-  movespeed: {x: 50, y: 0, z: 50}
-  midairModifier: {x: 0.25, y: 0, z: 0.25}
+  movespeed: {x: 20, y: 0, z: 20}
+  midairModifier: {x: 2, y: 0, z: 2}
   groundedModifier: {x: 1, y: 0, z: 1}
-  playerDynamicFriction: 1
+  playerDynamicFriction: 0.6
   playerStaticFriction: 0.2
   jetpackPower: 25
   jetpackMeterLimit: 50

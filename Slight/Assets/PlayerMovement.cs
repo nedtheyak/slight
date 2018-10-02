@@ -18,8 +18,8 @@ public class PlayerMovement : MonoBehaviour {
     public float moveHorizontal;
     public float moveVertical;
     public Vector3 movementRotation;
-    public Vector3 movespeed = new Vector3(5f, 0f, 5f);
-    public Vector3 midairModifier = new Vector3(0.25f, 0f, 0.25f);
+    public Vector3 movespeed = new Vector3(20f, 0f, 20f);
+    public Vector3 midairModifier = new Vector3(2f, 0f, 2f);
     public Vector3 groundedModifier = new Vector3(1f, 0f, 1f);
     public float playerDynamicFriction = 0.6f;
     public float playerStaticFriction = 0.2f;
@@ -129,10 +129,11 @@ public class PlayerMovement : MonoBehaviour {
             rb.velocity = velMoveHorizontal + velMoveVertical;
             debugText.text = (new Vector3((float)Math.Cos(player.transform.rotation.eulerAngles.y * (Math.PI / 180)), 0f, (float)Math.Sin(player.transform.rotation.eulerAngles.y * (Math.PI / 180)))).ToString();
         }
-        else
+        else if (!isSkiing)
         {
+            // SET A VELOCITY LIMIT FOR THIS SOMEHOW
             // rb.AddForce(MultiplyVector3(MultiplyVector3(Camera.main.transform.TransformDirection(new Vector3(moveHorizontal, 0f, moveVertical).normalized).normalized, movespeed), midairModifier));
-            rb.AddRelativeForce(MultiplyVector3(MultiplyVector3(new Vector3(moveHorizontal, 0f, moveVertical).normalized, movespeed), midairModifier));
+            rb.AddRelativeForce(MultiplyVector3(MultiplyVector3(new Vector3(- moveHorizontal, 0f, - moveVertical).normalized, movespeed), midairModifier));
         }
         
 
