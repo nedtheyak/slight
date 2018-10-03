@@ -139,12 +139,12 @@ public class PlayerMovement : MonoBehaviour {
             moveVertical = -moveVertical;
 
             // Limit velocity
-            if (Math.Abs((moveHorizontal * movespeed.x * midairModifier.x) + rb.GetRelativePointVelocity(new Vector3(1f, 0f, 0f)).x) >= movespeedLimit && Math.Abs((moveHorizontal * movespeed.x * midairModifier.x) + rb.GetRelativePointVelocity(new Vector3(1f, 0f, 0f)).x) > rb.GetRelativePointVelocity(new Vector3(1f, 0f, 0f)).x)
+            if (Math.Abs((moveHorizontal * movespeed.x * midairModifier.x) + rb.GetRelativePointVelocity(new Vector3(0f, 0f, 0f)).x) >= movespeedLimit && Math.Abs((moveHorizontal * movespeed.x * midairModifier.x) + rb.GetRelativePointVelocity(new Vector3(1f, 0f, 0f)).x) > rb.GetRelativePointVelocity(new Vector3(1f, 0f, 0f)).x)
             {
                 moveHorizontal = 0f;
             }
             
-            if (Math.Abs((moveVertical * movespeed.z * midairModifier.z) + rb.GetRelativePointVelocity(new Vector3(0f, 0f, 1f)).z) >= movespeedLimit && Math.Abs((moveVertical * movespeed.z * midairModifier.z) + rb.GetRelativePointVelocity(new Vector3(0f, 0f, 1f)).z) > rb.GetRelativePointVelocity(new Vector3(0f, 0f, 1f)).z)
+            if (Math.Abs((moveVertical * movespeed.z * midairModifier.z) + rb.GetRelativePointVelocity(new Vector3(0f, 0f, 0f)).z) >= movespeedLimit && Math.Abs((moveVertical * movespeed.z * midairModifier.z) + rb.GetRelativePointVelocity(new Vector3(0f, 0f, 1f)).z) > rb.GetRelativePointVelocity(new Vector3(0f, 0f, 1f)).z)
             {
                 moveVertical = 0f;
             }
