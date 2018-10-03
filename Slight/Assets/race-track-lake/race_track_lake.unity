@@ -3422,6 +3422,7 @@ MonoBehaviour:
   moveVertical: 0
   movementRotation: {x: 0, y: 0, z: 0}
   movespeed: {x: 20, y: 0, z: 20}
+  movespeedLimit: 60
   midairModifier: {x: 2, y: 0, z: 2}
   groundedModifier: {x: 1, y: 0, z: 1}
   playerDynamicFriction: 0.6

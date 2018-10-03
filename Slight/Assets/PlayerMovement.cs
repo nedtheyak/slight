@@ -19,6 +19,7 @@ public class PlayerMovement : MonoBehaviour {
     public float moveVertical;
     public Vector3 movementRotation;
     public Vector3 movespeed = new Vector3(20f, 0f, 20f);
+    public float movespeedLimit = 60f;
     public Vector3 midairModifier = new Vector3(2f, 0f, 2f);
     public Vector3 groundedModifier = new Vector3(1f, 0f, 1f);
     public float playerDynamicFriction = 0.6f;
@@ -70,11 +71,13 @@ public class PlayerMovement : MonoBehaviour {
             {
                 player.GetComponent<Collider>().material.dynamicFriction = playerDynamicFriction;
                 player.GetComponent<Collider>().material.staticFriction = playerStaticFriction;
+                player.GetComponent<Collider>().material.frictionCombine = PhysicMaterialCombine.Average;
                 isSkiing = false;
             } else
             {
                 player.GetComponent<Collider>().material.dynamicFriction = 0f;
                 player.GetComponent<Collider>().material.staticFriction = 0f;
+                player.GetComponent<Collider>().material.frictionCombine = PhysicMaterialCombine.Minimum;
                 isSkiing = true;
             }
         }
@@ -124,16 +127,30 @@ public class PlayerMovement : MonoBehaviour {
             // rb.AddRelativeForce(MultiplyVector3(MultiplyVector3(new Vector3(moveHorizontal, 0f, moveVertical).normalized, movespeed), groundedModifier));
 
             // Ground movement (using trig functions with weird mods to make it relative to the player's rotation)
-            velMoveHorizontal = - MultiplyVector3(MultiplyVector3(MultiplyVector3(new Vector3(moveHorizontal, 0f, moveHorizontal), movespeed), groundedModifier), new Vector3((float)Math.Cos(player.transform.rotation.eulerAngles.y * (Math.PI / 180)), 0f, - (float)Math.Sin(player.transform.rotation.eulerAngles.y * (Math.PI / 180))));
-            velMoveVertical = - MultiplyVector3(MultiplyVector3(MultiplyVector3(new Vector3(moveVertical, 0f, moveVertical), movespeed), groundedModifier), new Vector3((float)Math.Sin(player.transform.rotation.eulerAngles.y * (Math.PI / 180)), 0f, (float)Math.Cos(player.transform.rotation.eulerAngles.y * (Math.PI / 180))));
+            velMoveHorizontal = -MultiplyVector3(MultiplyVector3(MultiplyVector3(new Vector3(moveHorizontal, 0f, moveHorizontal), movespeed), groundedModifier), new Vector3((float)Math.Cos(player.transform.rotation.eulerAngles.y * (Math.PI / 180)), 0f, -(float)Math.Sin(player.transform.rotation.eulerAngles.y * (Math.PI / 180))));
+            velMoveVertical = -MultiplyVector3(MultiplyVector3(MultiplyVector3(new Vector3(moveVertical, 0f, moveVertical), movespeed), groundedModifier), new Vector3((float)Math.Sin(player.transform.rotation.eulerAngles.y * (Math.PI / 180)), 0f, (float)Math.Cos(player.transform.rotation.eulerAngles.y * (Math.PI / 180))));
             rb.velocity = velMoveHorizontal + velMoveVertical;
-            debugText.text = (new Vector3((float)Math.Cos(player.transform.rotation.eulerAngles.y * (Math.PI / 180)), 0f, (float)Math.Sin(player.transform.rotation.eulerAngles.y * (Math.PI / 180)))).ToString();
+            // debugText.text = (new Vector3((float)Math.Cos(player.transform.rotation.eulerAngles.y * (Math.PI / 180)), 0f, (float)Math.Sin(player.transform.rotation.eulerAngles.y * (Math.PI / 180)))).ToString();
         }
-        else if (!isSkiing)
+        else if (true)
         {
-            // SET A VELOCITY LIMIT FOR THIS SOMEHOW
             // rb.AddForce(MultiplyVector3(MultiplyVector3(Camera.main.transform.TransformDirection(new Vector3(moveHorizontal, 0f, moveVertical).normalized).normalized, movespeed), midairModifier));
-            rb.AddRelativeForce(MultiplyVector3(MultiplyVector3(new Vector3(- moveHorizontal, 0f, - moveVertical).normalized, movespeed), midairModifier));
+            moveHorizontal = -moveHorizontal;
+            moveVertical = -moveVertical;
+
+            // Limit velocity
+            if (Math.Abs((moveHorizontal * movespeed.x * midairModifier.x) + rb.GetRelativePointVelocity(new Vector3(1f, 0f, 0f)).x) >= movespeedLimit && Math.Abs((moveHorizontal * movespeed.x * midairModifier.x) + rb.GetRelativePointVelocity(new Vector3(1f, 0f, 0f)).x) > rb.GetRelativePointVelocity(new Vector3(1f, 0f, 0f)).x)
+            {
+                moveHorizontal = 0f;
+            }
+            
+            if (Math.Abs((moveVertical * movespeed.z * midairModifier.z) + rb.GetRelativePointVelocity(new Vector3(0f, 0f, 1f)).z) >= movespeedLimit && Math.Abs((moveVertical * movespeed.z * midairModifier.z) + rb.GetRelativePointVelocity(new Vector3(0f, 0f, 1f)).z) > rb.GetRelativePointVelocity(new Vector3(0f, 0f, 1f)).z)
+            {
+                moveVertical = 0f;
+            }
+            
+            // Add the force
+            rb.AddRelativeForce(MultiplyVector3(MultiplyVector3(new Vector3(moveHorizontal, 0f, moveVertical).normalized, movespeed), midairModifier));
         }
         
 
