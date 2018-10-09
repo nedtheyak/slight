@@ -6,13 +6,13 @@ using System;
 
 public class PlayerMovement : MonoBehaviour {
 
-    public Rigidbody rb;
 
     public Vector3 MultiplyVector3(Vector3 firstVector, Vector3 secondVector) {
         return new Vector3(firstVector.x * secondVector.x, firstVector.y * secondVector.y, firstVector.z * secondVector.z);
     }
 
     // Variables
+    public Rigidbody rb;
     public Vector3 velMoveHorizontal;
     public Vector3 velMoveVertical;
     public float moveHorizontal;
@@ -24,7 +24,7 @@ public class PlayerMovement : MonoBehaviour {
     public Vector3 groundedModifier = new Vector3(1f, 0f, 1f);
     public float playerDynamicFriction = 0.6f;
     public float playerStaticFriction = 0.2f;
-    public float jetpackPower = 25f;
+    public float jetpackPower = 100f;
     public float jetpackMeterLimit = 50f;
     public float jetpackMeter;
     public float jetpackRecoveryRate = 0.15f;
