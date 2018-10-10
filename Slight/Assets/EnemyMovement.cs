@@ -9,6 +9,10 @@ public class EnemyMovement : MonoBehaviour {
     {
         return new Vector3(firstVector.x * secondVector.x, firstVector.y * secondVector.y, firstVector.z * secondVector.z);
     }
+    public Vector3 AddVector3(Vector3 firstVector, Vector3 secondVector)
+    {
+        return new Vector3(firstVector.x + secondVector.x, firstVector.y + secondVector.y, firstVector.z + secondVector.z);
+    }
 
     // Variables
     public Rigidbody rb;
@@ -47,8 +51,8 @@ public class EnemyMovement : MonoBehaviour {
         transform.LookAt(player.transform);
         //while (isGrounded)
         //{
-        debugText.text = MultiplyVector3(transform.forward, movespeed).ToString();
-            rb.velocity = MultiplyVector3(transform.forward, movespeed);
+        debugText.text = AddVector3(MultiplyVector3(transform.forward, movespeed), new Vector3(0f, rb.velocity.y, 0f)).ToString();
+            rb.velocity = AddVector3(MultiplyVector3(transform.forward, movespeed), new Vector3(0f, rb.velocity.y, 0f));
         //}
 	}
 }
