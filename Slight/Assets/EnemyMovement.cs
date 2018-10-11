@@ -38,12 +38,18 @@ public class EnemyMovement : MonoBehaviour {
 
     private void OnTriggerEnter(Collider other)
     {
-        isGrounded = true;
+        if (other.name != "Player")
+        {
+            isGrounded = true;
+        }
     }
 
     private void OnTriggerExit(Collider other)
     {
-        isGrounded = false;
+        if (other.name != "Player")
+        {
+            isGrounded = false;
+        }
     }
 
     // Update is called once per frame
@@ -51,7 +57,7 @@ public class EnemyMovement : MonoBehaviour {
         transform.LookAt(player.transform);
         if (isGrounded)
         {
-        debugText.text = AddVector3(MultiplyVector3(transform.forward, movespeed), new Vector3(0f, rb.velocity.y, 0f)).ToString();
+            debugText.text = AddVector3(MultiplyVector3(transform.forward, movespeed), new Vector3(0f, rb.velocity.y, 0f)).ToString();
             rb.velocity = AddVector3(MultiplyVector3(transform.forward, movespeed), new Vector3(0f, rb.velocity.y, 0f));
         }
 	}
