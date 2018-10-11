@@ -81,7 +81,7 @@ public class PlayerHealth : MonoBehaviour
 
     void OnCollisionStay(Collision collision)
     {
-        if (collision.rigidbody.name == "Enemy")
+        if (collision.rigidbody && collision.rigidbody.name == "Enemy")
         {
             UpdateHealth(-10f * Time.deltaTime * armorMultiplier, true);
         }
