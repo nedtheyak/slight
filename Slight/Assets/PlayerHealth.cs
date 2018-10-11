@@ -26,6 +26,7 @@ public class PlayerHealth : MonoBehaviour
     public GameObject healthSliderObject;
     public float armorMultiplier = 1f;
     public Text debugText;
+    public bool isTouchingEnemy;
 
 
     // CharacterController controller;
@@ -84,6 +85,22 @@ public class PlayerHealth : MonoBehaviour
         if (collision.rigidbody && collision.rigidbody.name == "Enemy")
         {
             UpdateHealth(-10f * Time.deltaTime * armorMultiplier, true);
+        }
+    }
+
+    void OnCollisionEnter(Collision collision)
+    {
+        if (collision.rigidbody && collision.rigidbody.name == "Enemy")
+        {
+            isTouchingEnemy = true;
+        }
+    }
+
+    void OnCollisionExit(Collision collision)
+    {
+        if (collision.rigidbody && collision.rigidbody.name == "Enemy")
+        {
+            isTouchingEnemy = false;
         }
     }
 

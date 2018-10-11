@@ -26,11 +26,13 @@ public class EnemyMovement : MonoBehaviour {
     public GameObject player;
     public GameObject debugTextBox;
     public Text debugText;
+    PlayerHealth playerHealthScript;
 
     // Use this for initialization
     void Start () {
         isGrounded = false;
         player = GameObject.Find("Player");
+        playerHealthScript = player.GetComponent<PlayerHealth>();
         rb = GetComponent("Rigidbody") as Rigidbody;
         debugTextBox = GameObject.Find("DebugTextBox");
         debugText = debugTextBox.GetComponent("Text") as Text;
@@ -55,7 +57,7 @@ public class EnemyMovement : MonoBehaviour {
     // Update is called once per frame
     void Update () {
         transform.LookAt(player.transform);
-        if (isGrounded)
+        if (isGrounded && !playerHealthScript.isTouchingEnemy)
         {
             debugText.text = AddVector3(MultiplyVector3(transform.forward, movespeed), new Vector3(0f, rb.velocity.y, 0f)).ToString();
             rb.velocity = AddVector3(MultiplyVector3(transform.forward, movespeed), new Vector3(0f, rb.velocity.y, 0f));
