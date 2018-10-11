@@ -21,7 +21,7 @@ public class EnemyMovement : MonoBehaviour {
     public float moveHorizontal;
     public float moveVertical;
     public Vector3 movementRotation;
-    public Vector3 movespeed = new Vector3(1f, 0f, 1f);
+    public Vector3 movespeed = new Vector3(5f, 0f, 5f);
     public bool isGrounded;
     public GameObject player;
     public GameObject debugTextBox;
