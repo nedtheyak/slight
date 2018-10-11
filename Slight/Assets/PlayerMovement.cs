@@ -24,7 +24,7 @@ public class PlayerMovement : MonoBehaviour {
     public Vector3 groundedModifier = new Vector3(1f, 0f, 1f);
     public float playerDynamicFriction = 0.6f;
     public float playerStaticFriction = 0.2f;
-    public float jetpackPower = 100f;
+    public float jetpackPower = 125f;
     public float jetpackMeterLimit = 50f;
     public float jetpackMeter;
     public float jetpackRecoveryRate = 0.15f;
@@ -32,15 +32,16 @@ public class PlayerMovement : MonoBehaviour {
     public bool isSkiing;
     public GameObject player;
     public PhysicMaterial playerMat;
+    public Collider groundTrigger;
     public Slider powerSlider;
     public GameObject powerSliderObject;
     public GameObject HUDCanvas;
     public GameObject debugTextBox;
+    public float armorMultiplier = 1f;
     public Text debugText;
-    public Collider groundTrigger;
+
 
     // CharacterController controller;
-
 
     // Use this for initialization
     void Start () {
@@ -92,28 +93,6 @@ public class PlayerMovement : MonoBehaviour {
     {
         isGrounded = false;
     }
-
-    /*
-    
-    ----------- OLD GROUNDED CODE -----------
-
-    void OnCollisionEnter(Collision collision)
-    {
-        if (collision.rigidbody.name == "raceTrackLakeLevel")
-        {
-            isGrounded = true;
-        }
-    }
-
-    void OnCollisionExit(Collision collision)
-    {
-        if (collision.rigidbody.name == "raceTrackLakeLevel")
-        {
-            isGrounded = false;
-        }
-    }
-
-    */
 
     // FixedUpdate is updated based on time, in sync with the physics engine
     void FixedUpdate() {
