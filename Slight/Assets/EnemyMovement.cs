@@ -49,10 +49,10 @@ public class EnemyMovement : MonoBehaviour {
     // Update is called once per frame
     void Update () {
         transform.LookAt(player.transform);
-        //while (isGrounded)
-        //{
+        if (isGrounded)
+        {
         debugText.text = AddVector3(MultiplyVector3(transform.forward, movespeed), new Vector3(0f, rb.velocity.y, 0f)).ToString();
             rb.velocity = AddVector3(MultiplyVector3(transform.forward, movespeed), new Vector3(0f, rb.velocity.y, 0f));
-        //}
+        }
 	}
 }
