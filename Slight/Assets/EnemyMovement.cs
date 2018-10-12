@@ -40,7 +40,7 @@ public class EnemyMovement : MonoBehaviour {
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.name != "Player")
+        if (other.name != "Player" && !other.isTrigger)
         {
             isGrounded = true;
         }
@@ -48,7 +48,7 @@ public class EnemyMovement : MonoBehaviour {
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.name != "Player")
+        if (other.name != "Player" && !other.isTrigger)
         {
             isGrounded = false;
         }

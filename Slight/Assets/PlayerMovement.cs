@@ -15,10 +15,11 @@ public class PlayerMovement : MonoBehaviour {
     public Rigidbody rb;
     public Vector3 velMoveHorizontal;
     public Vector3 velMoveVertical;
+    public float oldYVel;
     public float moveHorizontal;
     public float moveVertical;
     public Vector3 movementRotation;
-    public Vector3 movespeed = new Vector3(20f, 0f, 20f);
+    public Vector3 movespeed = new Vector3(15f, 0f, 15f);
     public float movespeedLimit = 60f;
     public Vector3 midairModifier = new Vector3(2f, 0f, 2f);
     public Vector3 groundedModifier = new Vector3(1f, 0f, 1f);
@@ -37,7 +38,7 @@ public class PlayerMovement : MonoBehaviour {
     public GameObject powerSliderObject;
     public GameObject HUDCanvas;
     public GameObject debugTextBox;
-    public float armorMultiplier = 1f;
+    public float armorMultiplier = 2f;
     public Text debugText;
 
 
@@ -86,12 +87,18 @@ public class PlayerMovement : MonoBehaviour {
 
     private void OnTriggerEnter(Collider other)
     {
-        isGrounded = true;
+        if (!other.isTrigger)
+        {
+            isGrounded = true;
+        }
     }
 
     private void OnTriggerExit(Collider other)
     {
-        isGrounded = false;
+        if (!other.isTrigger)
+        {
+            isGrounded = false;
+        }
     }
 
     // FixedUpdate is updated based on time, in sync with the physics engine
@@ -108,7 +115,12 @@ public class PlayerMovement : MonoBehaviour {
             // Ground movement (using trig functions with weird mods to make it relative to the player's rotation)
             velMoveHorizontal = -MultiplyVector3(MultiplyVector3(MultiplyVector3(new Vector3(moveHorizontal, 0f, moveHorizontal), movespeed), groundedModifier), new Vector3((float)Math.Cos(player.transform.rotation.eulerAngles.y * (Math.PI / 180)), 0f, -(float)Math.Sin(player.transform.rotation.eulerAngles.y * (Math.PI / 180))));
             velMoveVertical = -MultiplyVector3(MultiplyVector3(MultiplyVector3(new Vector3(moveVertical, 0f, moveVertical), movespeed), groundedModifier), new Vector3((float)Math.Sin(player.transform.rotation.eulerAngles.y * (Math.PI / 180)), 0f, (float)Math.Cos(player.transform.rotation.eulerAngles.y * (Math.PI / 180))));
-            rb.velocity = velMoveHorizontal + velMoveVertical;
+            oldYVel = rb.velocity.y;
+            if (oldYVel > 0)
+            {
+                oldYVel = 0;
+            }
+            rb.velocity = new Vector3(velMoveHorizontal.x + velMoveVertical.x, oldYVel, velMoveHorizontal.z + velMoveVertical.z);
             // debugText.text = (new Vector3((float)Math.Cos(player.transform.rotation.eulerAngles.y * (Math.PI / 180)), 0f, (float)Math.Sin(player.transform.rotation.eulerAngles.y * (Math.PI / 180)))).ToString();
         }
         else if (true)
