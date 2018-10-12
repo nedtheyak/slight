@@ -4,7 +4,7 @@ using System;
 
 
 
-public class PlayerMovement : MonoBehaviour {
+public class PlayerController : MonoBehaviour {
 
 
     public Vector3 MultiplyVector3(Vector3 firstVector, Vector3 secondVector) {
@@ -41,6 +41,12 @@ public class PlayerMovement : MonoBehaviour {
     public float armorMultiplier = 2f;
     public Text debugText;
 
+    public GameObject bulletPrefab;
+    public Transform bulletSpawn;
+    public float bulletSpeed = 25f;
+    public float bulletTime = 2f;
+    public Vector3 bulletRotation;
+
 
     // CharacterController controller;
 
@@ -67,6 +73,11 @@ public class PlayerMovement : MonoBehaviour {
 	void Update () {
         transform.eulerAngles = new Vector3(transform.eulerAngles.x, Camera.main.transform.rotation.eulerAngles.y, transform.eulerAngles.z);
 
+        if (Input.GetButtonDown("Fire1"))
+        {
+            FireMain();
+        }
+
         if (Input.GetButtonDown("Modifier"))
         {
             if (isSkiing)
@@ -83,6 +94,22 @@ public class PlayerMovement : MonoBehaviour {
                 isSkiing = true;
             }
         }
+    }
+
+    void FireMain()
+    {
+        // Create the Bullet from the Bullet Prefab
+        bulletRotation = new Vector3(Camera.main.transform.rotation.eulerAngles.x, bulletSpawn.rotation.eulerAngles.y, bulletSpawn.rotation.eulerAngles.z);
+        var bullet = (GameObject)Instantiate(
+            bulletPrefab,
+            bulletSpawn.position,
+            Quaternion.Euler(bulletRotation));
+
+        // Add velocity to the bullet
+        bullet.GetComponent<Rigidbody>().velocity = bullet.transform.forward * bulletSpeed;
+
+        // Destroy the bullet after 2 seconds
+        Destroy(bullet, bulletTime);
     }
 
     private void OnTriggerEnter(Collider other)
