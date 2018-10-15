@@ -43,8 +43,8 @@ public class PlayerController : MonoBehaviour {
 
     public GameObject bulletPrefab;
     public Transform bulletSpawn;
-    public float bulletSpeed = 25f;
-    public float bulletTime = 2f;
+    public float bulletSpeed = 50f;
+    public float bulletTime = 0.8f;
     public Vector3 bulletRotation;
 
 
@@ -67,6 +67,8 @@ public class PlayerController : MonoBehaviour {
         powerSlider = powerSliderObject.GetComponent("Slider") as Slider;
         debugTextBox = GameObject.Find("DebugTextBox");
         debugText = debugTextBox.GetComponent("Text") as Text;
+        bulletSpawn = GameObject.Find("BulletSpawn").GetComponent<Transform>();
+        bulletPrefab = Resources.Load("prefabs/Bullet") as GameObject;
     }
 	
 	// Update is called once per frame

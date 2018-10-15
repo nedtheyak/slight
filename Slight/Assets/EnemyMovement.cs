@@ -59,7 +59,6 @@ public class EnemyMovement : MonoBehaviour {
         transform.LookAt(player.transform);
         if (isGrounded && !playerHealthScript.isTouchingEnemy)
         {
-            debugText.text = AddVector3(MultiplyVector3(transform.forward, movespeed), new Vector3(0f, rb.velocity.y, 0f)).ToString();
             rb.velocity = AddVector3(MultiplyVector3(transform.forward, movespeed), new Vector3(0f, rb.velocity.y, 0f));
         }
 	}
