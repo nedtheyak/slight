@@ -18,7 +18,7 @@ public class BulletCollisions : MonoBehaviour {
         {
             // Do stuff
             debugText.text = other.name;
-            if (other.name == "Enemy")
+            if (other.name == "Enemy(Clone)")
             {
                 Destroy(other.gameObject);
             }
