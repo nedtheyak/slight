@@ -24,7 +24,7 @@ public class PlayerHealth : MonoBehaviour
     public float playerHealth = 100f;
     public Slider healthSlider;
     public GameObject healthSliderObject;
-    public float armorMultiplier = 1f;
+    public float armorMultiplier = 2f;
     public Text debugText;
     public bool isTouchingEnemy;
 
@@ -82,7 +82,7 @@ public class PlayerHealth : MonoBehaviour
 
     void OnCollisionStay(Collision collision)
     {
-        if (collision.rigidbody && collision.rigidbody.name == "Enemy")
+        if (collision.rigidbody && collision.rigidbody.name == "Enemy(Clone)")
         {
             UpdateHealth(-10f * Time.deltaTime * armorMultiplier, true);
         }
@@ -90,7 +90,7 @@ public class PlayerHealth : MonoBehaviour
 
     void OnCollisionEnter(Collision collision)
     {
-        if (collision.rigidbody && collision.rigidbody.name == "Enemy")
+        if (collision.rigidbody && collision.rigidbody.name == "Enemy(Clone)")
         {
             isTouchingEnemy = true;
         }
@@ -98,7 +98,7 @@ public class PlayerHealth : MonoBehaviour
 
     void OnCollisionExit(Collision collision)
     {
-        if (collision.rigidbody && collision.rigidbody.name == "Enemy")
+        if (collision.rigidbody && collision.rigidbody.name == "Enemy(Clone)")
         {
             isTouchingEnemy = false;
         }
@@ -108,7 +108,7 @@ public class PlayerHealth : MonoBehaviour
     
     void OnCollisionEnter(Collision collision)
     {
-        if (collision.rigidbody.name == "Enemy")
+        if (collision.rigidbody.name == "Enemy(Clone)")
         {
             UpdateHealth(-10f, true);
         }
@@ -116,7 +116,7 @@ public class PlayerHealth : MonoBehaviour
 
     void OnCollisionExit(Collision collision)
     {
-        if (collision.rigidbody.name == "Enemy")
+        if (collision.rigidbody.name == "Enemy(Clone)")
         {
             isGrounded = false;
         }

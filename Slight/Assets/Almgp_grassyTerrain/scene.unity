@@ -1197,7 +1197,7 @@ MonoBehaviour:
   playerHealth: 100
   healthSlider: {fileID: 0}
   healthSliderObject: {fileID: 0}
-  armorMultiplier: 1
+  armorMultiplier: 2
   debugText: {fileID: 0}
   isTouchingEnemy: 0
 --- !u!114 &329923384
@@ -3276,40 +3276,44 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 4755392891017232, guid: cc704ba36e336764ba53c1e6142767ca, type: 2}
+    - target: {fileID: 4183835976271812, guid: 8a3f3888586b2be48908a02fcf8838fc, type: 2}
       propertyPath: m_LocalPosition.x
       value: 151.487
       objectReference: {fileID: 0}
-    - target: {fileID: 4755392891017232, guid: cc704ba36e336764ba53c1e6142767ca, type: 2}
+    - target: {fileID: 4183835976271812, guid: 8a3f3888586b2be48908a02fcf8838fc, type: 2}
       propertyPath: m_LocalPosition.y
       value: 111.4
       objectReference: {fileID: 0}
-    - target: {fileID: 4755392891017232, guid: cc704ba36e336764ba53c1e6142767ca, type: 2}
+    - target: {fileID: 4183835976271812, guid: 8a3f3888586b2be48908a02fcf8838fc, type: 2}
       propertyPath: m_LocalPosition.z
       value: 138.52205
       objectReference: {fileID: 0}
-    - target: {fileID: 4755392891017232, guid: cc704ba36e336764ba53c1e6142767ca, type: 2}
+    - target: {fileID: 4183835976271812, guid: 8a3f3888586b2be48908a02fcf8838fc, type: 2}
       propertyPath: m_LocalRotation.x
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4755392891017232, guid: cc704ba36e336764ba53c1e6142767ca, type: 2}
+    - target: {fileID: 4183835976271812, guid: 8a3f3888586b2be48908a02fcf8838fc, type: 2}
       propertyPath: m_LocalRotation.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4755392891017232, guid: cc704ba36e336764ba53c1e6142767ca, type: 2}
+    - target: {fileID: 4183835976271812, guid: 8a3f3888586b2be48908a02fcf8838fc, type: 2}
       propertyPath: m_LocalRotation.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4755392891017232, guid: cc704ba36e336764ba53c1e6142767ca, type: 2}
+    - target: {fileID: 4183835976271812, guid: 8a3f3888586b2be48908a02fcf8838fc, type: 2}
       propertyPath: m_LocalRotation.w
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 4755392891017232, guid: cc704ba36e336764ba53c1e6142767ca, type: 2}
+    - target: {fileID: 4183835976271812, guid: 8a3f3888586b2be48908a02fcf8838fc, type: 2}
       propertyPath: m_RootOrder
       value: 9
       objectReference: {fileID: 0}
+    - target: {fileID: 1652136820444144, guid: 8a3f3888586b2be48908a02fcf8838fc, type: 2}
+      propertyPath: m_Name
+      value: EnemySpawner
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: cc704ba36e336764ba53c1e6142767ca, type: 2}
+  m_SourcePrefab: {fileID: 100100000, guid: 8a3f3888586b2be48908a02fcf8838fc, type: 2}
   m_IsPrefabAsset: 0
 --- !u!1 &1960817872
 GameObject:
