@@ -11,6 +11,11 @@ public class PlayerController : MonoBehaviour {
         return new Vector3(firstVector.x * secondVector.x, firstVector.y * secondVector.y, firstVector.z * secondVector.z);
     }
 
+    public Vector3 AddVector3(Vector3 firstVector, Vector3 secondVector)
+    {
+        return new Vector3(firstVector.x + secondVector.x, firstVector.y + secondVector.y, firstVector.z + secondVector.z);
+    }
+
     // Variables
     public Rigidbody rb;
     public Vector3 velMoveHorizontal;
@@ -108,7 +113,7 @@ public class PlayerController : MonoBehaviour {
             Quaternion.Euler(bulletRotation));
 
         // Add velocity to the bullet
-        bullet.GetComponent<Rigidbody>().velocity = bullet.transform.forward * bulletSpeed;
+        bullet.GetComponent<Rigidbody>().velocity = AddVector3(bullet.transform.forward * bulletSpeed, rb.velocity);
 
         // Destroy the bullet after 2 seconds
         Destroy(bullet, bulletTime);
