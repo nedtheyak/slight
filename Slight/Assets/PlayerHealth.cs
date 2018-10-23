@@ -27,6 +27,7 @@ public class PlayerHealth : MonoBehaviour
     public float armorMultiplier = 2f;
     public Text debugText;
     public bool isTouchingEnemy;
+    public PlayerController playerControllerScript;
 
 
     // CharacterController controller;
@@ -50,6 +51,9 @@ public class PlayerHealth : MonoBehaviour
         else if (playerHealth < 0f)
         {
             playerHealth = 0f;
+            // Destroy(player);
+            
+            FindObjectOfType<AudioManager>().Play("PlayerDeath");
         }
 
         healthSlider.value = playerHealth;
@@ -69,6 +73,7 @@ public class PlayerHealth : MonoBehaviour
         healthSlider = healthSliderObject.GetComponent("Slider") as Slider;
         debugTextBox = GameObject.Find("DebugTextBox");
         debugText = debugTextBox.GetComponent("Text") as Text;
+        playerControllerScript = player.GetComponent<PlayerController>();
     }
 
     // Update is called once per frame
