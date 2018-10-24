@@ -28,6 +28,7 @@ public class PlayerHealth : MonoBehaviour
     public Text debugText;
     public bool isTouchingEnemy;
     public PlayerController playerControllerScript;
+    public PlayerSpawnerController playerSpawnerControllerScript;
 
 
     // CharacterController controller;
@@ -51,7 +52,8 @@ public class PlayerHealth : MonoBehaviour
         else if (playerHealth < 0f)
         {
             playerHealth = 0f;
-            // Destroy(player);
+            Destroy(GameObject.Find("Player"));
+            playerSpawnerControllerScript.spawn = true;
             
             FindObjectOfType<AudioManager>().Play("PlayerDeath");
         }
@@ -74,6 +76,7 @@ public class PlayerHealth : MonoBehaviour
         debugTextBox = GameObject.Find("DebugTextBox");
         debugText = debugTextBox.GetComponent("Text") as Text;
         playerControllerScript = player.GetComponent<PlayerController>();
+        playerSpawnerControllerScript = GameObject.Find("PlayerSpawner").GetComponent<PlayerSpawnerController>();
     }
 
     // Update is called once per frame

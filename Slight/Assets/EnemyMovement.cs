@@ -27,6 +27,7 @@ public class EnemyMovement : MonoBehaviour {
     public GameObject debugTextBox;
     public Text debugText;
     PlayerHealth playerHealthScript;
+    public PlayerSpawnerController playerSpawnerControllerScript;
 
     // Use this for initialization
     void Start () {
@@ -36,6 +37,7 @@ public class EnemyMovement : MonoBehaviour {
         rb = GetComponent("Rigidbody") as Rigidbody;
         debugTextBox = GameObject.Find("DebugTextBox");
         debugText = debugTextBox.GetComponent("Text") as Text;
+        playerSpawnerControllerScript = GameObject.Find("PlayerSpawner").GetComponent<PlayerSpawnerController>();
     }
 
     private void OnTriggerEnter(Collider other)
@@ -56,6 +58,10 @@ public class EnemyMovement : MonoBehaviour {
 
     // Update is called once per frame
     void Update () {
+        if (playerSpawnerControllerScript.newPlayer)
+        {
+            player = GameObject.Find("Player");
+        }
         transform.LookAt(player.transform);
         if (isGrounded && !playerHealthScript.isTouchingEnemy)
         {

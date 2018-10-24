@@ -27,3 +27,6 @@ public class RotateCamera : MonoBehaviour {
         transform.localRotation = Quaternion.Euler(-mouseLook.y, mouseLook.x, 0f);
     }
 }
+
+
+// MAKE THIS RETARGET NEW PLAYER

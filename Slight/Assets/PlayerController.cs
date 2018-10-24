@@ -45,7 +45,7 @@ public class PlayerController : MonoBehaviour {
     public GameObject debugTextBox;
     public float armorMultiplier = 2f;
     public Text debugText;
-    public Boolean isDead = false;
+    public bool isDead = false;
 
     public GameObject bulletPrefab;
     public Transform bulletSpawn;
