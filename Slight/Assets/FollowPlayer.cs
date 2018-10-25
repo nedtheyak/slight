@@ -7,7 +7,7 @@ public class FollowPlayer : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-        player = GameObject.Find("Player");
+        player = GameObject.Find("Player(Clone)");
         offset = new Vector3(0, 1, 0);
     }
 	
@@ -16,6 +16,3 @@ public class FollowPlayer : MonoBehaviour {
         transform.position = player.transform.position + offset;
 	}
 }
-
-
-// MAKE THIS RETARGET NEW PLAYER

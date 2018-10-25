@@ -8,6 +8,7 @@ public class PlayerSpawnerController : MonoBehaviour {
     public float timer;
     public bool newPlayer;
     public GameObject playerPrefab;
+    public FollowPlayer followPlayerScript;
 
 
 
@@ -15,6 +16,7 @@ public class PlayerSpawnerController : MonoBehaviour {
     void Start () {
         playerPrefab = Resources.Load("prefabs/Player") as GameObject;
         spawn = true;
+        followPlayerScript = GameObject.Find("Camera").GetComponent<FollowPlayer>();
     }
 	
 	// Update is called once per frame
@@ -27,6 +29,7 @@ public class PlayerSpawnerController : MonoBehaviour {
                 Quaternion.Euler(new Vector3(0f, 0f, 0f)));
             spawn = false;
             newPlayer = true;
+            followPlayerScript.player = GameObject.Find("Player(Clone)");
         }
         if (newPlayer)
         {

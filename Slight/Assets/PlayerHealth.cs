@@ -52,7 +52,7 @@ public class PlayerHealth : MonoBehaviour
         else if (playerHealth < 0f)
         {
             playerHealth = 0f;
-            Destroy(GameObject.Find("Player"));
+            Destroy(GameObject.Find("Player(Clone)"));
             playerSpawnerControllerScript.spawn = true;
             
             FindObjectOfType<AudioManager>().Play("PlayerDeath");
@@ -65,7 +65,7 @@ public class PlayerHealth : MonoBehaviour
     void Start()
     {
         Debug.Log("Game started.");
-        player = GameObject.Find("Player");
+        player = GameObject.Find("Player(Clone)");
         groundTrigger = player.GetComponents<Collider>()[0];
         rb = GetComponent("Rigidbody") as Rigidbody;
         HUDCanvas = GameObject.Find("HUDCanvas");
@@ -77,6 +77,7 @@ public class PlayerHealth : MonoBehaviour
         debugText = debugTextBox.GetComponent("Text") as Text;
         playerControllerScript = player.GetComponent<PlayerController>();
         playerSpawnerControllerScript = GameObject.Find("PlayerSpawner").GetComponent<PlayerSpawnerController>();
+        UpdateHealth(100f, false);
     }
 
     // Update is called once per frame

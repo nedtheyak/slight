@@ -26,14 +26,14 @@ public class EnemyMovement : MonoBehaviour {
     public GameObject player;
     public GameObject debugTextBox;
     public Text debugText;
-    PlayerHealth playerHealthScript;
+    //PlayerHealth playerHealthScript;
     public PlayerSpawnerController playerSpawnerControllerScript;
 
     // Use this for initialization
     void Start () {
         isGrounded = false;
-        player = GameObject.Find("Player");
-        playerHealthScript = player.GetComponent<PlayerHealth>();
+        player = GameObject.Find("Player(Clone)");
+        //playerHealthScript = player.GetComponent<PlayerHealth>();
         rb = GetComponent("Rigidbody") as Rigidbody;
         debugTextBox = GameObject.Find("DebugTextBox");
         debugText = debugTextBox.GetComponent("Text") as Text;
@@ -42,7 +42,7 @@ public class EnemyMovement : MonoBehaviour {
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.name != "Player" && !other.isTrigger)
+        if (other.name != "Player(Clone)" && !other.isTrigger)
         {
             isGrounded = true;
         }
@@ -50,7 +50,7 @@ public class EnemyMovement : MonoBehaviour {
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.name != "Player" && !other.isTrigger)
+        if (other.name != "Player(Clone)" && !other.isTrigger)
         {
             isGrounded = false;
         }
@@ -60,10 +60,11 @@ public class EnemyMovement : MonoBehaviour {
     void Update () {
         if (playerSpawnerControllerScript.newPlayer)
         {
-            player = GameObject.Find("Player");
+            player = GameObject.Find("Player(Clone)");
+            //playerHealthScript = player.GetComponent<PlayerHealth>();
         }
         transform.LookAt(player.transform);
-        if (isGrounded && !playerHealthScript.isTouchingEnemy)
+        if (isGrounded/* && !playerHealthScript.isTouchingEnemy*/)
         {
             rb.velocity = AddVector3(MultiplyVector3(transform.forward, movespeed), new Vector3(0f, rb.velocity.y, 0f));
         }

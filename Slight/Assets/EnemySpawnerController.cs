@@ -12,10 +12,6 @@ public class EnemySpawnerController : MonoBehaviour {
 	void Start () {
         timer = Time.deltaTime;
         enemyPrefab = Resources.Load("prefabs/Enemy") as GameObject;
-        myEnemies.Add((GameObject)Instantiate(
-            enemyPrefab,
-            this.gameObject.transform.position,
-            Quaternion.Euler(new Vector3(0f, 0f, 0f))));
     }
 	
 	void FixedUpdate () {

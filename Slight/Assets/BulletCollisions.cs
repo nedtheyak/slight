@@ -14,7 +14,7 @@ public class BulletCollisions : MonoBehaviour {
 
     private void OnTriggerEnter(Collider other)
     {
-        if (!other.isTrigger && !(other.name == "Player"))
+        if (!other.isTrigger && !(other.name == "Player(Clone)"))
         {
             // Do stuff
             debugText.text = other.name;

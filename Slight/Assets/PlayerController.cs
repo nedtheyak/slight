@@ -58,11 +58,11 @@ public class PlayerController : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
-        Debug.Log("Game started.");
+        Debug.Log("Player spawned.");
         isGrounded = false;
         isSkiing = false;
         jetpackMeter = jetpackMeterLimit;
-        player = GameObject.Find("Player");
+        player = GameObject.Find("Player(Clone)");
         playerMat = player.GetComponent<Collider>().material;
         player.GetComponent<Collider>().material.dynamicFriction = playerDynamicFriction;
         player.GetComponent<Collider>().material.staticFriction = playerStaticFriction;
