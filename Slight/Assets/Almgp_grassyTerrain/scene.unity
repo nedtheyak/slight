@@ -2371,7 +2371,6 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1204053940}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 204.00879, y: 249.909, z: 121.16815}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1579729040}
@@ -2725,6 +2724,7 @@ GameObject:
   - component: {fileID: 1579729043}
   - component: {fileID: 1579729042}
   - component: {fileID: 1579729041}
+  - component: {fileID: 1579729044}
   m_Layer: 0
   m_Name: Capsule
   m_TagString: Untagged
@@ -2800,6 +2800,17 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1579729039}
   m_Mesh: {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &1579729044
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1579729039}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fbcd8dd1ed8e62241af2db380354e8e5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1595473790
 GameObject:
   m_ObjectHideFlags: 0
