@@ -53,6 +53,12 @@ public class PlayerController : MonoBehaviour {
     public float bulletTime = 0.8f;
     public Vector3 bulletRotation;
 
+    public float maxAmmoCount = 8f;
+    public float ammoCount;
+    public GameObject ammoTextBox;
+    public Text ammoText;
+
+
 
     // CharacterController controller;
 
@@ -72,9 +78,13 @@ public class PlayerController : MonoBehaviour {
         powerSliderObject = GameObject.Find("PowerSlider");
         powerSlider = powerSliderObject.GetComponent("Slider") as Slider;
         debugTextBox = GameObject.Find("DebugTextBox");
-        debugText = debugTextBox.GetComponent("Text") as Text;
+        debugText = debugTextBox.GetComponent<Text>();
         bulletSpawn = GameObject.Find("BulletSpawn").GetComponent<Transform>();
         bulletPrefab = Resources.Load("prefabs/Bullet") as GameObject;
+        ammoTextBox = GameObject.Find("AmmoTextBox");
+        ammoText = ammoTextBox.GetComponent<Text>();
+        ammoCount = maxAmmoCount;
+        UpdateAmmo();
     }
 	
 	// Update is called once per frame
@@ -83,7 +93,12 @@ public class PlayerController : MonoBehaviour {
 
         if (Input.GetButtonDown("Fire1"))
         {
-            FireMain();
+            if (ammoCount > 0f)
+            {
+                FireMain();
+                ammoCount -= 1f;
+                UpdateAmmo();
+            }
         }
 
         if (Input.GetButtonDown("Modifier"))
@@ -102,6 +117,17 @@ public class PlayerController : MonoBehaviour {
                 isSkiing = true;
             }
         }
+
+        if (Input.GetButtonDown("Reload"))
+        {
+            ammoCount = maxAmmoCount;
+            UpdateAmmo();
+        }
+    }
+
+    void UpdateAmmo()
+    {
+        ammoText.text = String.Format("{0} / {1}", ammoCount, maxAmmoCount);
     }
 
     void FireMain()
