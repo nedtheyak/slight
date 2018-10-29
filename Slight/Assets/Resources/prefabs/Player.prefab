@@ -22,6 +22,7 @@ GameObject:
   - component: {fileID: 33529615863691380}
   - component: {fileID: 23716128789025868}
   - component: {fileID: 65946941410365476}
+  - component: {fileID: 114629432287914726}
   m_Layer: 0
   m_Name: SwordBox
   m_TagString: Untagged
@@ -244,6 +245,18 @@ MonoBehaviour:
   isTouchingEnemy: 0
   playerControllerScript: {fileID: 0}
   playerSpawnerControllerScript: {fileID: 0}
+--- !u!114 &114629432287914726
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1246586959253052}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa34bb936757b7e449977af40060198d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attack: 0
 --- !u!114 &114727686226496258
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -293,6 +306,7 @@ MonoBehaviour:
   ammoCount: 0
   ammoTextBox: {fileID: 0}
   ammoText: {fileID: 0}
+  swordControllerScript: {fileID: 0}
 --- !u!136 &136271472712301420
 CapsuleCollider:
   m_ObjectHideFlags: 1

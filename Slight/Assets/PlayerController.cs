@@ -58,6 +58,8 @@ public class PlayerController : MonoBehaviour {
     public GameObject ammoTextBox;
     public Text ammoText;
 
+    public SwordController swordControllerScript;
+
 
 
     // CharacterController controller;
@@ -85,6 +87,7 @@ public class PlayerController : MonoBehaviour {
         ammoText = ammoTextBox.GetComponent<Text>();
         ammoCount = maxAmmoCount;
         UpdateAmmo();
+        swordControllerScript = GameObject.Find("SwordBox").GetComponent<SwordController>();
     }
 	
 	// Update is called once per frame
@@ -99,6 +102,11 @@ public class PlayerController : MonoBehaviour {
                 ammoCount -= 1f;
                 UpdateAmmo();
             }
+        }
+
+        if (Input.GetButtonDown("Fire2"))
+        {
+            swordControllerScript.attack = true;
         }
 
         if (Input.GetButtonDown("Modifier"))
