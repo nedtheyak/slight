@@ -8,7 +8,10 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/SampleScene.unity
     guid: 99c9720ab356a0642a771bea13969a05
-  - enabled: 1
+  - enabled: 0
     path: Assets/race-track-lake/race_track_lake.unity
     guid: 2e1336748f3797f4798cf9e588e2620f
+  - enabled: 1
+    path: Assets/Almgp_grassyTerrain/scene.unity
+    guid: ab5b5209cf760d542a09c9fec10ae9f9
   m_configObjects: {}
