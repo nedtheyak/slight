@@ -96,7 +96,7 @@ public class PlayerController : MonoBehaviour {
 
         if (Input.GetButtonDown("Fire1"))
         {
-            if (ammoCount > 0f)
+            if (ammoCount > 0f && swordControllerScript.attack <= 0f)
             {
                 FireMain();
                 ammoCount -= 1f;
@@ -104,9 +104,9 @@ public class PlayerController : MonoBehaviour {
             }
         }
 
-        if (Input.GetButtonDown("Fire2"))
+        if (Input.GetButton("Fire2"))
         {
-            swordControllerScript.attack = true;
+            swordControllerScript.attack = 1f;
         }
 
         if (Input.GetButtonDown("Modifier"))

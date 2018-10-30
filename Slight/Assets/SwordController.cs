@@ -5,11 +5,11 @@ using UnityEngine;
 public class SwordController : MonoBehaviour {
 
 
-    public bool attack;
+    public float attack;
 
 	// Use this for initialization
 	void Start () {
-        attack = false;
+        attack = 0f;
 	}
 
     private void OnTriggerEnter(Collider other)
@@ -19,14 +19,17 @@ public class SwordController : MonoBehaviour {
 
     // Update is called once per frame
     void FixedUpdate () {
-		if (attack)
+		if (attack > 0f)
         {
             Collider[] hitColliders = Physics.OverlapBox(gameObject.transform.position, transform.localScale / 2, Quaternion.identity);
             foreach (Collider collider in hitColliders)
             {
-                Destroy(collider.gameObject);
+                if (collider.name == "Enemy(Clone)")
+                {
+                    Destroy(collider.gameObject);
+                }
             }
-            attack = false;
+            attack -= Time.deltaTime;
         }
 	}
 }
