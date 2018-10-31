@@ -30,6 +30,10 @@ public class SwordController : MonoBehaviour {
                 }
             }
             attack -= Time.deltaTime;
+            if (attack < 0f)
+            {
+                // Stop animation, reset frame
+            }
         }
 	}
 }

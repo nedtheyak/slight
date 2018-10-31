@@ -107,6 +107,7 @@ public class PlayerController : MonoBehaviour {
         if (Input.GetButton("Fire2"))
         {
             swordControllerScript.attack = 1f;
+            // Start animation
         }
 
         if (Input.GetButtonDown("Modifier"))
