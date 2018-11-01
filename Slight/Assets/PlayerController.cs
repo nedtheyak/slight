@@ -59,6 +59,7 @@ public class PlayerController : MonoBehaviour {
     public Text ammoText;
 
     public SwordController swordControllerScript;
+    public GameObject swordImagePrefab;
 
 
 
@@ -88,6 +89,7 @@ public class PlayerController : MonoBehaviour {
         ammoCount = maxAmmoCount;
         UpdateAmmo();
         swordControllerScript = GameObject.Find("SwordBox").GetComponent<SwordController>();
+        swordImagePrefab = Resources.Load("prefabs/SwordImage") as GameObject;
     }
 	
 	// Update is called once per frame
@@ -108,6 +110,11 @@ public class PlayerController : MonoBehaviour {
         {
             swordControllerScript.attack = 1f;
             // Start animation
+            Instantiate(
+                swordImagePrefab,
+                HUDCanvas,
+                Quaternion.Euler(bulletRotation));
+            // FIND INSTANTIATE FOR UI/2D OBJECTS ---------------------------
         }
 
         if (Input.GetButtonDown("Modifier"))
