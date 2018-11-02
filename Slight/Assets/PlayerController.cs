@@ -89,7 +89,7 @@ public class PlayerController : MonoBehaviour {
         ammoCount = maxAmmoCount;
         UpdateAmmo();
         swordControllerScript = GameObject.Find("SwordBox").GetComponent<SwordController>();
-        swordImagePrefab = Resources.Load("prefabs/SwordImage") as GameObject;
+        swordImagePrefab = Resources.Load("prefabs/SlashImage") as GameObject;
     }
 	
 	// Update is called once per frame
@@ -112,8 +112,9 @@ public class PlayerController : MonoBehaviour {
             // Start animation
             Instantiate(
                 swordImagePrefab,
-                HUDCanvas,
-                Quaternion.Euler(bulletRotation));
+                transform.position, // MAKE THIS A 0, 0, 0 transform
+                transform.rotation,
+                HUDCanvas.transform);
             // FIND INSTANTIATE FOR UI/2D OBJECTS ---------------------------
         }
 

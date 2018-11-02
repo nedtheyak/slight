@@ -33,6 +33,7 @@ public class SwordController : MonoBehaviour {
             if (attack < 0f)
             {
                 // Stop animation, reset frame
+                Destroy(GameObject.Find("SlashImage"));
             }
         }
 	}
