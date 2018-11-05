@@ -52,6 +52,10 @@ public class PlayerHealth : MonoBehaviour
         else if (playerHealth < 0f)
         {
             playerHealth = 0f;
+            if (playerControllerScript.isSlashing)
+            {
+                Destroy(GameObject.Find("SlashImage(Clone)"));
+            }
             Destroy(GameObject.Find("Player(Clone)"));
             playerSpawnerControllerScript.spawn = true;
             

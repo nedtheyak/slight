@@ -6,11 +6,13 @@ public class SwordController : MonoBehaviour {
 
 
     public float attack;
+    public PlayerController playerControllerScript;
 
 	// Use this for initialization
 	void Start () {
         attack = 0f;
-	}
+        playerControllerScript = GameObject.Find("Player(Clone)").GetComponent<PlayerController>();
+    }
 
     private void OnTriggerEnter(Collider other)
     {
@@ -29,12 +31,13 @@ public class SwordController : MonoBehaviour {
                     Destroy(collider.gameObject);
                 }
             }
-            attack -= Time.deltaTime;
-            if (attack < 0f)
+            if ((attack - Time.deltaTime) < 0f)
             {
-                // Stop animation, reset frame
-                Destroy(GameObject.Find("SlashImage"));
+                // Remove animation
+                Destroy(GameObject.Find("SlashImage(Clone)"));
+                playerControllerScript.isSlashing = false;
             }
+            attack -= Time.deltaTime;
         }
 	}
 }

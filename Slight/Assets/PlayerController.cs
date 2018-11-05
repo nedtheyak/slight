@@ -60,6 +60,7 @@ public class PlayerController : MonoBehaviour {
 
     public SwordController swordControllerScript;
     public GameObject swordImagePrefab;
+    public bool isSlashing;
 
 
 
@@ -90,6 +91,7 @@ public class PlayerController : MonoBehaviour {
         UpdateAmmo();
         swordControllerScript = GameObject.Find("SwordBox").GetComponent<SwordController>();
         swordImagePrefab = Resources.Load("prefabs/SlashImage") as GameObject;
+        isSlashing = false;
     }
 	
 	// Update is called once per frame
@@ -109,13 +111,16 @@ public class PlayerController : MonoBehaviour {
         if (Input.GetButton("Fire2"))
         {
             swordControllerScript.attack = 1f;
-            // Start animation
-            Instantiate(
-                swordImagePrefab,
-                transform.position, // MAKE THIS A 0, 0, 0 transform
-                transform.rotation,
-                HUDCanvas.transform);
-            // FIND INSTANTIATE FOR UI/2D OBJECTS ---------------------------
+            if (!isSlashing)
+            {
+                // Add animation
+                Instantiate(
+                    swordImagePrefab,
+                    HUDCanvas.transform.position,
+                    HUDCanvas.transform.rotation,
+                    HUDCanvas.transform);
+            }
+            isSlashing = true;
         }
 
         if (Input.GetButtonDown("Modifier"))
