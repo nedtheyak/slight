@@ -18,15 +18,15 @@ public class PlayerController : MonoBehaviour {
 
     // Variables
     public Rigidbody rb;
-    public Vector3 velMoveHorizontal;
-    public Vector3 velMoveVertical;
+    public Vector3 velMove;
     public float oldYVel;
     public float moveHorizontal;
     public float moveVertical;
+    public Vector3 localVelocity;
     public Vector3 movementRotation;
-    public Vector3 movespeed = new Vector3(15f, 0f, 15f);
+    public Vector3 movespeed = new Vector3(20f, 0f, 20f);
     public float movespeedLimit = 60f;
-    public Vector3 midairModifier = new Vector3(10f, 0f, 10f);
+    public Vector3 midairModifier = new Vector3(1f, 0f, 1f);
     public Vector3 groundedModifier = new Vector3(1f, 0f, 1f);
     public float playerDynamicFriction = 0.6f;
     public float playerStaticFriction = 0.2f;
@@ -187,8 +187,8 @@ public class PlayerController : MonoBehaviour {
     // FixedUpdate is updated based on time, in sync with the physics engine
     void FixedUpdate() {
         // MOVING THE PLAYER
-        moveHorizontal = - Input.GetAxis("Horizontal");
-        moveVertical = - Input.GetAxis("Vertical");
+        moveHorizontal = Input.GetAxis("Horizontal");
+        moveVertical = Input.GetAxis("Vertical");
 
         if (isGrounded && !isSkiing)
         {
@@ -200,38 +200,50 @@ public class PlayerController : MonoBehaviour {
             // velMoveVertical = -MultiplyVector3(MultiplyVector3(MultiplyVector3(new Vector3(moveVertical, 0f, moveVertical), movespeed), groundedModifier), new Vector3((float)Math.Sin(player.transform.rotation.eulerAngles.y * (Math.PI / 180)), 0f, (float)Math.Cos(player.transform.rotation.eulerAngles.y * (Math.PI / 180))));
 
 
-            // Ground movement (using trig functions with weird mods to make it relative to the player's rotation) ------------ THIS CODE IS BROKEN ----------------------------
-            velMoveHorizontal = transform.InverseTransformVector(MultiplyVector3(MultiplyVector3(new Vector3(moveHorizontal, 0f, moveHorizontal), movespeed), groundedModifier));
-            velMoveVertical = transform.InverseTransformVector(MultiplyVector3(MultiplyVector3(new Vector3(moveVertical, 0f, moveVertical), movespeed), groundedModifier));
+            // Ground movement (using trig functions with weird mods to make it relative to the player's rotation)
+            velMove = transform.TransformDirection(MultiplyVector3(MultiplyVector3(new Vector3(moveHorizontal, 0f, moveVertical), movespeed), groundedModifier));
             oldYVel = rb.velocity.y;
             if (oldYVel > 0)
             {
                 oldYVel = 0;
             }
-            rb.velocity = new Vector3(velMoveHorizontal.x + velMoveVertical.x, oldYVel, velMoveHorizontal.z + velMoveVertical.z);
+            rb.velocity = new Vector3(velMove.x, oldYVel, velMove.z);
             // debugText.text = (new Vector3((float)Math.Cos(player.transform.rotation.eulerAngles.y * (Math.PI / 180)), 0f, (float)Math.Sin(player.transform.rotation.eulerAngles.y * (Math.PI / 180)))).ToString();
         }
         else
         {
             // rb.AddForce(MultiplyVector3(MultiplyVector3(Camera.main.transform.TransformDirection(new Vector3(moveHorizontal, 0f, moveVertical).normalized).normalized, movespeed), midairModifier));
-            moveHorizontal = -moveHorizontal;
-            moveVertical = -moveVertical;
+            // moveHorizontal = -moveHorizontal;
+            // moveVertical = -moveVertical;
 
 
             // Limit velocity --------------------------- THIS CODE IS BROKEN --------------------------------------------------------------------------------
-            if (Math.Abs((moveHorizontal * movespeed.x * midairModifier.x) + transform.InverseTransformVector(rb.velocity).x) >= movespeedLimit && Math.Abs((moveHorizontal * movespeed.x * midairModifier.x) + transform.InverseTransformVector(rb.velocity).x) > transform.InverseTransformVector(rb.velocity).x)
+
+            localVelocity = transform.InverseTransformDirection(rb.velocity);
+            debugText.text = (Math.Abs((moveVertical * movespeed.z * midairModifier.z) + localVelocity.z) > Math.Abs(localVelocity.z)).ToString();
+            if (Math.Abs(localVelocity.x) > movespeedLimit && Math.Abs((moveHorizontal * movespeed.x * midairModifier.x) + localVelocity.x) > Math.Abs(localVelocity.x) && Math.Sign((moveHorizontal * movespeed.x * midairModifier.x) + localVelocity.x) == Math.Sign(localVelocity.x))
             {
                 moveHorizontal = 0f;
                 Debug.Log("Horizontal");
             }
+
+            if (Math.Abs((moveHorizontal * movespeed.x * midairModifier.x) + localVelocity.x) > movespeedLimit)
+            {
+                moveHorizontal = Math.Sign(moveHorizontal) * (movespeedLimit / movespeed.x) / midairModifier.x;
+            }
             
-            if (Math.Abs((moveVertical * movespeed.z * midairModifier.z) + transform.InverseTransformVector(rb.velocity).x) >= movespeedLimit && Math.Abs((moveVertical * movespeed.x * midairModifier.x) + transform.InverseTransformVector(rb.velocity).x) > transform.InverseTransformVector(rb.velocity).x)
+            if (Math.Abs(localVelocity.z) > movespeedLimit && Math.Abs((moveVertical * movespeed.z * midairModifier.z) + localVelocity.z) > Math.Abs(localVelocity.z) && Math.Sign((moveVertical * movespeed.z * midairModifier.z) + localVelocity.z) == Math.Sign(localVelocity.z))
             {
                 moveVertical = 0f;
                 Debug.Log("Vertical");
             }
 
-            debugText.text = (transform.InverseTransformVector(rb.velocity)).ToString();
+            if (Math.Abs((moveVertical * movespeed.z * midairModifier.z) + localVelocity.z) > movespeedLimit)
+            {
+                moveVertical = Math.Sign(moveVertical) * (movespeedLimit / movespeed.z) / midairModifier.z;
+            }
+
+            
             // Add the force
             rb.AddRelativeForce(MultiplyVector3(MultiplyVector3(new Vector3(moveHorizontal, 0f, moveVertical).normalized, movespeed), midairModifier));
         }
