@@ -19,7 +19,7 @@ public class SwordController : MonoBehaviour {
         
     }
 
-    // Update is called once per frame
+    
     void FixedUpdate () {
 		if (attack > 0f)
         {

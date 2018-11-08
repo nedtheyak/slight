@@ -26,7 +26,7 @@ public class PlayerController : MonoBehaviour {
     public Vector3 movementRotation;
     public Vector3 movespeed = new Vector3(20f, 0f, 20f);
     public float movespeedLimit = 60f;
-    public Vector3 midairModifier = new Vector3(1f, 0f, 1f);
+    public Vector3 midairModifier = new Vector3(2f, 0f, 2f);
     public Vector3 groundedModifier = new Vector3(1f, 0f, 1f);
     public float playerDynamicFriction = 0.6f;
     public float playerStaticFriction = 0.2f;
@@ -61,10 +61,10 @@ public class PlayerController : MonoBehaviour {
     public SwordController swordControllerScript;
     public GameObject swordImagePrefab;
     public bool isSlashing;
+    public float swordDuration = 0.4f;
 
 
-
-    // CharacterController controller;
+    
 
     // Use this for initialization
     void Start () {
@@ -110,7 +110,7 @@ public class PlayerController : MonoBehaviour {
 
         if (Input.GetButton("Fire2"))
         {
-            swordControllerScript.attack = 1f;
+            swordControllerScript.attack = swordDuration;
             if (!isSlashing)
             {
                 // Add animation
