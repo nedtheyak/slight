@@ -300,9 +300,10 @@ MonoBehaviour:
   isDead: 0
   bulletPrefab: {fileID: 0}
   bulletSpawn: {fileID: 0}
-  bulletSpeed: 50
+  bulletSpeed: 150
   bulletTime: 0.8
   bulletRotation: {x: 0, y: 0, z: 0}
+  gunRange: 100
   maxAmmoCount: 8
   ammoCount: 0
   ammoTextBox: {fileID: 0}
