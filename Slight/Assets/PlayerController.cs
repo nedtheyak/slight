@@ -49,9 +49,10 @@ public class PlayerController : MonoBehaviour {
 
     public GameObject bulletPrefab;
     public Transform bulletSpawn;
-    public float bulletSpeed = 50f;
+    public float bulletSpeed = 150f;
     public float bulletTime = 0.8f;
     public Vector3 bulletRotation;
+    public float gunRange = 100f;
 
     public float maxAmmoCount = 8f;
     public float ammoCount;
@@ -154,6 +155,15 @@ public class PlayerController : MonoBehaviour {
 
     void FireMain()
     {
+        Vector3 rayOrigin = Camera.main.ViewportToWorldPoint(new Vector3(.5f, .5f, 0));
+        RaycastHit hit;
+        if (Physics.Raycast(rayOrigin, Camera.main.transform.forward, out hit, gunRange) && hit.collider.name == "Enemy(Clone)")
+        {
+            Destroy(hit.collider.gameObject);
+        }
+
+        // SLOW BULLETS VVVVVVVVVVVVVVVVVVVVVVVVVVVV
+        /*
         // Create the Bullet from the Bullet Prefab
         bulletRotation = new Vector3(Camera.main.transform.rotation.eulerAngles.x, bulletSpawn.rotation.eulerAngles.y, bulletSpawn.rotation.eulerAngles.z);
         var bullet = (GameObject)Instantiate(
@@ -166,6 +176,7 @@ public class PlayerController : MonoBehaviour {
 
         // Destroy the bullet after 2 seconds
         Destroy(bullet, bulletTime);
+        */
     }
 
     private void OnTriggerEnter(Collider other)
