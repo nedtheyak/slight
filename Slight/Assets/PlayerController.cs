@@ -224,28 +224,26 @@ public class PlayerController : MonoBehaviour {
             if (Math.Abs(localVelocity.x) > movespeedLimit && Math.Abs((moveHorizontal * movespeed.x * midairModifier.x) + localVelocity.x) > Math.Abs(localVelocity.x) && Math.Sign((moveHorizontal * movespeed.x * midairModifier.x) + localVelocity.x) == Math.Sign(localVelocity.x))
             {
                 moveHorizontal = 0f;
-                Debug.Log("Horizontal");
             }
 
             if (Math.Abs((moveHorizontal * movespeed.x * midairModifier.x) + localVelocity.x) > movespeedLimit)
             {
-                moveHorizontal = Math.Sign(moveHorizontal) * (movespeedLimit / movespeed.x) / midairModifier.x;
+                moveHorizontal = Math.Sign(moveHorizontal) * movespeedLimit;
             }
             
             if (Math.Abs(localVelocity.z) > movespeedLimit && Math.Abs((moveVertical * movespeed.z * midairModifier.z) + localVelocity.z) > Math.Abs(localVelocity.z) && Math.Sign((moveVertical * movespeed.z * midairModifier.z) + localVelocity.z) == Math.Sign(localVelocity.z))
             {
                 moveVertical = 0f;
-                Debug.Log("Vertical");
             }
 
             if (Math.Abs((moveVertical * movespeed.z * midairModifier.z) + localVelocity.z) > movespeedLimit)
             {
-                moveVertical = Math.Sign(moveVertical) * (movespeedLimit / movespeed.z) / midairModifier.z;
+                moveVertical = Math.Sign(moveVertical) * movespeedLimit;
             }
 
             
             // Add the force
-            rb.AddRelativeForce(MultiplyVector3(MultiplyVector3(new Vector3(moveHorizontal, 0f, moveVertical).normalized, movespeed), midairModifier));
+            rb.AddRelativeForce(MultiplyVector3(MultiplyVector3(new Vector3((moveHorizontal / Time.deltaTime) * rb.mass, 0f, (moveVertical / Time.deltaTime) * rb.mass).normalized, movespeed), midairModifier));
         }
         
 
