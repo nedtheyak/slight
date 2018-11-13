@@ -157,9 +157,13 @@ public class PlayerController : MonoBehaviour {
     {
         Vector3 rayOrigin = Camera.main.ViewportToWorldPoint(new Vector3(.5f, .5f, 0));
         RaycastHit hit;
-        if (Physics.Raycast(rayOrigin, Camera.main.transform.forward, out hit, gunRange) && hit.collider.name == "Enemy(Clone)")
+        if (Physics.Raycast(rayOrigin, Camera.main.transform.forward, out hit, gunRange))
         {
-            Destroy(hit.collider.gameObject);
+            debugText.text = (hit.collider.gameObject.name);
+            if (hit.collider.name == "Enemy(Clone)")
+            {
+                Destroy(hit.collider.gameObject);
+            }
         }
 
         // SLOW BULLETS VVVVVVVVVVVVVVVVVVVVVVVVVVVV
