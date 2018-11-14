@@ -24,7 +24,7 @@ public class ExplosionController : MonoBehaviour {
     // Update is called once per frame
     void FixedUpdate () {
         transform.localScale = new Vector3(timer * maxScale, timer * maxScale, timer * maxScale);
-        (ownCollider).radius = timer * (maxScale / 2);
+        (ownCollider).radius = timer * (maxScale / 2);            // Something about this seems off, the hitbox seems too big
         timer += Time.deltaTime;
         if (timer >= 1f)
         {
