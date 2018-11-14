@@ -14,10 +14,7 @@ public class SwordController : MonoBehaviour {
         playerControllerScript = GameObject.Find("Player(Clone)").GetComponent<PlayerController>();
     }
 
-    private void OnTriggerEnter(Collider other)
-    {
-        
-    }
+    
 
     
     void FixedUpdate () {

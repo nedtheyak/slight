@@ -23,7 +23,7 @@ GameObject:
   - component: {fileID: 23939727410107074}
   - component: {fileID: 135184684004258304}
   - component: {fileID: 114079165030906404}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: PlayerSpawner
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -96,6 +96,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3438e09732e7a4e48b9ef8911287a0ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  spawn: 0
+  timer: 0
+  newPlayer: 0
+  playerPrefab: {fileID: 0}
+  followPlayerScript: {fileID: 0}
 --- !u!135 &135184684004258304
 SphereCollider:
   m_ObjectHideFlags: 1

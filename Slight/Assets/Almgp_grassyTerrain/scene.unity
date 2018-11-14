@@ -685,7 +685,7 @@ Transform:
   - {fileID: 403269348}
   - {fileID: 78568638}
   m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &102219691
 Prefab:
@@ -887,7 +887,7 @@ GameObject:
   - component: {fileID: 160693687}
   - component: {fileID: 160693686}
   - component: {fileID: 160693685}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: EventSystem
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1227,7 +1227,7 @@ GameObject:
   m_Component:
   - component: {fileID: 291114086}
   - component: {fileID: 291114085}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Reflection Probe
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1827,7 +1827,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4755392891017232, guid: cc704ba36e336764ba53c1e6142767ca, type: 2}
       propertyPath: m_RootOrder
-      value: 10
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 1950755516107122, guid: cc704ba36e336764ba53c1e6142767ca, type: 2}
       propertyPath: m_Name
@@ -2081,7 +2081,7 @@ GameObject:
   m_Component:
   - component: {fileID: 808469313}
   - component: {fileID: 808469312}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Light Probe Group
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2351,7 +2351,7 @@ GameObject:
   m_Component:
   - component: {fileID: 931520138}
   - component: {fileID: 931520137}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: AudioManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2648,6 +2648,10 @@ Prefab:
     - target: {fileID: 4183835976271812, guid: 8a3f3888586b2be48908a02fcf8838fc, type: 2}
       propertyPath: m_RootOrder
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1652136820444144, guid: 8a3f3888586b2be48908a02fcf8838fc, type: 2}
+      propertyPath: m_Layer
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8a3f3888586b2be48908a02fcf8838fc, type: 2}
@@ -3409,7 +3413,7 @@ GameObject:
   - component: {fileID: 1683193256}
   - component: {fileID: 1683193255}
   - component: {fileID: 1683193254}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Camera
   m_TagString: MainCamera
   m_Icon: {fileID: 0}
@@ -3893,7 +3897,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2039150344}
   - component: {fileID: 2039150343}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Directional light
   m_TagString: Untagged
   m_Icon: {fileID: 0}

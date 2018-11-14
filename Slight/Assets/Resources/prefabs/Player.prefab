@@ -23,7 +23,7 @@ GameObject:
   - component: {fileID: 23716128789025868}
   - component: {fileID: 65946941410365476}
   - component: {fileID: 114629432287914726}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: SwordBox
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -45,7 +45,7 @@ GameObject:
   - component: {fileID: 114727686226496258}
   - component: {fileID: 114311347091750390}
   - component: {fileID: 136516715076463842}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -60,7 +60,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4651459382141650}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: BulletSpawn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -74,7 +74,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1354634214765130}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1533.2428, y: 259.92737, z: -464.55368}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4651459382141650}
@@ -89,8 +89,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1246586959253052}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.25, y: 0, z: 0}
-  m_LocalScale: {x: 2.5, y: 2.5, z: 2.25}
+  m_LocalPosition: {x: 0, y: 0, z: 1.25}
+  m_LocalScale: {x: 2.25, y: 2.5, z: 2.5}
   m_Children: []
   m_Father: {fileID: 4171148883196110}
   m_RootOrder: 1
@@ -303,7 +303,7 @@ MonoBehaviour:
   bulletSpeed: 150
   bulletTime: 0.8
   bulletRotation: {x: 0, y: 0, z: 0}
-  gunRange: 100
+  weaponRange: 100
   maxAmmoCount: 8
   ammoCount: 0
   ammoTextBox: {fileID: 0}
@@ -312,6 +312,7 @@ MonoBehaviour:
   swordImagePrefab: {fileID: 0}
   isSlashing: 0
   swordDuration: 0.4
+  explosionPrefab: {fileID: 0}
 --- !u!136 &136271472712301420
 CapsuleCollider:
   m_ObjectHideFlags: 1

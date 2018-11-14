@@ -64,7 +64,7 @@ public class PlayerController : MonoBehaviour {
     public bool isSlashing;
     public float swordDuration = 0.4f;
 
-    public GameObject spherePrefab;
+    public GameObject explosionPrefab;
 
     
 
@@ -94,7 +94,7 @@ public class PlayerController : MonoBehaviour {
         swordControllerScript = GameObject.Find("SwordBox").GetComponent<SwordController>();
         swordImagePrefab = Resources.Load("prefabs/SlashImage") as GameObject;
         isSlashing = false;
-        spherePrefab = Resources.Load("prefabs/Sphere") as GameObject;
+        explosionPrefab = Resources.Load("prefabs/Explosion") as GameObject;
     }
 	
 	// Update is called once per frame
@@ -166,14 +166,14 @@ public class PlayerController : MonoBehaviour {
             {
                 Destroy(hit.collider.gameObject);
             }
-            var sphere = (GameObject)Instantiate(
-                spherePrefab,
+            var explosion = (GameObject)Instantiate(
+                explosionPrefab,
                 hit.point,
                 Quaternion.Euler(0f, 0f, 0f));
         } else
         {
-            var sphere = (GameObject)Instantiate(
-                spherePrefab,
+            var explosion = (GameObject)Instantiate(
+                explosionPrefab,
                 Camera.main.transform.forward * weaponRange,
                 Quaternion.Euler(0f, 0f, 0f));
         }
