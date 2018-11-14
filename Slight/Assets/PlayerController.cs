@@ -52,7 +52,7 @@ public class PlayerController : MonoBehaviour {
     public float bulletSpeed = 150f;
     public float bulletTime = 0.8f;
     public Vector3 bulletRotation;
-    public float gunRange = 100f;
+    public float weaponRange = 100f;
 
     public float maxAmmoCount = 8f;
     public float ammoCount;
@@ -64,6 +64,7 @@ public class PlayerController : MonoBehaviour {
     public bool isSlashing;
     public float swordDuration = 0.4f;
 
+    public GameObject spherePrefab;
 
     
 
@@ -93,6 +94,7 @@ public class PlayerController : MonoBehaviour {
         swordControllerScript = GameObject.Find("SwordBox").GetComponent<SwordController>();
         swordImagePrefab = Resources.Load("prefabs/SlashImage") as GameObject;
         isSlashing = false;
+        spherePrefab = Resources.Load("prefabs/Sphere") as GameObject;
     }
 	
 	// Update is called once per frame
@@ -157,13 +159,23 @@ public class PlayerController : MonoBehaviour {
     {
         Vector3 rayOrigin = Camera.main.ViewportToWorldPoint(new Vector3(.5f, .5f, 0));
         RaycastHit hit;
-        if (Physics.Raycast(rayOrigin, Camera.main.transform.forward, out hit, gunRange))
+        if (Physics.Raycast(rayOrigin, Camera.main.transform.forward, out hit, weaponRange))
         {
             debugText.text = (hit.collider.gameObject.name);
             if (hit.collider.name == "Enemy(Clone)")
             {
                 Destroy(hit.collider.gameObject);
             }
+            var sphere = (GameObject)Instantiate(
+                spherePrefab,
+                hit.point,
+                Quaternion.Euler(0f, 0f, 0f));
+        } else
+        {
+            var sphere = (GameObject)Instantiate(
+                spherePrefab,
+                Camera.main.transform.forward * weaponRange,
+                Quaternion.Euler(0f, 0f, 0f));
         }
 
         // SLOW BULLETS VVVVVVVVVVVVVVVVVVVVVVVVVVVV
@@ -235,7 +247,6 @@ public class PlayerController : MonoBehaviour {
             // Limit velocity --------------------------- THIS CODE IS BROKEN --------------------------------------------------------------------------------
 
             localVelocity = transform.InverseTransformDirection(rb.velocity);
-            debugText.text = (Math.Abs((moveVertical * movespeed.z * midairModifier.z) + localVelocity.z) > Math.Abs(localVelocity.z)).ToString();
             if (Math.Abs(localVelocity.x) > movespeedLimit && Math.Abs((moveHorizontal * movespeed.x * midairModifier.x) + localVelocity.x) > Math.Abs(localVelocity.x) && Math.Sign((moveHorizontal * movespeed.x * midairModifier.x) + localVelocity.x) == Math.Sign(localVelocity.x))
             {
                 moveHorizontal = 0f;
