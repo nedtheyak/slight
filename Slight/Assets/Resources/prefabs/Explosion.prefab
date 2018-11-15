@@ -97,8 +97,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxScale: 5
-  timer: 0
-  ownCollider: {fileID: 0}
+  timer: 1e-20
+  timerMax: 1
 --- !u!135 &135512421735827688
 SphereCollider:
   m_ObjectHideFlags: 1
@@ -109,5 +109,5 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.00001
+  m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
