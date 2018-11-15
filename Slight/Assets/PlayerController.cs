@@ -244,7 +244,7 @@ public class PlayerController : MonoBehaviour {
             // moveVertical = -moveVertical;
 
 
-            // Limit velocity --------------------------- THIS CODE IS BROKEN --------------------------------------------------------------------------------
+            // Limit velocity --------------------------- THIS CODE IS SLIGHTLY BROKEN --------------------------------------------------------------------------------
 
             localVelocity = transform.InverseTransformDirection(rb.velocity);
             if (Math.Abs(localVelocity.x) > movespeedLimit && Math.Abs((moveHorizontal * movespeed.x * midairModifier.x) + localVelocity.x) > Math.Abs(localVelocity.x) && Math.Sign((moveHorizontal * movespeed.x * midairModifier.x) + localVelocity.x) == Math.Sign(localVelocity.x))

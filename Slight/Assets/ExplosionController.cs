@@ -4,13 +4,13 @@ using UnityEngine;
 
 public class ExplosionController : MonoBehaviour {
 
-    public float maxScale = 2f;
-    public float timer = 0f;
-    public SphereCollider ownCollider;
+    public float maxScale = 5f;
+    public float timer = 0.00000000000000000001f;
+    public float timerMax = 1f;
 
 	// Use this for initialization
 	void Start () {
-        ownCollider = this.gameObject.GetComponent<Collider>() as SphereCollider;
+        
     }
 
     private void OnTriggerEnter(Collider collider)
@@ -21,12 +21,23 @@ public class ExplosionController : MonoBehaviour {
         }
     }
 
-    // Update is called once per frame
+    // FixedUpdate is updated based on time, in sync with the physics engine
     void FixedUpdate () {
         transform.localScale = new Vector3(timer * maxScale, timer * maxScale, timer * maxScale);
-        (ownCollider).radius = timer * (maxScale / 2);            // Something about this seems off, the hitbox seems too big
-        timer += Time.deltaTime;
-        if (timer >= 1f)
+
+        if (timerMax == 1f)
+        {
+            timer += Time.deltaTime;
+            if (timer >= timerMax)
+            {
+                timerMax = 0f;
+            }
+        } else
+        {
+            timer -= Time.deltaTime * 1.5f;
+        }
+
+        if (timer <= 0f)
         {
             Destroy(this.gameObject);
         }
