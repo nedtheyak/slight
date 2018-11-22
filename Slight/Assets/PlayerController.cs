@@ -161,7 +161,7 @@ public class PlayerController : MonoBehaviour {
         RaycastHit hit;
         if (Physics.Raycast(rayOrigin, Camera.main.transform.forward, out hit, weaponRange))
         {
-            debugText.text = (hit.collider.gameObject.name);
+            // debugText.text = (hit.collider.gameObject.name);
             if (hit.collider.name == "Enemy(Clone)")
             {
                 Destroy(hit.collider.gameObject);
