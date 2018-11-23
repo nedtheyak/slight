@@ -535,7 +535,7 @@ GameObject:
   - component: {fileID: 78568637}
   - component: {fileID: 78568636}
   - component: {fileID: 78568635}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Cube (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -663,7 +663,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 81613707}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Invisible walls
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1405,7 +1405,7 @@ GameObject:
   - component: {fileID: 375439399}
   - component: {fileID: 375439398}
   - component: {fileID: 375439397}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Cube (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1532,7 +1532,7 @@ GameObject:
   - component: {fileID: 403269347}
   - component: {fileID: 403269346}
   - component: {fileID: 403269345}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Cube (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2952,7 +2952,7 @@ GameObject:
   - component: {fileID: 1316715907}
   - component: {fileID: 1316715906}
   - component: {fileID: 1316715905}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
