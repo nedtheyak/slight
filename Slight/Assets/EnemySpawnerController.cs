@@ -8,9 +8,10 @@ public class EnemySpawnerController : MonoBehaviour {
     public float timer;
     public GameObject enemyPrefab;
     public EnemySpawnerHandlerController handlerScript;
+    private System.Random rnd;
 
 	void Start () {
-        timer = Time.deltaTime;
+        timer = -rnd.Next(0, 5);
         enemyPrefab = Resources.Load("prefabs/Enemy") as GameObject;
         handlerScript = GameObject.Find("EnemySpawnerHandler").GetComponent<EnemySpawnerHandlerController>();
     }
