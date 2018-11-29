@@ -4,26 +4,29 @@ using System;
 using System.Collections.Generic;
 
 public class EnemySpawnerController : MonoBehaviour {
-
-    private List<GameObject> myEnemies = new List<GameObject> { };
+    
     public float timer;
     public GameObject enemyPrefab;
+    public EnemySpawnerHandlerController handlerScript;
 
 	void Start () {
         timer = Time.deltaTime;
         enemyPrefab = Resources.Load("prefabs/Enemy") as GameObject;
+        handlerScript = GameObject.Find("EnemySpawnerHandler").GetComponent<EnemySpawnerHandlerController>();
     }
 	
 	void FixedUpdate () {
-        timer += Time.deltaTime;
-        if (timer > 5f)
+        if (handlerScript.spawnMore)
         {
-            
-            myEnemies.Add((GameObject)Instantiate(
-                enemyPrefab,
-                this.gameObject.transform.position,
-                Quaternion.Euler(new Vector3(0f, 0f, 0f))));
-            timer = 0f;
+            timer += Time.deltaTime;
+            if (timer > 5f)
+            {
+                handlerScript.myEnemies.Add((GameObject)Instantiate(
+                    enemyPrefab,
+                    this.gameObject.transform.position,
+                    Quaternion.Euler(new Vector3(0f, 0f, 0f))));
+                timer = 0f;
+            }
         }
     }
 }

@@ -66,7 +66,9 @@ public class PlayerController : MonoBehaviour {
 
     public GameObject explosionPrefab;
 
-    
+    public EnemySpawnerHandlerController enemySpawnerHandlerScript;
+
+
 
     // Use this for initialization
     void Start () {
@@ -95,6 +97,7 @@ public class PlayerController : MonoBehaviour {
         swordImagePrefab = Resources.Load("prefabs/SlashImage") as GameObject;
         isSlashing = false;
         explosionPrefab = Resources.Load("prefabs/Explosion") as GameObject;
+        enemySpawnerHandlerScript = GameObject.Find("EnemySpawnerHandler").GetComponent<EnemySpawnerHandlerController>();
     }
 	
 	// Update is called once per frame
@@ -164,7 +167,7 @@ public class PlayerController : MonoBehaviour {
             // debugText.text = (hit.collider.gameObject.name);
             if (hit.collider.name == "Enemy(Clone)")
             {
-                Destroy(hit.collider.gameObject);
+                enemySpawnerHandlerScript.RemoveEnemy(hit.collider.gameObject);
             }
             var explosion = (GameObject)Instantiate(
                 explosionPrefab,
