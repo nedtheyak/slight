@@ -32,7 +32,6 @@ public class EnemySpawnerHandlerController : MonoBehaviour {
             {
                 spawnMore = true;
             }
-            Debug.Log(myEnemies.Count.ToString());
         }
         
 	}
