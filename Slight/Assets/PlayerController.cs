@@ -200,7 +200,7 @@ public class PlayerController : MonoBehaviour {
 
     private void OnTriggerEnter(Collider other)
     {
-        if (!other.isTrigger && other.gameObject.transform.parent.name != "Invisible walls")
+        if (!other.isTrigger && other.gameObject.name != "Invisible walls")
         {
             isGrounded = true;
         }
@@ -208,7 +208,7 @@ public class PlayerController : MonoBehaviour {
 
     private void OnTriggerExit(Collider other)
     {
-        if (!other.isTrigger && other.gameObject.transform.parent.name != "Invisible walls")
+        if (!other.isTrigger && other.gameObject.name != "Invisible walls")
         {
             isGrounded = false;
         }
