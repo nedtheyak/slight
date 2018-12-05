@@ -7,16 +7,20 @@ public class PointsHandlerController : MonoBehaviour {
 
     public int totalPoints;
     public Text pointCounterText;
-
+    public bool pointsEditable;
 
     public void AddPoints(int pointsToAdd) {
-        totalPoints += pointsToAdd;
-        pointCounterText.text = "Points: " + totalPoints.ToString();
+        if (pointsEditable)
+        {
+            totalPoints += pointsToAdd;
+            pointCounterText.text = "Points: " + totalPoints.ToString();
+        }
     }
 
 
 	// Use this for initialization
 	void Start () {
+        pointsEditable = true;
         totalPoints = 0;
         pointCounterText = GameObject.Find("PointCounter").GetComponent<Text>();
         pointCounterText.text = "Points: " + totalPoints.ToString();

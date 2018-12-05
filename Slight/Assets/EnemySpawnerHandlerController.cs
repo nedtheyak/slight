@@ -6,6 +6,7 @@ public class EnemySpawnerHandlerController : MonoBehaviour {
 
     public List<GameObject> myEnemies = new List<GameObject> { };
     public bool spawnMore = true;
+    public bool stopSpawning = false;
     public float oldCount;
     public PointsHandlerController pointsHandlerScript;
 
@@ -24,7 +25,7 @@ public class EnemySpawnerHandlerController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        if (myEnemies.Count != oldCount)
+        if (myEnemies.Count != oldCount && !stopSpawning)
         {
             oldCount = myEnemies.Count;
             if (oldCount >= 50f)
