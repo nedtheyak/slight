@@ -1,10 +1,16 @@
-﻿using UnityEngine;
+﻿/// This script handles enemy movement and physics control
+
+
+using UnityEngine;
 using UnityEngine.UI;
 using System;
 
+
+
+
 public class EnemyMovement : MonoBehaviour {
 
-    // Functions
+    // Custom vector3 manipulation functions
     public Vector3 MultiplyVector3(Vector3 firstVector, Vector3 secondVector)
     {
         return new Vector3(firstVector.x * secondVector.x, firstVector.y * secondVector.y, firstVector.z * secondVector.z);
@@ -29,7 +35,8 @@ public class EnemyMovement : MonoBehaviour {
     //PlayerHealth playerHealthScript;
     public PlayerSpawnerController playerSpawnerControllerScript;
 
-    // Use this for initialization
+
+    // Initialization
     void Start () {
         isGrounded = false;
         player = GameObject.Find("Player(Clone)");
@@ -40,6 +47,8 @@ public class EnemyMovement : MonoBehaviour {
         playerSpawnerControllerScript = GameObject.Find("PlayerSpawner").GetComponent<PlayerSpawnerController>();
     }
 
+
+    // Handles grounding for only moving when on the ground
     private void OnTriggerEnter(Collider other)
     {
         if (other.name != "Player(Clone)" && !other.isTrigger)
@@ -47,7 +56,6 @@ public class EnemyMovement : MonoBehaviour {
             isGrounded = true;
         }
     }
-
     private void OnTriggerExit(Collider other)
     {
         if (other.name != "Player(Clone)" && !other.isTrigger)
@@ -56,14 +64,21 @@ public class EnemyMovement : MonoBehaviour {
         }
     }
 
-    // Update is called once per frame
+
+    // Get player, look at player, move towards player
     void Update () {
+        // Check for new players
         if (playerSpawnerControllerScript.newPlayer)
         {
+            // Get new player object
             player = GameObject.Find("Player(Clone)");
             //playerHealthScript = player.GetComponent<PlayerHealth>();
         }
+
+        // Point towards player
         transform.LookAt(player.transform);
+
+        // Move enemy
         if (isGrounded/* && !playerHealthScript.isTouchingEnemy*/)
         {
             rb.velocity = AddVector3(MultiplyVector3(transform.forward, movespeed), new Vector3(0f, rb.velocity.y, 0f));
