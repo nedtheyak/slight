@@ -1,12 +1,14 @@
-﻿using System.Collections;
+﻿/// This script handles constant rotation of HealthPickup capsules
+
+
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class CapsuleRotation : MonoBehaviour {
 
-	
-	// Update is called once per frame
-	void Update () {
+    // Rotate capsule along the global y axis 180 degrees every second
+    void Update () {
         transform.Rotate(Vector3.up, 180 * Time.deltaTime);
 	}
 }
