@@ -1,11 +1,12 @@
-﻿using System.Collections;
+﻿// This script handles capturing and hiding the system mouse cursor
+// The code commented out in the switch statement is for CONFINING the cursor to the window; something only supported on the desktop clients
+
+
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 
-
-// This script captures and hides the system mouse cursor
-// Commented out code in the switch() is for CONFINING the cursor to the window; something only supported on the desktop clients
 
 
 
