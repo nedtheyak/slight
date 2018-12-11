@@ -1,4 +1,7 @@
-﻿using UnityEngine;
+﻿/// This script handles collisions of legacy bullets
+
+
+using UnityEngine;
 using UnityEngine.UI;
 using System;
 
@@ -8,6 +11,7 @@ public class BulletCollisions : MonoBehaviour {
 
     void Start()
     {
+        // Get the text box used for debugging and its Text component
         debugTextBox = GameObject.Find("DebugTextBox");
         debugText = debugTextBox.GetComponent("Text") as Text;
     }
@@ -16,14 +20,15 @@ public class BulletCollisions : MonoBehaviour {
     {
         if (!other.isTrigger && !(other.name == "Player(Clone)"))
         {
-            // Do stuff
+            // Set debug text to name of collider that was hit
             debugText.text = other.name;
             if (other.name == "Enemy(Clone)")
             {
+                // Destroy hit collider's associated gameObject
                 Destroy(other.gameObject);
             }
 
-            // Destroy self
+            // Destroy this associated bullet
             Destroy(this.gameObject);
         }
     }
