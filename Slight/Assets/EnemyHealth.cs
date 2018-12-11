@@ -1,4 +1,7 @@
-﻿using System.Collections;
+﻿/// This script handles enemy health and damage reactions
+
+
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
