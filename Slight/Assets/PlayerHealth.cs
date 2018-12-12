@@ -1,4 +1,7 @@
-﻿using UnityEngine;
+﻿/// This script handles the player's health and UI health bar
+
+
+using UnityEngine;
 using UnityEngine.UI;
 using System;
 
@@ -7,7 +10,7 @@ using System;
 public class PlayerHealth : MonoBehaviour
 {
 
-
+    // Custom vector3 manipulation functions
     public Vector3 MultiplyVector3(Vector3 firstVector, Vector3 secondVector)
     {
         return new Vector3(firstVector.x * secondVector.x, firstVector.y * secondVector.y, firstVector.z * secondVector.z);
@@ -21,11 +24,11 @@ public class PlayerHealth : MonoBehaviour
     public GameObject powerSliderObject;
     public GameObject HUDCanvas;
     public GameObject debugTextBox;
+    public Text debugText;
     public float playerHealth = 100f;
     public Slider healthSlider;
     public GameObject healthSliderObject;
     public float armorMultiplier = 2f;
-    public Text debugText;
     public bool isTouchingEnemy;
     public PlayerController playerControllerScript;
     public PlayerSpawnerController playerSpawnerControllerScript;
@@ -36,6 +39,7 @@ public class PlayerHealth : MonoBehaviour
 
     public void UpdateHealth(float newValue, bool addToOld)
     {
+        // Add or set the health
         if (addToOld)
         {
             playerHealth += newValue;
@@ -45,6 +49,7 @@ public class PlayerHealth : MonoBehaviour
             playerHealth = newValue;
         }
 
+        // Cap health at 100f, kill player at 0f
         if (playerHealth > 100f)
         {
             playerHealth = 100f;
@@ -62,13 +67,14 @@ public class PlayerHealth : MonoBehaviour
             FindObjectOfType<AudioManager>().Play("PlayerDeath");
         }
 
+        // Update UI slider
         healthSlider.value = playerHealth;
     }
 
-    // Use this for initialization
+    // Initialization
     void Start()
     {
-        Debug.Log("Game started.");
+        Debug.Log("Player Spawned.");
         player = GameObject.Find("Player(Clone)");
         groundTrigger = player.GetComponents<Collider>()[0];
         rb = GetComponent("Rigidbody") as Rigidbody;
@@ -84,14 +90,9 @@ public class PlayerHealth : MonoBehaviour
         UpdateHealth(100f, false);
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 
 
-    // Enemy collisions
+    // Reduce health on enemy collisions
 
     void OnCollisionStay(Collision collision)
     {
@@ -136,11 +137,5 @@ public class PlayerHealth : MonoBehaviour
     }
 
     */
-
-    // FixedUpdate is updated based on time, in sync with the physics engine
-    void FixedUpdate()
-    {
-
-    }
 }
 
