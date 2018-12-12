@@ -1,4 +1,7 @@
-﻿using UnityEngine;
+﻿/// This script handles the player controls and main interactions
+
+
+using UnityEngine;
 using UnityEngine.UI;
 using System;
 
@@ -6,7 +9,7 @@ using System;
 
 public class PlayerController : MonoBehaviour {
 
-
+    // Custom vector3 manipulation functions
     public Vector3 MultiplyVector3(Vector3 firstVector, Vector3 secondVector) {
         return new Vector3(firstVector.x * secondVector.x, firstVector.y * secondVector.y, firstVector.z * secondVector.z);
     }
@@ -17,13 +20,22 @@ public class PlayerController : MonoBehaviour {
     }
 
     // Variables
+    // Player components
+    public GameObject player;
     public Rigidbody rb;
+    public PhysicMaterial playerMat;
+    public Collider groundTrigger;
+
+    // Movement variables
     public Vector3 velMove;
     public float oldYVel;
     public float moveHorizontal;
     public float moveVertical;
     public Vector3 localVelocity;
     public Vector3 movementRotation;
+    public float jetpackMeter;
+
+    // Movement constants
     public Vector3 movespeed = new Vector3(20f, 0f, 20f);
     public float movespeedLimit = 60f;
     public Vector3 midairModifier = new Vector3(2f, 0f, 2f);
@@ -32,45 +44,47 @@ public class PlayerController : MonoBehaviour {
     public float playerStaticFriction = 0.2f;
     public float jetpackPower = 125f;
     public float jetpackMeterLimit = 50f;
-    public float jetpackMeter;
     public float jetpackRecoveryRate = 0.15f;
     public bool isGrounded;
     public bool isSkiing;
-    public GameObject player;
-    public PhysicMaterial playerMat;
-    public Collider groundTrigger;
+
+    // UI variables
     public Slider powerSlider;
     public GameObject powerSliderObject;
     public GameObject HUDCanvas;
-    public GameObject debugTextBox;
-    public float armorMultiplier = 2f;
     public Text debugText;
+    public GameObject debugTextBox;
+
+
+    public float armorMultiplier = 2f;
+    
     public bool isDead = false;
 
+    // Gun variables
     public GameObject bulletPrefab;
     public Transform bulletSpawn;
     public float bulletSpeed = 150f;
     public float bulletTime = 0.8f;
     public Vector3 bulletRotation;
     public float weaponRange = 100f;
-
     public float maxAmmoCount = 8f;
     public float ammoCount;
     public GameObject ammoTextBox;
     public Text ammoText;
+    public GameObject explosionPrefab;
 
+    // Sword variables
     public SwordController swordControllerScript;
     public GameObject swordImagePrefab;
     public bool isSlashing;
     public float swordDuration = 0.4f;
 
-    public GameObject explosionPrefab;
-
+    // Other variables
     public EnemySpawnerHandlerController enemySpawnerHandlerScript;
 
 
 
-    // Use this for initialization
+    // Initialization
     void Start () {
         Debug.Log("Player spawned.");
         isGrounded = false;
@@ -100,10 +114,12 @@ public class PlayerController : MonoBehaviour {
         enemySpawnerHandlerScript = GameObject.Find("EnemySpawnerHandler").GetComponent<EnemySpawnerHandlerController>();
     }
 	
-	// Update is called once per frame
+
 	void Update () {
+        // Rotate along global y axis to match camera rotation
         transform.eulerAngles = new Vector3(transform.eulerAngles.x, Camera.main.transform.rotation.eulerAngles.y, transform.eulerAngles.z);
 
+        // Firing main weapon
         if (Input.GetButtonDown("Fire1"))
         {
             if (ammoCount > 0f && swordControllerScript.attack <= 0f)
@@ -114,6 +130,7 @@ public class PlayerController : MonoBehaviour {
             }
         }
 
+        // Using sword
         if (Input.GetButton("Fire2"))
         {
             swordControllerScript.attack = swordDuration;
@@ -129,23 +146,31 @@ public class PlayerController : MonoBehaviour {
             isSlashing = true;
         }
 
+        // Toggle skiing
         if (Input.GetButtonDown("Modifier"))
         {
             if (isSkiing)
             {
+                // Set friction
                 player.GetComponent<Collider>().material.dynamicFriction = playerDynamicFriction;
                 player.GetComponent<Collider>().material.staticFriction = playerStaticFriction;
                 player.GetComponent<Collider>().material.frictionCombine = PhysicMaterialCombine.Average;
+
+                // Update tracking variable
                 isSkiing = false;
             } else
             {
+                // Set friction
                 player.GetComponent<Collider>().material.dynamicFriction = 0f;
                 player.GetComponent<Collider>().material.staticFriction = 0f;
                 player.GetComponent<Collider>().material.frictionCombine = PhysicMaterialCombine.Minimum;
+
+                // Update tracking variable
                 isSkiing = true;
             }
         }
 
+        // Reloading
         if (Input.GetButtonDown("Reload"))
         {
             ammoCount = maxAmmoCount;
@@ -153,35 +178,44 @@ public class PlayerController : MonoBehaviour {
         }
     }
 
+    // Function to update ammo display
     void UpdateAmmo()
     {
         ammoText.text = String.Format("{0} / {1}", ammoCount, maxAmmoCount);
     }
 
+    // Function to do the firing of the main weapon
     void FireMain()
     {
+        // Set origin for raycast
         Vector3 rayOrigin = Camera.main.ViewportToWorldPoint(new Vector3(.5f, .5f, 0));
+
+        // Do the raycast
         RaycastHit hit;
         if (Physics.Raycast(rayOrigin, Camera.main.transform.forward, out hit, weaponRange))
         {
             // debugText.text = (hit.collider.gameObject.name);
             if (hit.collider.name == "Enemy(Clone)")
             {
+                // Kill enemy that was hit
                 enemySpawnerHandlerScript.RemoveEnemy(hit.collider.gameObject);
             }
+
+            // Create explosion at hit
             var explosion = (GameObject)Instantiate(
                 explosionPrefab,
                 hit.point,
                 Quaternion.Euler(0f, 0f, 0f));
         } else
         {
+            // Create explosion at max range ---------------- NOT WORKING ----------------
             var explosion = (GameObject)Instantiate(
                 explosionPrefab,
                 Camera.main.transform.forward * weaponRange,
                 Quaternion.Euler(0f, 0f, 0f));
         }
 
-        // SLOW BULLETS VVVVVVVVVVVVVVVVVVVVVVVVVVVV
+        // SLOW BULLETS, PROJECTILES VVVVVVVVVVVVVVVVVVVVVVVVVVVV
         /*
         // Create the Bullet from the Bullet Prefab
         bulletRotation = new Vector3(Camera.main.transform.rotation.eulerAngles.x, bulletSpawn.rotation.eulerAngles.y, bulletSpawn.rotation.eulerAngles.z);
@@ -197,7 +231,8 @@ public class PlayerController : MonoBehaviour {
         Destroy(bullet, bulletTime);
         */
     }
-
+    
+    // Collisions and grounding
     private void OnTriggerEnter(Collider other)
     {
         if (!other.isTrigger && other.gameObject.name != "Invisible walls")
@@ -214,6 +249,7 @@ public class PlayerController : MonoBehaviour {
         }
     }
 
+
     // FixedUpdate is updated based on time, in sync with the physics engine
     void FixedUpdate() {
         // MOVING THE PLAYER
@@ -222,6 +258,7 @@ public class PlayerController : MonoBehaviour {
 
         if (isGrounded && !isSkiing)
         {
+            // Ground movement (using trig functions with weird mods to make it relative to the player's rotation)
             // rb.AddForce(MultiplyVector3(Camera.main.transform.TransformDirection(new Vector3(moveHorizontal, 0f, moveVertical).normalized).normalized, movespeed));
             // rb.AddRelativeForce(MultiplyVector3(MultiplyVector3(new Vector3(moveHorizontal, 0f, moveVertical).normalized, movespeed), groundedModifier));
 
@@ -230,7 +267,7 @@ public class PlayerController : MonoBehaviour {
             // velMoveVertical = -MultiplyVector3(MultiplyVector3(MultiplyVector3(new Vector3(moveVertical, 0f, moveVertical), movespeed), groundedModifier), new Vector3((float)Math.Sin(player.transform.rotation.eulerAngles.y * (Math.PI / 180)), 0f, (float)Math.Cos(player.transform.rotation.eulerAngles.y * (Math.PI / 180))));
 
 
-            // Ground movement (using trig functions with weird mods to make it relative to the player's rotation)
+            // Ground movement
             velMove = transform.TransformDirection(MultiplyVector3(MultiplyVector3(new Vector3(moveHorizontal, 0f, moveVertical), movespeed), groundedModifier));
             oldYVel = rb.velocity.y;
             if (oldYVel > 0)
@@ -275,7 +312,7 @@ public class PlayerController : MonoBehaviour {
             rb.AddRelativeForce(MultiplyVector3(MultiplyVector3(new Vector3((moveHorizontal / Time.deltaTime) * rb.mass, 0f, (moveVertical / Time.deltaTime) * rb.mass).normalized, movespeed), midairModifier));
         }
         
-
+        // Jumping and jetpack
         if (Input.GetKey(KeyCode.Space) || Input.GetKey(KeyCode.Joystick1Button1))
         {
             if (isGrounded)
