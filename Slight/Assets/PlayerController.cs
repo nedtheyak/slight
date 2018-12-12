@@ -23,8 +23,6 @@ public class PlayerController : MonoBehaviour {
     // Player components
     public GameObject player;
     public Rigidbody rb;
-    public PhysicMaterial playerMat;
-    public Collider groundTrigger;
 
     // Movement variables
     public Vector3 velMove;
@@ -32,8 +30,6 @@ public class PlayerController : MonoBehaviour {
     public float moveHorizontal;
     public float moveVertical;
     public Vector3 localVelocity;
-    public Vector3 movementRotation;
-    public float jetpackMeter;
 
     // Movement constants
     public Vector3 movespeed = new Vector3(20f, 0f, 20f);
@@ -43,6 +39,7 @@ public class PlayerController : MonoBehaviour {
     public float playerDynamicFriction = 0.6f;
     public float playerStaticFriction = 0.2f;
     public float jetpackPower = 125f;
+    public float jetpackMeter;
     public float jetpackMeterLimit = 50f;
     public float jetpackRecoveryRate = 0.15f;
     public bool isGrounded;
@@ -55,23 +52,20 @@ public class PlayerController : MonoBehaviour {
     public Text debugText;
     public GameObject debugTextBox;
 
-
-    public float armorMultiplier = 2f;
-    
-    public bool isDead = false;
-
     // Gun variables
-    public GameObject bulletPrefab;
-    public Transform bulletSpawn;
-    public float bulletSpeed = 150f;
-    public float bulletTime = 0.8f;
-    public Vector3 bulletRotation;
     public float weaponRange = 100f;
     public float maxAmmoCount = 8f;
     public float ammoCount;
     public GameObject ammoTextBox;
     public Text ammoText;
     public GameObject explosionPrefab;
+
+    // Old bullet variables (projectiles)
+    public GameObject bulletPrefab;
+    public Transform bulletSpawn;
+    public float bulletSpeed = 150f;
+    public float bulletTime = 0.8f;
+    public Vector3 bulletRotation;
 
     // Sword variables
     public SwordController swordControllerScript;
@@ -83,7 +77,6 @@ public class PlayerController : MonoBehaviour {
     public EnemySpawnerHandlerController enemySpawnerHandlerScript;
 
 
-
     // Initialization
     void Start () {
         Debug.Log("Player spawned.");
@@ -91,10 +84,8 @@ public class PlayerController : MonoBehaviour {
         isSkiing = false;
         jetpackMeter = jetpackMeterLimit;
         player = GameObject.Find("Player(Clone)");
-        playerMat = player.GetComponent<Collider>().material;
         player.GetComponent<Collider>().material.dynamicFriction = playerDynamicFriction;
         player.GetComponent<Collider>().material.staticFriction = playerStaticFriction;
-        groundTrigger = player.GetComponents<Collider>()[0];
         rb = GetComponent("Rigidbody") as Rigidbody;
         HUDCanvas = GameObject.Find("HUDCanvas");
         powerSliderObject = GameObject.Find("PowerSlider");
@@ -258,15 +249,6 @@ public class PlayerController : MonoBehaviour {
 
         if (isGrounded && !isSkiing)
         {
-            // Ground movement (using trig functions with weird mods to make it relative to the player's rotation)
-            // rb.AddForce(MultiplyVector3(Camera.main.transform.TransformDirection(new Vector3(moveHorizontal, 0f, moveVertical).normalized).normalized, movespeed));
-            // rb.AddRelativeForce(MultiplyVector3(MultiplyVector3(new Vector3(moveHorizontal, 0f, moveVertical).normalized, movespeed), groundedModifier));
-
-
-            // velMoveHorizontal = -MultiplyVector3(MultiplyVector3(MultiplyVector3(new Vector3(moveHorizontal, 0f, moveHorizontal), movespeed), groundedModifier), new Vector3((float)Math.Cos(player.transform.rotation.eulerAngles.y * (Math.PI / 180)), 0f, -(float)Math.Sin(player.transform.rotation.eulerAngles.y * (Math.PI / 180))));
-            // velMoveVertical = -MultiplyVector3(MultiplyVector3(MultiplyVector3(new Vector3(moveVertical, 0f, moveVertical), movespeed), groundedModifier), new Vector3((float)Math.Sin(player.transform.rotation.eulerAngles.y * (Math.PI / 180)), 0f, (float)Math.Cos(player.transform.rotation.eulerAngles.y * (Math.PI / 180))));
-
-
             // Ground movement
             velMove = transform.TransformDirection(MultiplyVector3(MultiplyVector3(new Vector3(moveHorizontal, 0f, moveVertical), movespeed), groundedModifier));
             oldYVel = rb.velocity.y;
@@ -275,15 +257,9 @@ public class PlayerController : MonoBehaviour {
                 oldYVel = 0;
             }
             rb.velocity = new Vector3(velMove.x, oldYVel, velMove.z);
-            // debugText.text = (new Vector3((float)Math.Cos(player.transform.rotation.eulerAngles.y * (Math.PI / 180)), 0f, (float)Math.Sin(player.transform.rotation.eulerAngles.y * (Math.PI / 180)))).ToString();
         }
         else
         {
-            // rb.AddForce(MultiplyVector3(MultiplyVector3(Camera.main.transform.TransformDirection(new Vector3(moveHorizontal, 0f, moveVertical).normalized).normalized, movespeed), midairModifier));
-            // moveHorizontal = -moveHorizontal;
-            // moveVertical = -moveVertical;
-
-
             // Limit velocity --------------------------- THIS CODE IS SLIGHTLY BROKEN --------------------------------------------------------------------------------
 
             localVelocity = transform.InverseTransformDirection(rb.velocity);
