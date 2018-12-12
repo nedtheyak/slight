@@ -1,5 +1,10 @@
-﻿using UnityEngine.Audio;
+﻿/// This script is used in the AudioManager sound engine
+
+
+using UnityEngine.Audio;
 using UnityEngine;
+
+
 
 [System.Serializable]
 public class Sound {
