@@ -20,6 +20,9 @@ public class ExplosionController : MonoBehaviour {
     // Maximum time
     public float timerMax = 1f;
 
+    // Explosion launch power
+    public float explosionPower = 50f;
+
 
     private void OnTriggerEnter(Collider collider)
     {
@@ -27,6 +30,13 @@ public class ExplosionController : MonoBehaviour {
         {
             // Damage enemy
             collider.gameObject.GetComponent<EnemyHealth>().DamageEnemy();
+
+            // Launch enemy
+            collider.gameObject.transform.LookAt(this.gameObject.transform);
+            collider.gameObject.GetComponent<Rigidbody>().velocity = collider.gameObject.transform.forward * -explosionPower;
+
+            // Start reducing explosion size
+            timerMax = 0f;
         }
     }
 
