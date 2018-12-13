@@ -25,8 +25,8 @@ public class ExplosionController : MonoBehaviour {
     {
         if (collider.name == "Enemy(Clone)")
         {
-            // Destroy enemies on contact
-            Destroy(collider.gameObject);
+            // Damage enemy
+            collider.gameObject.GetComponent<EnemyHealth>().DamageEnemy();
         }
     }
 
