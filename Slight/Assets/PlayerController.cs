@@ -186,11 +186,13 @@ public class PlayerController : MonoBehaviour {
         if (Physics.Raycast(rayOrigin, Camera.main.transform.forward, out hit, weaponRange))
         {
             // debugText.text = (hit.collider.gameObject.name);
+            /*
             if (hit.collider.name == "Enemy(Clone)")
             {
                 // Kill enemy that was hit
                 enemySpawnerHandlerScript.RemoveEnemy(hit.collider.gameObject);
             }
+            */
 
             // Create explosion at hit
             var explosion = (GameObject)Instantiate(
