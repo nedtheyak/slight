@@ -40,7 +40,7 @@ public class EnemyHealth : MonoBehaviour {
 
 	// Initialization
 	void Start () {
-        damagedMat = Resources.Load<Material>("Resources/materials/Enemy_50.mat");
+        damagedMat = Resources.Load<Material>("materials/Enemy_50");
         enemySpawnerHandlerScript = GameObject.Find("EnemySpawnerHandler").GetComponent<EnemySpawnerHandlerController>();
     }
 
