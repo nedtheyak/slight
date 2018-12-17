@@ -115,14 +115,20 @@ public class PlayerController : MonoBehaviour {
         // Firing main weapon
         if (Input.GetButtonDown("Fire1"))
         {
-            if (ammoCount > 0f && swordControllerScript.attack <= 0f)
+            if (swordControllerScript.attack <= 0f)
             {
-                FireMain();
-                ammoCount -= 1f;
-                UpdateAmmo();
-                if (ammoCount <= 0f)
+                if (ammoCount > 0f)
                 {
-                    ammoText.color = new Color(1, 0, 0, 1);
+                    FireMain();
+                    ammoCount -= 1f;
+                    UpdateAmmo();
+                    if (ammoCount <= 0f)
+                    {
+                        ammoText.color = new Color(1, 0, 0, 1);
+                    }
+                } else
+                {
+                    audioManager.Play("Dryfire");
                 }
             }
         }
