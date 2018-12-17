@@ -75,6 +75,7 @@ public class PlayerController : MonoBehaviour {
 
     // Other variables
     public EnemySpawnerHandlerController enemySpawnerHandlerScript;
+    public AudioManager audioManager;
 
 
     // Initialization
@@ -103,6 +104,7 @@ public class PlayerController : MonoBehaviour {
         isSlashing = false;
         explosionPrefab = Resources.Load("prefabs/Explosion") as GameObject;
         enemySpawnerHandlerScript = GameObject.Find("EnemySpawnerHandler").GetComponent<EnemySpawnerHandlerController>();
+        audioManager = GameObject.Find("AudioManager").GetComponent<AudioManager>();
     }
 	
 
@@ -207,6 +209,9 @@ public class PlayerController : MonoBehaviour {
                 Camera.main.transform.forward * weaponRange,
                 Quaternion.Euler(0f, 0f, 0f));
         }
+
+        // Play "Fire" sound effect
+        audioManager.Play("Fire");
 
         // SLOW BULLETS, PROJECTILES VVVVVVVVVVVVVVVVVVVVVVVVVVVV
         /*
