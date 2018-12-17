@@ -120,6 +120,10 @@ public class PlayerController : MonoBehaviour {
                 FireMain();
                 ammoCount -= 1f;
                 UpdateAmmo();
+                if (ammoCount <= 0f)
+                {
+                    ammoText.color = new Color(1, 0, 0, 1);
+                }
             }
         }
 
@@ -168,6 +172,7 @@ public class PlayerController : MonoBehaviour {
         {
             ammoCount = maxAmmoCount;
             UpdateAmmo();
+            ammoText.color = new Color(0, 0, 0, 1);
         }
     }
 
