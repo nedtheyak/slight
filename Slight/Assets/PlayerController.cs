@@ -171,6 +171,9 @@ public class PlayerController : MonoBehaviour {
 
                 // Update tracking variable
                 isSkiing = true;
+
+                // Play sound effect
+                audioManager.Play("Ski");
             }
         }
 
