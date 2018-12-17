@@ -179,6 +179,7 @@ public class PlayerController : MonoBehaviour {
             ammoCount = maxAmmoCount;
             UpdateAmmo();
             ammoText.color = new Color(0, 0, 0, 1);
+            audioManager.Play("Reload");
         }
     }
 
