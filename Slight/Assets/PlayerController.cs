@@ -162,6 +162,9 @@ public class PlayerController : MonoBehaviour {
 
                 // Update tracking variable
                 isSkiing = false;
+
+                // Play sound effect
+                audioManager.Play("Land");
             } else
             {
                 // Set friction
