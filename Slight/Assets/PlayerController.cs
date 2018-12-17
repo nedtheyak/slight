@@ -128,6 +128,7 @@ public class PlayerController : MonoBehaviour {
                     }
                 } else
                 {
+                    // Play dryfire sound effect
                     audioManager.Play("Dryfire");
                 }
             }
@@ -179,6 +180,8 @@ public class PlayerController : MonoBehaviour {
             ammoCount = maxAmmoCount;
             UpdateAmmo();
             ammoText.color = new Color(0, 0, 0, 1);
+
+            // Play sound effect
             audioManager.Play("Reload");
         }
     }
@@ -222,7 +225,7 @@ public class PlayerController : MonoBehaviour {
                 Quaternion.Euler(0f, 0f, 0f));
         }
 
-        // Play "Fire" sound effect
+        // Play sound effect
         audioManager.Play("Fire");
 
         // SLOW BULLETS, PROJECTILES VVVVVVVVVVVVVVVVVVVVVVVVVVVV
