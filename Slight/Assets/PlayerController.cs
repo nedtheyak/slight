@@ -76,6 +76,8 @@ public class PlayerController : MonoBehaviour {
     // Other variables
     public EnemySpawnerHandlerController enemySpawnerHandlerScript;
     public AudioManager audioManager;
+    public bool jetpacking;
+    public bool jSoundPlaying;
 
 
     // Initialization
@@ -105,6 +107,8 @@ public class PlayerController : MonoBehaviour {
         explosionPrefab = Resources.Load("prefabs/Explosion") as GameObject;
         enemySpawnerHandlerScript = GameObject.Find("EnemySpawnerHandler").GetComponent<EnemySpawnerHandlerController>();
         audioManager = GameObject.Find("AudioManager").GetComponent<AudioManager>();
+        jetpacking = false;
+        jSoundPlaying = false;
     }
 	
 
@@ -329,12 +333,18 @@ public class PlayerController : MonoBehaviour {
             }
             else if (jetpackMeter > 0)
             {
+                // Add the force
                 rb.AddForce(new Vector3(0f, jetpackPower, 0f));
+
+                jetpacking = true;
+
+                // Reduce the power meter
                 jetpackMeter -= 1f;
                 powerSlider.value = 100f * (jetpackMeter / jetpackMeterLimit);
                 if (jetpackMeter < 0)
                 {
                     jetpackMeter = 0;
+                    jetpacking = false;
                 }
             }
         } else if (jetpackMeter < jetpackMeterLimit)
@@ -347,6 +357,23 @@ public class PlayerController : MonoBehaviour {
                 jetpackMeter += jetpackRecoveryRate;
             }
             powerSlider.value = 100f * (jetpackMeter / jetpackMeterLimit);
+        }
+
+        if (Input.GetKeyUp(KeyCode.Space) || Input.GetKeyUp(KeyCode.Joystick1Button1))
+        {
+            jetpacking = false;
+        }
+
+        if (jetpacking && !jSoundPlaying)
+        {
+            // Play jetpack sound effect
+            audioManager.Play("Jetpack");
+            jSoundPlaying = true;
+        } else if (!jetpacking && jSoundPlaying)
+        {
+            // Stop jetpack sound effect
+            audioManager.Stop("Jetpack");
+            jSoundPlaying = false;
         }
     }
 }
