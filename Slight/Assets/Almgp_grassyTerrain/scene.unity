@@ -2554,6 +2554,12 @@ MonoBehaviour:
     pitch: 1
     loop: 0
     source: {fileID: 0}
+  - name: Jetpack
+    clip: {fileID: 8300000, guid: 0dae2487cd6d02c4594a0ddd34ba1f9e, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 1
+    source: {fileID: 0}
   - name: Jump
     clip: {fileID: 8300000, guid: 0946d776eb341c24db602ae71dd0d6ff, type: 3}
     volume: 1
@@ -3244,6 +3250,7 @@ MonoBehaviour:
   pointCounterText: {fileID: 0}
   pointsHandlerScript: {fileID: 0}
   enemySpawnerHandlerScript: {fileID: 0}
+  audioManager: {fileID: 0}
 --- !u!4 &1360034082
 Transform:
   m_ObjectHideFlags: 0
