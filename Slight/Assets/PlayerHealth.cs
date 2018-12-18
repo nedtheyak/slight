@@ -32,6 +32,7 @@ public class PlayerHealth : MonoBehaviour
     public bool isTouchingEnemy;
     public PlayerController playerControllerScript;
     public PlayerSpawnerController playerSpawnerControllerScript;
+    public AudioManager audioManager;
 
 
     // CharacterController controller;
@@ -61,10 +62,9 @@ public class PlayerHealth : MonoBehaviour
             {
                 Destroy(GameObject.Find("SlashImage(Clone)"));
             }
-            Destroy(GameObject.Find("Player(Clone)"));
+            audioManager.Play("PlayerDeath");
             playerSpawnerControllerScript.spawn = true;
-            
-            FindObjectOfType<AudioManager>().Play("PlayerDeath");
+            Destroy(GameObject.Find("Player(Clone)"));
         }
 
         // Update UI slider
@@ -88,6 +88,7 @@ public class PlayerHealth : MonoBehaviour
         playerControllerScript = player.GetComponent<PlayerController>();
         playerSpawnerControllerScript = GameObject.Find("PlayerSpawner").GetComponent<PlayerSpawnerController>();
         UpdateHealth(100f, false);
+        audioManager = GameObject.Find("AudioManager").GetComponent<AudioManager>();
     }
 
 
