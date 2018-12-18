@@ -35,4 +35,14 @@ public class AudioManager : MonoBehaviour {
         // Play it
         s.source.Play();
 	}
+
+    // When run, the Stop function will find the given sound and stop it
+    public void Stop(string name)
+    {
+        // Find the sound
+        Sound s = Array.Find(sounds, sound => sound.name == name);
+
+        // Play it
+        s.source.Stop();
+    }
 }
