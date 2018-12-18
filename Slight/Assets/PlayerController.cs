@@ -321,7 +321,11 @@ public class PlayerController : MonoBehaviour {
         {
             if (isGrounded)
             {
+                // Set vertical velocity
                 rb.velocity = new Vector3(rb.velocity.x, 12.0f, rb.velocity.z);
+
+                // Play jump sound effect
+                audioManager.Play("Jump");
             }
             else if (jetpackMeter > 0)
             {
