@@ -26,6 +26,9 @@ public class GameTimerController : MonoBehaviour {
     // EnemySpawnerHandler script, so spawning can be stopped when the timer is done
     public EnemySpawnerHandlerController enemySpawnerHandlerScript;
 
+    // Other variables
+    public AudioManager audioManager;
+
     // Initialization
     void Start () {
         timer = 100f;
@@ -34,6 +37,7 @@ public class GameTimerController : MonoBehaviour {
         pointCounterText = GameObject.Find("PointCounter").GetComponent<Text>();
         pointsHandlerScript = pointHandler.GetComponent<PointsHandlerController>();
         enemySpawnerHandlerScript = GameObject.Find("EnemySpawnerHandler").GetComponent<EnemySpawnerHandlerController>();
+        audioManager = GameObject.Find("AudioManager").GetComponent<AudioManager>();
     }
 	
 	// Constantly reduce timer until it is done, then stop spawning and display points
@@ -66,6 +70,60 @@ public class GameTimerController : MonoBehaviour {
 
             // Enlarge PointCounter text
             pointCounterText.fontSize = 45;
+
+            // Play sound effects
+            int tempPoints = pointsHandlerScript.totalPoints;
+            if (tempPoints > 10)
+            {
+                if (tempPoints < 20)
+                {
+                    tempPoints = 10;
+                }
+                else
+                {
+                    tempPoints = 20;
+                }
+            }
+
+            switch (tempPoints)
+            {
+                case 1:
+                    audioManager.Play("FirstBlood");
+                    break;
+                case 2:
+                    audioManager.Play("DoubleKill");
+                    break;
+                case 3:
+                    audioManager.Play("TripleKill");
+                    break;
+                case 4:
+                    audioManager.Play("UltraKill");
+                    break;
+                case 5:
+                    audioManager.Play("Rampage");
+                    break;
+                case 6:
+                    audioManager.Play("Unstoppable");
+                    break;
+                case 7:
+                    audioManager.Play("WickedSick");
+                    break;
+                case 8:
+                    audioManager.Play("MonsterKill");
+                    break;
+                case 9:
+                    audioManager.Play("Godlike");
+                    break;
+                case 10:
+                    audioManager.Play("Ownage");
+                    break;
+                case 20:
+                    audioManager.Play("BeyondGodlike");
+                    break;
+                default:
+                    audioManager.Play("TimeExpired");
+                    break;
+            }
         }
 	}
 }
