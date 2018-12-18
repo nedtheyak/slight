@@ -339,11 +339,11 @@ public class PlayerController : MonoBehaviour {
                 jetpacking = true;
 
                 // Reduce the power meter
-                jetpackMeter -= 1f;
+                jetpackMeter -= 0.75f;
                 powerSlider.value = 100f * (jetpackMeter / jetpackMeterLimit);
-                if (jetpackMeter < 0)
+                if (jetpackMeter <= 0f)
                 {
-                    jetpackMeter = 0;
+                    jetpackMeter = 0f;
                     jetpacking = false;
                 }
             }
