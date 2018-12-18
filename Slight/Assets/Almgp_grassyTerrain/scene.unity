@@ -2522,36 +2522,43 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: 50211de83d67e3940b916385ab6d5521, type: 3}
     volume: 1
     pitch: 1
+    loop: 0
     source: {fileID: 0}
   - name: Fire
     clip: {fileID: 8300000, guid: ab138a65e4dada14a95347d913c410de, type: 3}
     volume: 1
     pitch: 1
+    loop: 0
     source: {fileID: 0}
   - name: Dryfire
     clip: {fileID: 8300000, guid: 39b2587963f2c0743b1d38aa149f3a0e, type: 3}
     volume: 1
     pitch: 1
+    loop: 0
     source: {fileID: 0}
   - name: Reload
     clip: {fileID: 8300000, guid: 76830890c743ed448abd1da8a4a63d88, type: 3}
     volume: 1
     pitch: 1
+    loop: 0
     source: {fileID: 0}
   - name: Ski
     clip: {fileID: 8300000, guid: 6b75cacd7038d744c826adb5ad5368c0, type: 3}
     volume: 0.5
     pitch: 1
+    loop: 0
     source: {fileID: 0}
   - name: Land
     clip: {fileID: 8300000, guid: 731a5827fdd7c7143a590b709bd05f6c, type: 3}
     volume: 1
     pitch: 1
+    loop: 0
     source: {fileID: 0}
   - name: Jump
     clip: {fileID: 8300000, guid: 0946d776eb341c24db602ae71dd0d6ff, type: 3}
     volume: 1
     pitch: 1
+    loop: 0
     source: {fileID: 0}
 --- !u!4 &931520138
 Transform:

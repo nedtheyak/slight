@@ -23,6 +23,7 @@ public class AudioManager : MonoBehaviour {
             // Set the parameters of the new component to those associated with the sound
             s.source.volume = s.volume;
             s.source.pitch = s.pitch;
+            s.source.loop = s.loop;
         }
 	}
 	
