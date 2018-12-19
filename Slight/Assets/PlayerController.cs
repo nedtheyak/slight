@@ -4,6 +4,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using System;
+using UnityEngine.SceneManagement;
 
 
 
@@ -193,6 +194,13 @@ public class PlayerController : MonoBehaviour {
 
             // Play sound effect
             audioManager.Play("Reload");
+        }
+
+        // Resetting Game
+        if (Input.GetButtonUp("Reset"))
+        {
+            // Reload scene
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
     }
 
