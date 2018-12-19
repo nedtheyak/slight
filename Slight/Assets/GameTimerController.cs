@@ -28,6 +28,7 @@ public class GameTimerController : MonoBehaviour {
 
     // Other variables
     public AudioManager audioManager;
+    public bool ended;
 
     // Initialization
     void Start () {
@@ -38,6 +39,7 @@ public class GameTimerController : MonoBehaviour {
         pointsHandlerScript = pointHandler.GetComponent<PointsHandlerController>();
         enemySpawnerHandlerScript = GameObject.Find("EnemySpawnerHandler").GetComponent<EnemySpawnerHandlerController>();
         audioManager = GameObject.Find("AudioManager").GetComponent<AudioManager>();
+        ended = false;
     }
 	
 	// Constantly reduce timer until it is done, then stop spawning and display points
@@ -50,7 +52,7 @@ public class GameTimerController : MonoBehaviour {
             // Update timer display
             timerCounter.text = ((int)timer).ToString();
         }
-        else
+        else if (!ended)
         {
             // Disallow editing points
             pointsHandlerScript.pointsEditable = false;
@@ -73,11 +75,11 @@ public class GameTimerController : MonoBehaviour {
 
             // Play sound effects
             int tempPoints = pointsHandlerScript.totalPoints;
-            if (tempPoints > 10)
+            if (tempPoints > 13)
             {
                 if (tempPoints < 20)
                 {
-                    tempPoints = 10;
+                    tempPoints = 13;
                 }
                 else
                 {
@@ -97,24 +99,33 @@ public class GameTimerController : MonoBehaviour {
                     audioManager.Play("TripleKill");
                     break;
                 case 4:
-                    audioManager.Play("UltraKill");
+                    audioManager.Play("KillingSpree");
                     break;
                 case 5:
-                    audioManager.Play("Rampage");
+                    audioManager.Play("Dominating");
                     break;
                 case 6:
-                    audioManager.Play("Unstoppable");
+                    audioManager.Play("MegaKill");
                     break;
                 case 7:
-                    audioManager.Play("WickedSick");
+                    audioManager.Play("UltraKill");
                     break;
                 case 8:
-                    audioManager.Play("MonsterKill");
+                    audioManager.Play("Rampage");
                     break;
                 case 9:
-                    audioManager.Play("Godlike");
+                    audioManager.Play("Unstoppable");
                     break;
                 case 10:
+                    audioManager.Play("WickedSick");
+                    break;
+                case 11:
+                    audioManager.Play("MonsterKill");
+                    break;
+                case 12:
+                    audioManager.Play("Godlike");
+                    break;
+                case 13:
                     audioManager.Play("Ownage");
                     break;
                 case 20:
@@ -124,6 +135,8 @@ public class GameTimerController : MonoBehaviour {
                     audioManager.Play("TimeExpired");
                     break;
             }
+
+            ended = true;
         }
 	}
 }

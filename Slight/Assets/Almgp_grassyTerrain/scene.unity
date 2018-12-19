@@ -2566,6 +2566,96 @@ MonoBehaviour:
     pitch: 1
     loop: 0
     source: {fileID: 0}
+  - name: FirstBlood
+    clip: {fileID: 8300000, guid: accbdf8636988874e9ef1afae50a726f, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: DoubleKill
+    clip: {fileID: 8300000, guid: 7c836ce4825a9e043ba87ae7b6489623, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: TripleKill
+    clip: {fileID: 8300000, guid: 896d983d810279f4d938d182ec5c25e6, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: KillingSpree
+    clip: {fileID: 8300000, guid: a415467396b17104f8c16baaf042f234, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: Dominating
+    clip: {fileID: 8300000, guid: b489b3aa7fa4fea4cb6942af91cdc567, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: MegaKill
+    clip: {fileID: 8300000, guid: 5915c88a1ba03c149b59f4e2c5ecdab7, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: UltraKill
+    clip: {fileID: 8300000, guid: 9eb5d014a090f5544ba9659d8e4b02ba, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: Rampage
+    clip: {fileID: 8300000, guid: e912704acc2f07e4590fea7a6bf4a1c5, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: Unstoppable
+    clip: {fileID: 8300000, guid: 0dddc39f8ff7e3947a973150f7c7b1fd, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: WickedSick
+    clip: {fileID: 8300000, guid: 4b4de452b725d8547abd8caa5fed26da, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: MonsterKill
+    clip: {fileID: 8300000, guid: 824ecb401b9035a468be9bad71fbac1a, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: Godlike
+    clip: {fileID: 8300000, guid: 64e5efd0945beab459277bd93323c659, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: Ownage
+    clip: {fileID: 8300000, guid: 70599367327231a43ad5f9029bbc9944, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: BeyondGodlike
+    clip: {fileID: 8300000, guid: 390e24a7e2fd51742b18005993cc821a, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: TimeExpired
+    clip: {fileID: 8300000, guid: 3acfce4a5d85d9c479b9ba7a8d5c366e, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
 --- !u!4 &931520138
 Transform:
   m_ObjectHideFlags: 0
