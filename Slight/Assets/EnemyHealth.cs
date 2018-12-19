@@ -28,7 +28,7 @@ public class EnemyHealth : MonoBehaviour {
                 enemyHealth = 1f;
 
                 // Give invincibility time
-                damageCooldown = 0.5f;
+                damageCooldown = 0.05f;
             }
             else
             {
