@@ -34,7 +34,17 @@ public class AudioManager : MonoBehaviour {
 
         // Play it
         s.source.Play();
-	}
+    }
+
+    // When run, the PlayOneShot function will find the given sound and play it in an overlappable manner
+    public void PlayOneShot(string name)
+    {
+        // Find the sound
+        Sound s = Array.Find(sounds, sound => sound.name == name);
+
+        // Play it
+        s.source.PlayOneShot(s.source.clip);
+    }
 
     // When run, the Stop function will find the given sound and stop it
     public void Stop(string name)
