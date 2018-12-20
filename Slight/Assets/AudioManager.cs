@@ -45,4 +45,14 @@ public class AudioManager : MonoBehaviour {
         // Play it
         s.source.Stop();
     }
+
+    // When run, the PlayAt function will find the given sound and play it at a given point in the world
+    public void PlayAt(string name, Vector3 location)
+    {
+        // Find the sound
+        Sound s = Array.Find(sounds, sound => sound.name == name);
+
+        // Play it
+        AudioSource.PlayClipAtPoint(s.source.clip, location, s.source.volume * 10f);
+    }
 }
