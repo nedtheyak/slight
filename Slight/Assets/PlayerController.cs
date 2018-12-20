@@ -134,7 +134,7 @@ public class PlayerController : MonoBehaviour {
                 } else
                 {
                     // Play dryfire sound effect
-                    audioManager.Play("Dryfire");
+                    audioManager.PlayOneShot("Dryfire");
                 }
             }
         }
@@ -169,7 +169,7 @@ public class PlayerController : MonoBehaviour {
                 isSkiing = false;
 
                 // Play sound effect
-                audioManager.Play("Land");
+                audioManager.PlayOneShot("Land");
             } else
             {
                 // Set friction
@@ -181,7 +181,7 @@ public class PlayerController : MonoBehaviour {
                 isSkiing = true;
 
                 // Play sound effect
-                audioManager.Play("Ski");
+                audioManager.PlayOneShot("Ski");
             }
         }
 
@@ -193,7 +193,7 @@ public class PlayerController : MonoBehaviour {
             ammoText.color = new Color(0, 0, 0, 1);
 
             // Play sound effect
-            audioManager.Play("Reload");
+            audioManager.PlayOneShot("Reload");
         }
 
         // Resetting Game
@@ -244,7 +244,7 @@ public class PlayerController : MonoBehaviour {
         }
 
         // Play sound effect
-        audioManager.Play("Fire");
+        audioManager.PlayOneShot("Fire");
 
         // SLOW BULLETS, PROJECTILES VVVVVVVVVVVVVVVVVVVVVVVVVVVV
         /*
