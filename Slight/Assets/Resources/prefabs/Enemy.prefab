@@ -126,6 +126,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 382e021580e0af8448c4e747841e9d58, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enemyHealth: 2
+  damageCooldown: 0
+  enemySpawnerHandlerScript: {fileID: 0}
+  damagedMat: {fileID: 0}
+  audioManager: {fileID: 0}
+  sounds: []
 --- !u!114 &114606475038466942
 MonoBehaviour:
   m_ObjectHideFlags: 1

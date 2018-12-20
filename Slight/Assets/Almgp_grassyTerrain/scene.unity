@@ -2656,6 +2656,18 @@ MonoBehaviour:
     pitch: 1
     loop: 0
     source: {fileID: 0}
+  - name: Damage
+    clip: {fileID: 8300000, guid: a470c048d50fc274293170955c67b7d3, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: Death
+    clip: {fileID: 8300000, guid: b1a0369f8804bf34c904e69267bd4a36, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
 --- !u!4 &931520138
 Transform:
   m_ObjectHideFlags: 0
@@ -3341,6 +3353,7 @@ MonoBehaviour:
   pointsHandlerScript: {fileID: 0}
   enemySpawnerHandlerScript: {fileID: 0}
   audioManager: {fileID: 0}
+  ended: 0
 --- !u!4 &1360034082
 Transform:
   m_ObjectHideFlags: 0

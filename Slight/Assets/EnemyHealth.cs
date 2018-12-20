@@ -5,6 +5,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
+
 public class EnemyHealth : MonoBehaviour {
 
     // Variables
@@ -12,7 +14,8 @@ public class EnemyHealth : MonoBehaviour {
     public float damageCooldown = 0f;
     public EnemySpawnerHandlerController enemySpawnerHandlerScript;
     public Material damagedMat;
-
+    public AudioManager audioManager;
+    public AudioSource[] sounds;
 
     // Function called when damaged
     public void DamageEnemy()
@@ -29,9 +32,15 @@ public class EnemyHealth : MonoBehaviour {
 
                 // Give invincibility time
                 damageCooldown = 0.05f;
+
+                // Play sound effect
+                audioManager.PlayAt("Damage", transform.position);
             }
             else
             {
+                // Play death sound
+                audioManager.PlayAt("Death", transform.position);
+
                 // Kill self
                 enemySpawnerHandlerScript.RemoveEnemy(this.gameObject);
             }
@@ -42,6 +51,8 @@ public class EnemyHealth : MonoBehaviour {
 	void Start () {
         damagedMat = Resources.Load<Material>("materials/Enemy_50");
         enemySpawnerHandlerScript = GameObject.Find("EnemySpawnerHandler").GetComponent<EnemySpawnerHandlerController>();
+        audioManager = GameObject.Find("AudioManager").GetComponent<AudioManager>();
+        sounds = gameObject.GetComponents<AudioSource>();
     }
 
     void Update()
