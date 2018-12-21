@@ -2668,6 +2668,12 @@ MonoBehaviour:
     pitch: 1
     loop: 0
     source: {fileID: 0}
+  - name: Slash
+    clip: {fileID: 8300000, guid: 18cf8429241e4bd479b96199b2a5fd4a, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 1
+    source: {fileID: 0}
 --- !u!4 &931520138
 Transform:
   m_ObjectHideFlags: 0

@@ -13,6 +13,7 @@ public class SwordController : MonoBehaviour {
     public float attack;
     public PlayerController playerControllerScript;
     public EnemySpawnerHandlerController enemySpawnerHandlerScript;
+    public AudioManager audioManager;
 
 
     // Initialization
@@ -20,6 +21,7 @@ public class SwordController : MonoBehaviour {
         attack = 0f;
         playerControllerScript = GameObject.Find("Player(Clone)").GetComponent<PlayerController>();
         enemySpawnerHandlerScript = GameObject.Find("EnemySpawnerHandler").GetComponent<EnemySpawnerHandlerController>();
+        audioManager = GameObject.Find("AudioManager").GetComponent<AudioManager>();
     }
     
     void FixedUpdate () {
@@ -40,6 +42,7 @@ public class SwordController : MonoBehaviour {
                 // Remove slash animation
                 Destroy(GameObject.Find("SlashImage(Clone)"));
                 playerControllerScript.isSlashing = false;
+                audioManager.Stop("Slash");
             }
             attack -= Time.deltaTime;
         }

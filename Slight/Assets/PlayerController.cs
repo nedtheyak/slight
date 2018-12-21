@@ -151,6 +151,9 @@ public class PlayerController : MonoBehaviour {
                     HUDCanvas.transform.position,
                     HUDCanvas.transform.rotation,
                     HUDCanvas.transform);
+
+                // Play sound effect
+                audioManager.Play("Slash");
             }
             isSlashing = true;
         }
