@@ -63,6 +63,6 @@ public class AudioManager : MonoBehaviour {
         Sound s = Array.Find(sounds, sound => sound.name == name);
 
         // Play it
-        s.source.PlayOneShot(s.source.clip, 1 / Math.Abs(Vector3.Distance(location, GameObject.Find("Player(Clone)").transform.position) / 50));
+        s.source.PlayOneShot(s.source.clip, 1 / Math.Abs(Vector3.Distance(location, GameObject.Find("Player(Clone)").transform.position) / 5));
     }
 }
