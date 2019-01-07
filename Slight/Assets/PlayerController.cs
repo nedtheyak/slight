@@ -74,6 +74,11 @@ public class PlayerController : MonoBehaviour {
     public bool isSlashing;
     public float swordDuration = 0.4f;
 
+    // Grind Variables
+    public Collider railBox;
+    public bool isGrinding;
+
+
     // Other variables
     public EnemySpawnerHandlerController enemySpawnerHandlerScript;
     public AudioManager audioManager;
@@ -110,6 +115,7 @@ public class PlayerController : MonoBehaviour {
         audioManager = GameObject.Find("AudioManager").GetComponent<AudioManager>();
         jetpacking = false;
         jSoundPlaying = false;
+        railBox = GameObject.Find("RailBox").GetComponent<Collider>();
     }
 	
 
@@ -204,6 +210,27 @@ public class PlayerController : MonoBehaviour {
         {
             // Reload scene
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        }
+
+        // Grinding
+        if (Input.GetButton("Modifier2"))
+        {
+            Collider[] hitColliders = Physics.OverlapBox(railBox.gameObject.transform.position, railBox.gameObject.transform.localScale / 2, Quaternion.identity);
+            foreach (Collider collider in hitColliders)
+            {
+                // If it is an enemy, kill it and add vertical velocity to the player
+                if (collider.name == "Enemy(Clone)")
+                {
+                    enemySpawnerHandlerScript.RemoveEnemy(collider.gameObject);
+                    rb.velocity = new Vector3(rb.velocity.x, 12.0f, rb.velocity.z);
+                }
+                // If it is a rail, begin grind
+                if (collider.name.StartsWith("Rail"))
+                {
+                    // CHANGE VELOCITY RELATIVE TO THE RAIL; GET RAIL TRANSFORM... CLAMP?
+                    isGrinding = true;
+                }
+            }
         }
     }
 
