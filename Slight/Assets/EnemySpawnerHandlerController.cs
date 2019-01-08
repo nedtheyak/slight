@@ -37,6 +37,22 @@ public class EnemySpawnerHandlerController : MonoBehaviour {
         pointsHandlerScript.AddPoints((int)(oldCount - myEnemies.Count));
     }
 
+    // This is for stomping enemies
+    public void RemoveEnemyStomp(GameObject givenEnemy, Rigidbody rb)
+    {
+        // Update enemy count
+        oldCount = myEnemies.Count;
+        // Remove the enemy from the list
+        myEnemies.Remove(givenEnemy);
+        // Remove the enemy from the scene
+        Destroy(givenEnemy);
+        // Add points to the counter if the enemy count has diminished
+        pointsHandlerScript.AddPoints((int)(oldCount - myEnemies.Count));
+
+        // Add the stomp jump velocity
+        rb.velocity = new Vector3(rb.velocity.x, 12.0f, rb.velocity.z);
+    }
+
     // Initialization
     void Start () {
         // Get the pointsHandler's script

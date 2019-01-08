@@ -77,7 +77,7 @@ public class PlayerController : MonoBehaviour {
     // Grind Variables
     public Collider railBox;
     public bool isGrinding;
-
+    public Transform railTransform;
 
     // Other variables
     public EnemySpawnerHandlerController enemySpawnerHandlerScript;
@@ -221,14 +221,22 @@ public class PlayerController : MonoBehaviour {
                 // If it is an enemy, kill it and add vertical velocity to the player
                 if (collider.name == "Enemy(Clone)")
                 {
-                    enemySpawnerHandlerScript.RemoveEnemy(collider.gameObject);
-                    rb.velocity = new Vector3(rb.velocity.x, 12.0f, rb.velocity.z);
+                    // Kill enemy and add velocity
+                    enemySpawnerHandlerScript.RemoveEnemyStomp(collider.gameObject, rb);
                 }
                 // If it is a rail, begin grind
-                if (collider.name.StartsWith("Rail"))
+                if (collider.name.StartsWith("Rail") && !(collider.name == "RailBox"))
                 {
-                    // CHANGE VELOCITY RELATIVE TO THE RAIL; GET RAIL TRANSFORM... CLAMP?
-                    isGrinding = true;
+                    if (!isGrinding)
+                    {
+                        // CHANGE VELOCITY RELATIVE TO THE RAIL; GET RAIL TRANSFORM... CLAMP?
+                        railTransform = collider.gameObject.transform;
+                        Vector3 localizedVelocity = railTransform.InverseTransformVector(rb.velocity);
+                        localizedVelocity.x = 0f;
+                        localizedVelocity.y = 0f;
+                        rb.velocity = railTransform.TransformVector(rb.velocity);
+                        isGrinding = true;
+                    }
                 }
             }
         }
@@ -320,7 +328,7 @@ public class PlayerController : MonoBehaviour {
         if (isGrounded && !isSkiing)
         {
             // Ground movement
-            velMove = transform.TransformDirection(MultiplyVector3(MultiplyVector3(new Vector3(moveHorizontal, 0f, moveVertical), movespeed), groundedModifier));
+            velMove = transform.TransformVector(MultiplyVector3(MultiplyVector3(new Vector3(moveHorizontal, 0f, moveVertical), movespeed), groundedModifier));
             oldYVel = rb.velocity.y;
             if (oldYVel > 0)
             {
@@ -332,7 +340,7 @@ public class PlayerController : MonoBehaviour {
         {
             // Limit velocity --------------------------- THIS CODE IS SLIGHTLY BROKEN --------------------------------------------------------------------------------
 
-            localVelocity = transform.InverseTransformDirection(rb.velocity);
+            localVelocity = transform.InverseTransformVector(rb.velocity);
             if (Math.Abs(localVelocity.x) > movespeedLimit && Math.Abs((moveHorizontal * movespeed.x * midairModifier.x) + localVelocity.x) > Math.Abs(localVelocity.x) && Math.Sign((moveHorizontal * movespeed.x * midairModifier.x) + localVelocity.x) == Math.Sign(localVelocity.x))
             {
                 moveHorizontal = 0f;
@@ -367,7 +375,7 @@ public class PlayerController : MonoBehaviour {
                 rb.velocity = new Vector3(rb.velocity.x, 12.0f, rb.velocity.z);
 
                 // Play jump sound effect
-                audioManager.Play("Jump");
+                //audioManager.Play("Jump");
             }
             else if (jetpackMeter > 0)
             {

@@ -17,6 +17,21 @@ public class RailBoxController : MonoBehaviour {
     {
         playerControllerScript = GameObject.Find("Player(Clone)").GetComponent<PlayerController>();
     }
+    
+    void Update()
+    {
+        // If grinding, lock the player's velocity
+        if (playerControllerScript.isGrinding)
+        {
+            Vector3 localizedVelocity = playerControllerScript.railTransform.InverseTransformVector(playerControllerScript.rb.velocity);
+            localizedVelocity.x = 0f;
+            localizedVelocity.y = 0f;
+            //Debug.Log(playerControllerScript.railTransform.InverseTransformVector(playerControllerScript.rb.velocity));
+            //Debug.Log(localizedVelocity.z);
+            playerControllerScript.rb.velocity = playerControllerScript.railTransform.TransformVector(localizedVelocity);
+            // LOCAL Z = WORLD Y?
+        }
+    }
 
     private void OnTriggerExit(Collider other)
     {
