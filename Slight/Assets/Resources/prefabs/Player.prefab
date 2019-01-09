@@ -317,6 +317,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a93e02acfd66a346ad8daaabba5cec0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerControllerScript: {fileID: 0}
 --- !u!114 &114311347091750390
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -379,7 +380,7 @@ MonoBehaviour:
   localVelocity: {x: 0, y: 0, z: 0}
   movespeed: {x: 20, y: 0, z: 20}
   movespeedLimit: 60
-  midairModifier: {x: 2, y: 0, z: 2}
+  midairModifier: {x: 3, y: 0, z: 3}
   groundedModifier: {x: 1, y: 0, z: 1}
   playerDynamicFriction: 0.6
   playerStaticFriction: 0.2
@@ -411,6 +412,7 @@ MonoBehaviour:
   swordDuration: 0.4
   railBox: {fileID: 0}
   isGrinding: 0
+  railTransform: {fileID: 0}
   enemySpawnerHandlerScript: {fileID: 0}
   audioManager: {fileID: 0}
   jetpacking: 0

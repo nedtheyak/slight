@@ -35,7 +35,7 @@ public class PlayerController : MonoBehaviour {
     // Movement constants
     public Vector3 movespeed = new Vector3(20f, 0f, 20f);
     public float movespeedLimit = 60f;
-    public Vector3 midairModifier = new Vector3(2f, 0f, 2f);
+    public Vector3 midairModifier = new Vector3(3f, 0f, 3f);
     public Vector3 groundedModifier = new Vector3(1f, 0f, 1f);
     public float playerDynamicFriction = 0.6f;
     public float playerStaticFriction = 0.2f;
@@ -231,10 +231,10 @@ public class PlayerController : MonoBehaviour {
                     {
                         // CHANGE VELOCITY RELATIVE TO THE RAIL; GET RAIL TRANSFORM... CLAMP?
                         railTransform = collider.gameObject.transform;
-                        Vector3 localizedVelocity = railTransform.InverseTransformVector(rb.velocity);
-                        localizedVelocity.x = 0f;
-                        localizedVelocity.y = 0f;
-                        rb.velocity = railTransform.TransformVector(rb.velocity);
+                        //Vector3 localizedVelocity = railTransform.InverseTransformVector(rb.velocity);
+                        //localizedVelocity.x = 0f;
+                        //localizedVelocity.z = 0f;
+                        //rb.velocity = railTransform.TransformVector(rb.velocity);
                         isGrinding = true;
                     }
                 }
