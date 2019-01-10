@@ -2577,49 +2577,49 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sounds:
   - name: PlayerDeath
-    clip: {fileID: 8300000, guid: 50211de83d67e3940b916385ab6d5521, type: 3}
+    clip: {fileID: 8300000, guid: 3267ed9513cc493498ca5d7ba7a5e5d8, type: 3}
     volume: 1
     pitch: 1
     loop: 0
     source: {fileID: 0}
   - name: Fire
-    clip: {fileID: 8300000, guid: ab138a65e4dada14a95347d913c410de, type: 3}
+    clip: {fileID: 8300000, guid: 07fbf1c8d1de23d438492107c5df2134, type: 3}
     volume: 1
     pitch: 1
     loop: 0
     source: {fileID: 0}
   - name: Dryfire
-    clip: {fileID: 8300000, guid: 39b2587963f2c0743b1d38aa149f3a0e, type: 3}
+    clip: {fileID: 8300000, guid: dc25c52dd16753c4498b379c2a4922c7, type: 3}
     volume: 1
     pitch: 1
     loop: 0
     source: {fileID: 0}
   - name: Reload
-    clip: {fileID: 8300000, guid: 76830890c743ed448abd1da8a4a63d88, type: 3}
+    clip: {fileID: 8300000, guid: 417b220748baf88409277acf60b82604, type: 3}
     volume: 1
     pitch: 1
     loop: 0
     source: {fileID: 0}
   - name: Ski
-    clip: {fileID: 8300000, guid: 6b75cacd7038d744c826adb5ad5368c0, type: 3}
+    clip: {fileID: 8300000, guid: 4bfef5ba3b82536469f4a0787b4b5409, type: 3}
     volume: 0.5
     pitch: 1
     loop: 0
     source: {fileID: 0}
   - name: Land
-    clip: {fileID: 8300000, guid: 731a5827fdd7c7143a590b709bd05f6c, type: 3}
+    clip: {fileID: 8300000, guid: 34780c280035f664988adc4dd60a04b2, type: 3}
     volume: 1
     pitch: 1
     loop: 0
     source: {fileID: 0}
   - name: Jetpack
-    clip: {fileID: 8300000, guid: 0dae2487cd6d02c4594a0ddd34ba1f9e, type: 3}
+    clip: {fileID: 8300000, guid: 11a610f9fc9593249be6d488a904d5ee, type: 3}
     volume: 1
     pitch: 1
     loop: 1
     source: {fileID: 0}
   - name: Jump
-    clip: {fileID: 8300000, guid: 0946d776eb341c24db602ae71dd0d6ff, type: 3}
+    clip: {fileID: 8300000, guid: 8fef92a05d8fd054aa027743fa3eb520, type: 3}
     volume: 1
     pitch: 1
     loop: 0
@@ -2715,19 +2715,19 @@ MonoBehaviour:
     loop: 0
     source: {fileID: 0}
   - name: Damage
-    clip: {fileID: 8300000, guid: a470c048d50fc274293170955c67b7d3, type: 3}
+    clip: {fileID: 8300000, guid: ede7d0316f7d3904a9434334caa4c3f4, type: 3}
     volume: 1
     pitch: 1
     loop: 0
     source: {fileID: 0}
   - name: Death
-    clip: {fileID: 8300000, guid: b1a0369f8804bf34c904e69267bd4a36, type: 3}
+    clip: {fileID: 8300000, guid: 3267ed9513cc493498ca5d7ba7a5e5d8, type: 3}
     volume: 1
     pitch: 1
     loop: 0
     source: {fileID: 0}
   - name: Slash
-    clip: {fileID: 8300000, guid: 18cf8429241e4bd479b96199b2a5fd4a, type: 3}
+    clip: {fileID: 8300000, guid: 9f769b59cc7109b41b0dc6cda0f3e522, type: 3}
     volume: 1
     pitch: 1
     loop: 1
