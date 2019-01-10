@@ -2620,7 +2620,7 @@ MonoBehaviour:
     source: {fileID: 0}
   - name: Jump
     clip: {fileID: 8300000, guid: 8fef92a05d8fd054aa027743fa3eb520, type: 3}
-    volume: 1
+    volume: 0
     pitch: 1
     loop: 0
     source: {fileID: 0}
