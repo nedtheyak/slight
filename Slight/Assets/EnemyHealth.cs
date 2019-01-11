@@ -38,9 +38,6 @@ public class EnemyHealth : MonoBehaviour {
             }
             else
             {
-                // Play death sound
-                audioManager.PlayAt("Death", transform.position);
-
                 // Kill self
                 enemySpawnerHandlerScript.RemoveEnemy(this.gameObject);
             }

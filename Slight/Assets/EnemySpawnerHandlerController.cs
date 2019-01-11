@@ -23,10 +23,16 @@ public class EnemySpawnerHandlerController : MonoBehaviour {
     // This is used for adding points on enemy removal
     public PointsHandlerController pointsHandlerScript;
 
+    // Other Variables
+    public AudioManager audioManager;
+
 
     // This is for removing enemies
     public void RemoveEnemy(GameObject givenEnemy)
     {
+        // Play death sound
+        audioManager.PlayAt("Death", givenEnemy.transform.position);
+
         // Update enemy count
         oldCount = myEnemies.Count;
         // Remove the enemy from the list
@@ -40,6 +46,9 @@ public class EnemySpawnerHandlerController : MonoBehaviour {
     // This is for stomping enemies
     public void RemoveEnemyStomp(GameObject givenEnemy, Rigidbody rb)
     {
+        // Play death sound
+        audioManager.PlayAt("Death", givenEnemy.transform.position);
+
         // Update enemy count
         oldCount = myEnemies.Count;
         // Remove the enemy from the list
@@ -55,8 +64,9 @@ public class EnemySpawnerHandlerController : MonoBehaviour {
 
     // Initialization
     void Start () {
-        // Get the pointsHandler's script
+        // Get scripts
         pointsHandlerScript = GameObject.Find("PointsHandler").GetComponent<PointsHandlerController>();
+        audioManager = GameObject.Find("AudioManager").GetComponent<AudioManager>();
     }
 	
     // Every frame, update whether or not to spawn more enemies

@@ -2782,8 +2782,8 @@ MonoBehaviour:
     pitch: 1
     loop: 1
     source: {fileID: 0}
-  - name: Wind
-    clip: {fileID: 8300000, guid: bfcf239838027134f804208985a1aade, type: 3}
+  - name: SkateGrind
+    clip: {fileID: 8300000, guid: 8288d9191ccaeea478404c6ba25af40c, type: 3}
     volume: 1
     pitch: 1
     loop: 1
@@ -2799,12 +2799,6 @@ MonoBehaviour:
     volume: 1
     pitch: 1
     loop: 0
-    source: {fileID: 0}
-  - name: SkateGrind
-    clip: {fileID: 8300000, guid: 8288d9191ccaeea478404c6ba25af40c, type: 3}
-    volume: 1
-    pitch: 1
-    loop: 1
     source: {fileID: 0}
 --- !u!4 &931520138
 Transform:
@@ -4387,6 +4381,7 @@ MonoBehaviour:
   stopSpawning: 0
   oldCount: 0
   pointsHandlerScript: {fileID: 0}
+  audioManager: {fileID: 0}
 --- !u!4 &1780804582
 Transform:
   m_ObjectHideFlags: 0

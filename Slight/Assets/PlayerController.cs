@@ -85,6 +85,7 @@ public class PlayerController : MonoBehaviour {
     public AudioManager audioManager;
     public bool jetpacking;
     public bool jSoundPlaying;
+    public AudioSource windSound;
 
 
     // Initialization
@@ -118,6 +119,7 @@ public class PlayerController : MonoBehaviour {
         jSoundPlaying = false;
         railBox = GameObject.Find("RailBox").GetComponent<Collider>();
         railBoxScript = GameObject.Find("RailBox").GetComponent<RailBoxController>();
+        windSound = this.gameObject.GetComponent<AudioSource>();
     }
 	
 
@@ -403,21 +405,27 @@ public class PlayerController : MonoBehaviour {
                     jetpacking = false;
                 }
             }
-        } else if (jetpackMeter < jetpackMeterLimit)
+        } else
         {
-            if (isGrounded)
+            // Refill jetpack meter
+            if (jetpackMeter < jetpackMeterLimit)
             {
-                jetpackMeter += jetpackRecoveryRate * 3f;
-            } else
-            {
-                jetpackMeter += jetpackRecoveryRate;
+                if (isGrounded)
+                {
+                    jetpackMeter += jetpackRecoveryRate * 3f;
+                }
+                else
+                {
+                    jetpackMeter += jetpackRecoveryRate;
+                }
+                powerSlider.value = 100f * (jetpackMeter / jetpackMeterLimit);
             }
-            powerSlider.value = 100f * (jetpackMeter / jetpackMeterLimit);
-        }
 
-        if (Input.GetKeyUp(KeyCode.Space) || Input.GetKeyUp(KeyCode.Joystick1Button1))
-        {
-            jetpacking = false;
+            // Ensure jetpacking is stopped
+            if (jetpacking)
+            {
+                jetpacking = false;
+            }
         }
 
         if (jetpacking && !jSoundPlaying)
@@ -431,6 +439,9 @@ public class PlayerController : MonoBehaviour {
             audioManager.Stop("Jetpack");
             jSoundPlaying = false;
         }
+
+        // Wind
+        windSound.volume = Mathf.Clamp01((rb.velocity.x + rb.velocity.y + rb.velocity.z) / 50f);
     }
 }
 
