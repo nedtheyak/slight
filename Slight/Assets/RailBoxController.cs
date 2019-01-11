@@ -24,12 +24,17 @@ public class RailBoxController : MonoBehaviour {
             Vector3 localizedVelocity = playerControllerScript.railTransform.InverseTransformVector(playerControllerScript.rb.velocity);
             localizedVelocity.x = 0f;
             localizedVelocity.z = 0f;
-            //Debug.Log(playerControllerScript.railTransform.InverseTransformVector(playerControllerScript.rb.velocity));
-            //Debug.Log(localizedVelocity.z);
-            Debug.Log(playerControllerScript.railTransform.gameObject.name);
             playerControllerScript.rb.velocity = playerControllerScript.railTransform.TransformVector(localizedVelocity);
             // LOCAL Z = WORLD Y?
         }
+    }
+
+    public void StopGrinding()
+    {
+        playerControllerScript.isGrinding = false;
+        playerControllerScript.audioManager.Stop("SkateGrind");
+        playerControllerScript.rb.velocity = new Vector3(playerControllerScript.rb.velocity.x, playerControllerScript.rb.velocity.y + 10f, playerControllerScript.rb.velocity.z);
+        playerControllerScript.audioManager.PlayOneShot("SkateKick");
     }
 
     private void OnTriggerExit(Collider other)
@@ -38,9 +43,7 @@ public class RailBoxController : MonoBehaviour {
         {
             if (other.name.StartsWith("Rail"))
             {
-                // RELEASE CLAMP
-                playerControllerScript.isGrinding = false;
-                playerControllerScript.rb.velocity = new Vector3(playerControllerScript.rb.velocity.x, playerControllerScript.rb.velocity.y + 5f, playerControllerScript.rb.velocity.z);
+                StopGrinding();
             }
         }
     }

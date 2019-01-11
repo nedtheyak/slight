@@ -78,6 +78,7 @@ public class PlayerController : MonoBehaviour {
     public Collider railBox;
     public bool isGrinding;
     public Transform railTransform;
+    public RailBoxController railBoxScript;
 
     // Other variables
     public EnemySpawnerHandlerController enemySpawnerHandlerScript;
@@ -116,6 +117,7 @@ public class PlayerController : MonoBehaviour {
         jetpacking = false;
         jSoundPlaying = false;
         railBox = GameObject.Find("RailBox").GetComponent<Collider>();
+        railBoxScript = GameObject.Find("RailBox").GetComponent<RailBoxController>();
     }
 	
 
@@ -223,6 +225,7 @@ public class PlayerController : MonoBehaviour {
                 {
                     // Kill enemy and add velocity
                     enemySpawnerHandlerScript.RemoveEnemyStomp(collider.gameObject, rb);
+                    audioManager.PlayOneShot("SkateKick");
                 }
                 // If it is a rail, begin grind
                 if (collider.name.StartsWith("Rail") && !(collider.name == "RailBox"))
@@ -230,7 +233,10 @@ public class PlayerController : MonoBehaviour {
                     if (!isGrinding)
                     {
                         // CHANGE VELOCITY RELATIVE TO THE RAIL; GET RAIL TRANSFORM... CLAMP?
+                        audioManager.PlayOneShot("SkateHit");
+                        audioManager.Play("SkateGrind");
                         railTransform = collider.gameObject.transform;
+                        transform.position = collider.ClosestPoint(transform.position + Vector3.down / 2) + Vector3.up / 2;
                         //Vector3 localizedVelocity = railTransform.InverseTransformVector(rb.velocity);
                         //localizedVelocity.x = 0f;
                         //localizedVelocity.z = 0f;
@@ -304,7 +310,7 @@ public class PlayerController : MonoBehaviour {
     // Collisions and grounding
     private void OnTriggerEnter(Collider other)
     {
-        if (!other.isTrigger && other.gameObject.name != "Invisible walls")
+        if (!other.isTrigger && other.gameObject.name != "Invisible walls" && !other.gameObject.name.StartsWith("Rail"))
         {
             isGrounded = true;
         }
@@ -312,7 +318,7 @@ public class PlayerController : MonoBehaviour {
 
     private void OnTriggerExit(Collider other)
     {
-        if (!other.isTrigger && other.gameObject.name != "Invisible walls")
+        if (!other.isTrigger && other.gameObject.name != "Invisible walls" && !other.gameObject.name.StartsWith("Rail"))
         {
             isGrounded = false;
         }
@@ -369,7 +375,11 @@ public class PlayerController : MonoBehaviour {
         // Jumping and jetpack
         if (Input.GetKey(KeyCode.Space) || Input.GetKey(KeyCode.Joystick1Button1))
         {
-            if (isGrounded)
+            if (isGrinding)
+            {
+                railBoxScript.StopGrinding();
+            }
+            else if (isGrounded)
             {
                 // Set vertical velocity
                 rb.velocity = new Vector3(rb.velocity.x, 12.0f, rb.velocity.z);
