@@ -438,7 +438,7 @@ public class PlayerController : MonoBehaviour {
         }
 
         // Wind
-        windSound.volume = Mathf.Clamp01((rb.velocity.x + rb.velocity.y + rb.velocity.z) / 50f);
+        windSound.volume = Mathf.Clamp01((Math.Abs(rb.velocity.x) + Math.Abs(rb.velocity.y / 2) + Math.Abs(rb.velocity.z)) / 250f);
     }
 }
 
