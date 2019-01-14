@@ -33,9 +33,9 @@ public class PlayerController : MonoBehaviour {
     public Vector3 localVelocity;
 
     // Movement constants
-    public Vector3 movespeed = new Vector3(20f, 0f, 20f);
+    public float movespeed = 20f;
     public float movespeedLimit = 60f;
-    public Vector3 midairModifier = new Vector3(3f, 0f, 3f);
+    public Vector3 midairModifier = new Vector3(4f, 0f, 4f);
     public Vector3 groundedModifier = new Vector3(1f, 0f, 1f);
     public float playerDynamicFriction = 0.6f;
     public float playerStaticFriction = 0.2f;
@@ -336,7 +336,7 @@ public class PlayerController : MonoBehaviour {
         if (isGrounded && !isSkiing)
         {
             // Ground movement
-            velMove = transform.TransformVector(MultiplyVector3(MultiplyVector3(new Vector3(moveHorizontal, 0f, moveVertical), movespeed), groundedModifier));
+            velMove = transform.TransformVector(MultiplyVector3((new Vector3(moveHorizontal, 0f, moveVertical) * movespeed), groundedModifier));
             oldYVel = rb.velocity.y;
             if (oldYVel > 0)
             {
@@ -346,32 +346,29 @@ public class PlayerController : MonoBehaviour {
         }
         else
         {
-            // Limit velocity --------------------------- THIS CODE IS SLIGHTLY BROKEN --------------------------------------------------------------------------------
+            // Limit velocity and multiply in the movespeed
 
             localVelocity = transform.InverseTransformVector(rb.velocity);
-            if (Math.Abs(localVelocity.x) > movespeedLimit && Math.Abs((moveHorizontal * movespeed.x * midairModifier.x) + localVelocity.x) > Math.Abs(localVelocity.x) && Math.Sign((moveHorizontal * movespeed.x * midairModifier.x) + localVelocity.x) == Math.Sign(localVelocity.x))
+            if (Math.Abs(localVelocity.x) > movespeedLimit && Math.Abs((moveHorizontal * movespeed * midairModifier.x) + localVelocity.x) > Math.Abs(localVelocity.x) && Math.Sign((moveHorizontal * movespeed * midairModifier.x) + localVelocity.x) == Math.Sign(localVelocity.x))
             {
                 moveHorizontal = 0f;
             }
-
-            if (Math.Abs((moveHorizontal * movespeed.x * midairModifier.x) + localVelocity.x) > movespeedLimit)
+            else
             {
-                moveHorizontal = Math.Sign(moveHorizontal) * movespeedLimit;
+                moveHorizontal = Mathf.Clamp(moveHorizontal * movespeed, -movespeedLimit, movespeedLimit);
             }
             
-            if (Math.Abs(localVelocity.z) > movespeedLimit && Math.Abs((moveVertical * movespeed.z * midairModifier.z) + localVelocity.z) > Math.Abs(localVelocity.z) && Math.Sign((moveVertical * movespeed.z * midairModifier.z) + localVelocity.z) == Math.Sign(localVelocity.z))
+            if (Math.Abs(localVelocity.z) > movespeedLimit && Math.Abs((moveVertical * movespeed * midairModifier.z) + localVelocity.z) > Math.Abs(localVelocity.z) && Math.Sign((moveVertical * movespeed * midairModifier.z) + localVelocity.z) == Math.Sign(localVelocity.z))
             {
                 moveVertical = 0f;
             }
-
-            if (Math.Abs((moveVertical * movespeed.z * midairModifier.z) + localVelocity.z) > movespeedLimit)
+            else
             {
-                moveVertical = Math.Sign(moveVertical) * movespeedLimit;
+                moveVertical = Mathf.Clamp(moveVertical * movespeed, -movespeedLimit, movespeedLimit);
             }
 
-            
             // Add the force
-            rb.AddRelativeForce(MultiplyVector3(MultiplyVector3(new Vector3((moveHorizontal / Time.deltaTime) * rb.mass, 0f, (moveVertical / Time.deltaTime) * rb.mass).normalized, movespeed), midairModifier));
+            rb.AddRelativeForce(MultiplyVector3(new Vector3(moveHorizontal, 0f, moveVertical), midairModifier));
         }
         
         // Jumping and jetpack
