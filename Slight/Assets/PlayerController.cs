@@ -267,20 +267,24 @@ public class PlayerController : MonoBehaviour {
         if (Physics.Raycast(rayOrigin, Camera.main.transform.forward, out hit, weaponRange))
         {
             // debugText.text = (hit.collider.gameObject.name);
-            /*
+            
             if (hit.collider.name == "Enemy(Clone)")
             {
-                // Kill enemy that was hit
-                enemySpawnerHandlerScript.RemoveEnemy(hit.collider.gameObject);
+                // Damage and launch enemy that was hit
+                hit.collider.gameObject.GetComponent<EnemyHealth>().DamageEnemy();
+                hit.collider.gameObject.transform.LookAt(hit.point);
+                hit.collider.gameObject.GetComponent<Rigidbody>().velocity = hit.collider.gameObject.transform.forward * -50f;
             }
-            */
-
-            // Create explosion at hit
-            var explosion = (GameObject)Instantiate(
-                explosionPrefab,
-                hit.point,
-                Quaternion.Euler(0f, 0f, 0f));
-        } else
+            else
+            {
+                // Create explosion at hit
+                var explosion = (GameObject)Instantiate(
+                    explosionPrefab,
+                    hit.point,
+                    Quaternion.Euler(0f, 0f, 0f));
+            }
+        }
+        else
         {
             // Create explosion at max range ---------------- NOT WORKING ----------------
             var explosion = (GameObject)Instantiate(
