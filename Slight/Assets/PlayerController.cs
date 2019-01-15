@@ -281,7 +281,7 @@ public class PlayerController : MonoBehaviour {
                 var explosion = (GameObject)Instantiate(
                     explosionPrefab,
                     hit.point,
-                    Quaternion.Euler(0f, 0f, 0f));
+                    Quaternion.identity);
             }
         }
         /*
@@ -291,7 +291,7 @@ public class PlayerController : MonoBehaviour {
             var explosion = (GameObject)Instantiate(
                 explosionPrefab,
                 AddVector3(Camera.main.transform.position, Camera.main.transform.TransformDirection(new Vector3(0f, 0f, weaponRange))),
-                Quaternion.Euler(0f, 0f, 0f));
+                Quaternion.identity);
         }
         */
 
