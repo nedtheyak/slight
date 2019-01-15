@@ -14,6 +14,7 @@ public class SwordController : MonoBehaviour {
     public PlayerController playerControllerScript;
     public EnemySpawnerHandlerController enemySpawnerHandlerScript;
     public AudioManager audioManager;
+    public GameObject enemyDamagePrefab;
 
 
     // Initialization
@@ -22,6 +23,7 @@ public class SwordController : MonoBehaviour {
         playerControllerScript = GameObject.Find("Player(Clone)").GetComponent<PlayerController>();
         enemySpawnerHandlerScript = GameObject.Find("EnemySpawnerHandler").GetComponent<EnemySpawnerHandlerController>();
         audioManager = GameObject.Find("AudioManager").GetComponent<AudioManager>();
+        enemyDamagePrefab = Resources.Load("prefabs/EnemyDamage") as GameObject;
     }
     
     void FixedUpdate () {
@@ -34,6 +36,12 @@ public class SwordController : MonoBehaviour {
                 // Kill if it is an enemy
                 if (collider.name == "Enemy(Clone)")
                 {
+                    // Create emitter
+                    var enemyDamageEmitter = (GameObject)Instantiate(
+                        enemyDamagePrefab,
+                        collider.transform.position,
+                        Quaternion.identity);
+
                     enemySpawnerHandlerScript.RemoveEnemy(collider.gameObject);
                 }
             }

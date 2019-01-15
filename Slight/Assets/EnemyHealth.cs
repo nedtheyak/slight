@@ -16,6 +16,7 @@ public class EnemyHealth : MonoBehaviour {
     public Material damagedMat;
     public AudioManager audioManager;
     public AudioSource[] sounds;
+    public GameObject enemyDamagePrefab;
 
     // Function called when damaged
     public void DamageEnemy()
@@ -35,9 +36,21 @@ public class EnemyHealth : MonoBehaviour {
 
                 // Play sound effect
                 audioManager.PlayAt("Damage", transform.position);
+
+                // Create emitter
+                var enemyDamageEmitter = (GameObject)Instantiate(
+                    enemyDamagePrefab,
+                    this.gameObject.transform.position,
+                    Quaternion.identity);
             }
             else
             {
+                // Create emitter
+                var enemyDamageEmitter = (GameObject)Instantiate(
+                    enemyDamagePrefab,
+                    this.gameObject.transform.position,
+                    Quaternion.identity);
+
                 // Kill self
                 enemySpawnerHandlerScript.RemoveEnemy(this.gameObject);
             }
@@ -50,6 +63,7 @@ public class EnemyHealth : MonoBehaviour {
         enemySpawnerHandlerScript = GameObject.Find("EnemySpawnerHandler").GetComponent<EnemySpawnerHandlerController>();
         audioManager = GameObject.Find("AudioManager").GetComponent<AudioManager>();
         sounds = gameObject.GetComponents<AudioSource>();
+        enemyDamagePrefab = Resources.Load("prefabs/EnemyDamage") as GameObject;
     }
 
     void Update()

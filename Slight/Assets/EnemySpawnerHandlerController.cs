@@ -25,6 +25,7 @@ public class EnemySpawnerHandlerController : MonoBehaviour {
 
     // Other Variables
     public AudioManager audioManager;
+    public GameObject enemyDamagePrefab;
 
 
     // This is for removing enemies
@@ -60,6 +61,11 @@ public class EnemySpawnerHandlerController : MonoBehaviour {
 
         // Add the stomp jump velocity
         rb.velocity = new Vector3(rb.velocity.x, 12.0f, rb.velocity.z);
+
+        var enemyDamageEmitter = (GameObject)Instantiate(
+            enemyDamagePrefab,
+            givenEnemy.transform.position,
+            Quaternion.identity);
     }
 
     // Initialization
@@ -67,6 +73,7 @@ public class EnemySpawnerHandlerController : MonoBehaviour {
         // Get scripts
         pointsHandlerScript = GameObject.Find("PointsHandler").GetComponent<PointsHandlerController>();
         audioManager = GameObject.Find("AudioManager").GetComponent<AudioManager>();
+        enemyDamagePrefab = Resources.Load("prefabs/EnemyDamage") as GameObject;
     }
 	
     // Every frame, update whether or not to spawn more enemies
