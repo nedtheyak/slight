@@ -284,14 +284,16 @@ public class PlayerController : MonoBehaviour {
                     Quaternion.Euler(0f, 0f, 0f));
             }
         }
+        /*
         else
         {
-            // Create explosion at max range ---------------- NOT WORKING ----------------
+            // Create explosion at max range
             var explosion = (GameObject)Instantiate(
                 explosionPrefab,
-                Camera.main.transform.forward * weaponRange,
+                AddVector3(Camera.main.transform.position, Camera.main.transform.TransformDirection(new Vector3(0f, 0f, weaponRange))),
                 Quaternion.Euler(0f, 0f, 0f));
         }
+        */
 
         // Play sound effect
         audioManager.PlayOneShot("Fire");
