@@ -65,7 +65,8 @@ public class EnemySpawnerHandlerController : MonoBehaviour {
         var enemyDamageEmitter = (GameObject)Instantiate(
             enemyDamagePrefab,
             givenEnemy.transform.position,
-            Quaternion.identity);
+            Quaternion.identity,
+            givenEnemy.transform);
     }
 
     // Initialization

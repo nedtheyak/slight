@@ -41,7 +41,8 @@ public class EnemyHealth : MonoBehaviour {
                 var enemyDamageEmitter = (GameObject)Instantiate(
                     enemyDamagePrefab,
                     this.gameObject.transform.position,
-                    Quaternion.identity);
+                    Quaternion.identity,
+                    gameObject.transform);
             }
             else
             {
@@ -49,7 +50,8 @@ public class EnemyHealth : MonoBehaviour {
                 var enemyDamageEmitter = (GameObject)Instantiate(
                     enemyDamagePrefab,
                     this.gameObject.transform.position,
-                    Quaternion.identity);
+                    Quaternion.identity,
+                    gameObject.transform);
 
                 // Kill self
                 enemySpawnerHandlerScript.RemoveEnemy(this.gameObject);
@@ -71,6 +73,15 @@ public class EnemyHealth : MonoBehaviour {
         if (damageCooldown > 0f)
         {
             damageCooldown -= Time.deltaTime;
+        }
+    }
+
+    // If being destroyed, unparent children
+    void OnDestroy()
+    {
+        foreach(Transform child in transform)
+        {
+            child.parent = null;
         }
     }
 }
