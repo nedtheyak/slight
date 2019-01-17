@@ -86,6 +86,8 @@ public class PlayerController : MonoBehaviour {
     public bool jetpacking;
     public bool jSoundPlaying;
     public AudioSource windSound;
+    public GameObject dryfireEmitterPrefab;
+    public GameObject tinyExplosionPrefab;
 
 
     // Initialization
@@ -120,6 +122,8 @@ public class PlayerController : MonoBehaviour {
         railBox = GameObject.Find("RailBox").GetComponent<Collider>();
         railBoxScript = GameObject.Find("RailBox").GetComponent<RailBoxController>();
         windSound = this.gameObject.GetComponent<AudioSource>();
+        dryfireEmitterPrefab = Resources.Load("prefabs/Dryfire") as GameObject;
+        tinyExplosionPrefab = Resources.Load("prefabs/TinyExplosion") as GameObject;
     }
 	
 
@@ -282,18 +286,28 @@ public class PlayerController : MonoBehaviour {
                     explosionPrefab,
                     hit.point,
                     Quaternion.identity);
+                Instantiate(
+                    tinyExplosionPrefab,
+                    hit.point,
+                    Quaternion.identity);
             }
         }
-        /*
         else
         {
+            // Create Dryfire emitter
+            var dryfireEmitter = (GameObject)Instantiate(
+                dryfireEmitterPrefab,
+                AddVector3(Camera.main.transform.position, Camera.main.transform.TransformDirection(new Vector3(0f, 0f, weaponRange))),
+                Camera.main.transform.rotation);
+
+            /*
             // Create explosion at max range
             var explosion = (GameObject)Instantiate(
                 explosionPrefab,
                 AddVector3(Camera.main.transform.position, Camera.main.transform.TransformDirection(new Vector3(0f, 0f, weaponRange))),
                 Quaternion.identity);
+                */
         }
-        */
 
         // Play sound effect
         audioManager.PlayOneShot("Fire");

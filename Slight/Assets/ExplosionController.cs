@@ -48,14 +48,14 @@ public class ExplosionController : MonoBehaviour {
         // Update timer
         if (timerMax == 1f)
         {
-            timer += Time.deltaTime;
+            timer += Time.deltaTime * 10f;
             if (timer >= timerMax)
             {
                 timerMax = 0f;
             }
         } else
         {
-            timer -= Time.deltaTime * 1.5f;
+            timer -= Time.deltaTime * 8f;
         }
 
         // Destroy explosion when timer hits zero

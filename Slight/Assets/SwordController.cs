@@ -40,8 +40,8 @@ public class SwordController : MonoBehaviour {
                     var enemyDamageEmitter = (GameObject)Instantiate(
                         enemyDamagePrefab,
                         collider.transform.position,
-                        Quaternion.identity,
-                        collider.transform);
+                        Quaternion.identity);
+                    enemyDamageEmitter.GetComponent<Rigidbody>().velocity = collider.GetComponent<Rigidbody>().velocity;
 
                     enemySpawnerHandlerScript.RemoveEnemy(collider.gameObject);
                 }

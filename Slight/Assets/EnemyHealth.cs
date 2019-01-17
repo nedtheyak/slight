@@ -41,8 +41,8 @@ public class EnemyHealth : MonoBehaviour {
                 var enemyDamageEmitter = (GameObject)Instantiate(
                     enemyDamagePrefab,
                     this.gameObject.transform.position,
-                    Quaternion.identity,
-                    gameObject.transform);
+                    Quaternion.identity);
+                enemyDamageEmitter.GetComponent<Rigidbody>().velocity = gameObject.GetComponent<Rigidbody>().velocity;
             }
             else
             {
@@ -50,9 +50,9 @@ public class EnemyHealth : MonoBehaviour {
                 var enemyDamageEmitter = (GameObject)Instantiate(
                     enemyDamagePrefab,
                     this.gameObject.transform.position,
-                    Quaternion.identity,
-                    gameObject.transform);
-
+                    Quaternion.identity);
+                enemyDamageEmitter.GetComponent<Rigidbody>().velocity = gameObject.GetComponent<Rigidbody>().velocity;
+                
                 // Kill self
                 enemySpawnerHandlerScript.RemoveEnemy(this.gameObject);
             }

@@ -49,7 +49,7 @@ MeshRenderer:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1114554756815774}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -99,6 +99,7 @@ MonoBehaviour:
   maxScale: 5
   timer: 1e-20
   timerMax: 1
+  explosionPower: 50
 --- !u!135 &135512421735827688
 SphereCollider:
   m_ObjectHideFlags: 1

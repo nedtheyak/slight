@@ -50,6 +50,13 @@ public class EnemySpawnerHandlerController : MonoBehaviour {
         // Play death sound
         audioManager.PlayAt("Death", givenEnemy.transform.position);
 
+        // Add EnemyDamage emitter
+        var enemyDamageEmitter = (GameObject)Instantiate(
+            enemyDamagePrefab,
+            givenEnemy.transform.position,
+            Quaternion.identity);
+        enemyDamageEmitter.GetComponent<Rigidbody>().velocity = givenEnemy.GetComponent<Rigidbody>().velocity;
+
         // Update enemy count
         oldCount = myEnemies.Count;
         // Remove the enemy from the list
@@ -61,12 +68,6 @@ public class EnemySpawnerHandlerController : MonoBehaviour {
 
         // Add the stomp jump velocity
         rb.velocity = new Vector3(rb.velocity.x, 12.0f, rb.velocity.z);
-
-        var enemyDamageEmitter = (GameObject)Instantiate(
-            enemyDamagePrefab,
-            givenEnemy.transform.position,
-            Quaternion.identity,
-            givenEnemy.transform);
     }
 
     // Initialization

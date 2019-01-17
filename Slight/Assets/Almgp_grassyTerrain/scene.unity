@@ -4382,6 +4382,7 @@ MonoBehaviour:
   oldCount: 0
   pointsHandlerScript: {fileID: 0}
   audioManager: {fileID: 0}
+  enemyDamagePrefab: {fileID: 0}
 --- !u!4 &1780804582
 Transform:
   m_ObjectHideFlags: 0
